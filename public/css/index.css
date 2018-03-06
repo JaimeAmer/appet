@@ -1,0 +1,21 @@
+body {
+    margin-top: 3.5em;
+  }
+  .welcome-panel {
+    background: #e5e5e5;
+    align-items: center;
+    text-align: center;
+    border-radius: 0.125em;
+  }
+
+  .welcome-panel h1 {
+    margin: 0.125em 0;
+  }
+
+  .welcome-panel img {
+    width: inherit;
+  }
+
+  .container {
+    margin-top: 1em;
+  }

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Juego del mentiroso</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand mr-auto" href="#">Juego del mentiroso</a>
+        <div class="d-none">
+            <span class="text-white mr-3"></span>
+            <button class="btn btn-danger">Cerrar sesión</button>
+        </div>
+    </nav>
+    <div class="row welcome-panel">
+        <div class="col-sm">
+            <h1>¡Bienvenido!</h1>
+        </div>
+        <div class="col-sm">
+            <img src="cards/ImagenPortada.jpg" />
+        </div>
+    </div>
+    <ul class="nav nav-tabs d-none" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mis partidas</a>
+        </li>
+        <!--
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Partidas amiguetes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Familiar</a>
+        </li>
+      -->
+    </ul>
+
+    <!--rows -->
+
+    <main role="main" class="container">
+        <div class="row login-register">
+            <div class="col bg-dark p-4 rounded text-white mb-3">
+                <div class="row mb-2">
+                    <div class="col">
+                        <h2>Identificarse</h2>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="inputUser">Nombre de usuario:</label>
+                        <input type="text" placeholder="Introduce nombre" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputUser">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label for="inputPass">Contraseña:</label>
+                        <input type="password" placeholder="Introduce contraseña" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPass">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary">Aceptar</button> <button class="btn btn-outline-secondary">Nuevo usuario</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content d-none">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row rounded bg-light border border-secondary m-0 mb-5 p-2 nueva-partida">
+                    <div class="col">
+                        <h2 class="py-1">Crea una nueva partida</h2>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Introduce aquí el nombre">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">Crear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row rounded bg-light border border-secondary m-0 mb-5 p-2 unirse-partida">
+                    <div class="col">
+                        <h2 class="py-1">Unirse a una partida existente</h2>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Introduce aquí el identificador de la partida">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">Unirse</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
+                            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                            <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="row rounded bg-light border border-secondary p-2 py-4 m-0">
+                            <div class="col">
+                                <div class="h5">Partida amiguetes</div>
+                                <span>La partida aún no tiene cuatro jugadores. El identificador de esta partida es <strong>3</strong>.</span>
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-primary">Actualizar partida</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li class="list-group-item bg-light">Jugadores</li>
+                            <li class="list-group-item">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Nº. cartas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Javi</td>
+                                            <td>--</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nacho</td>
+                                            <td>--</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Manuel</td>
+                                            <td>--</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                </div>
+            </div>
+          -->
+        </div>
+
+    </main>
+    <!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

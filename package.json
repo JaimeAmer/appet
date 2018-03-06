@@ -1,0 +1,26 @@
+{
+  "name": "ej-2-aw",
+  "version": "1.0.0",
+  "description": "Ejercicio entregable 2",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "private": true,
+  "keywords": [
+    "aplicaciones",
+    "web",
+    "entregable 2"
+  ],
+  "author": "Manuel Montenegro",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "mysql": "^2.15.0",
+    "nodemon": "^1.14.11",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0"
+  }
+}
