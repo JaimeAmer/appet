@@ -13,11 +13,24 @@
 
 class DAOProtectora {
 
+    /**
+     * Inicializa el DAO de protectoras
+     * 
+     * @constructor
+     * @param {*} pool 
+     */
     constructor(pool) {
         this.pool = pool;
     }
 
-
+    /**
+     * Obtiene la lista de todas las protectoras de la web:
+     * Delvuelve los datos en un array de objetos;
+     * 
+     * @param {function} callback
+     * @return {Object[]} array de protectoras
+     * @exception {err} Si hay un error en la consulta a la base de datos
+     */
     listaProtectoras(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -50,8 +63,10 @@ class DAOProtectora {
      * @param {string} password contraseña de la protectora.
      * @param {string} direccion direccion de la protectora.
      * @param {int} telefono numero telefono de la protectora.
-     * @param {bool} pendiente estado de la protectora: 1 pendiente de aceptar, 0 aceptada.
+     * @param {boolean} pendiente estado de la protectora: 1 pendiente de aceptar, 0 aceptada.
      * @param {string} descripcion descripcion de la protectora.
+     * @param {function} callback
+     * @exception {err} En caso de que se produzca un error en la insercion
      */
     createProtectora(nombre, ciudad, imagen, email, password, direccion, telefono, pendiente, descripcion, callback) {
         this.pool.getConnection((err, connection) => {
@@ -75,11 +90,13 @@ class DAOProtectora {
      * Comprueba si existe una protectora con el email y contraseña indicados.
      * 
      * Tras la inserción se llamará a la función callback, pasándole el objeto
-     * Error, si se produjo alguno durante la inserción, o null en caso contrario.
+     * Error, si se produjo alguno durante la consulta, o null en caso contrario.
      * 
      * @param {string} emailProt email de la protectora
      * @param {string} password contraseña de la protectora
      * @param {function} callback Función callback que será llamada tras la comproación
+     * @return {boolean} Si existe o no la protectora indicada
+     * @exception {err} En caso de que se produzca un error en la consulta
      */
     isProtCorrect(emailProt, password, callback) {
         this.pool.getConnection((err, connection) => {
@@ -106,10 +123,12 @@ class DAOProtectora {
      * Obtiene todos los datos de la protectora
      * 
      * Tras la inserción se llamará a la función callback, pasándole el objeto
-     * Error, si se produjo alguno durante la inserción, o rows con los datos
+     * Error, si se produjo alguno durante la consulta, o rows con los datos
      * 
      * @param {string} idProtectora nombre del jugador
      * @param {function} callback Función callback que será llamada tras la inserción
+     * @return {Object} protectora
+     * @exception {err} En caso de que se produzca un error en la consulta
      */
     getDataProtectora(idProtectora, callback) {
         this.pool.getConnection((err, connection) => {

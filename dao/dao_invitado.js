@@ -4,6 +4,7 @@
     //id
     //idProtectora
     //nombre
+    //foto
     //raza
     //color
     //peso
@@ -12,6 +13,12 @@
 
 class DAOInvitado {
 
+    /**
+     * Inicializa el DAO de usuarios invitados
+     * 
+     * @constructor
+     * @param {*} pool 
+     */
     constructor(pool) {
         this.pool = pool;
     }
@@ -19,12 +26,15 @@ class DAOInvitado {
     /**
      * Obtiene la lista de todos los perros de la web:
      * Delvuelve los datos en un array de objetos;
-     * @param {*} callback 
+     * 
+     * @param {function} callback
+     * @return {Object[]} array de perros
+     * @exception {err} Si hay un error en la consulta a la base de datos
      */
     getListaPerros(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlListaPerros = "SELECT id, nombre, idProtectora FROM perro"
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro"
             connection.query(sqlListaPerros, (err, rows) => {
                 
                 //En caso de error de consulta:
@@ -44,6 +54,7 @@ class DAOInvitado {
                     let perro = {
                         id: null,
                         idProtectora: null,
+                        foto: null,
                         nombre: null
                     };
 
@@ -53,7 +64,8 @@ class DAOInvitado {
                         perro = {
                             id: element.id,
                             idProtectora: element.idProtectora,
-                            nombre: element.nombre
+                            nombre: element.nombre,
+                            foto: element.foto
                         }
 
                         //Inseerto el objeto en el array:
@@ -71,8 +83,10 @@ class DAOInvitado {
      * Obtiene todos los datos de un perro buscando por id:
      * Devuelve los datos en forma de objeto (perro);
      * 
-     * @param {*} idPerro 
-     * @param {*} callback 
+     * @param {int} idPerro identificador del perro
+     * @param {function} callback
+     * @return {Object} perro
+     * @exception {err} Si hay un error en la consulta a la base de datos
      */
     getDataPerro(idPerro, callback) {
         this.pool.getConnection((err, connection) => {
@@ -98,6 +112,7 @@ class DAOInvitado {
                         id: rows[0].id,
                         idProtectora: rows[0].idProtectora,
                         nombre: rows[0].nombre,
+                        foto: rows[0].foto,
                         edad: rows[0].edad,
                         raza: rows[0].raza,
                         color: rows[0].color,

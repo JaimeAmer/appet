@@ -22,6 +22,18 @@ router.get("/iraprotectora", function(request, response) {
 
 });
 
+router.get("/iralistarperros", function(request, response) {
+    console.log("VAMOS BIEN");
+    dao.invitado.getListaPerros((err, rows)=> {
+        if(err) {
+            response.status(400);
+            response.end();
+        } else {
+            //console.log("Datos: " + rows[0]);
+            response.render("./listarperros", {perros: rows});
+        }
+    });
+});
 
 router.get("/iraacercadeappet", function(request, response) {
     console.log("VAMOS BIEN");
@@ -31,11 +43,6 @@ router.get("/iraacercadeappet", function(request, response) {
 router.get("/iracomoadoptar", function(request, response) {
     console.log("VAMOS BIEN");
     response.render("./comoadoptar", {})
-});
-
-router.get("/iralistarperros", function(request, response) {
-    console.log("VAMOS BIEN");
-    response.render("./listarperros", {})
 });
 
 router.get("/detalleprotectora.html", function(request, response) {

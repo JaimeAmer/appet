@@ -13,29 +13,22 @@
     <div class="listaperros">
       <h3>Mostrando perros:</h3>
         <div class="panel-body">
-        	<!--Inicio de los paneles individuales de los perros-->
+			<!--Inicio de los paneles individuales de los perros-->
+			<% perros.forEach(p => { %>
 			<div class="col-lg-2">
 				<div class="panel panel-default">
-					<div class="panel-heading"><span>Pipo:</span></div> <!-- Nombre del perro-->
+					<div class="panel-heading"><span>
+						<%=p.nombre %>
+						</span></div> <!-- Nombre del perro-->
 					<div class="panel-body">
-						 <img src="http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg" class="img-responsive" alt="perro"> 
+						<img class="fotoperro img-thumbnail" src="img/imgperros/<%=p.foto%>"
 						 <!--boton-->
-							<button type="button" class="btn btn-success"data-toggle="modal" data-target="#perro_1">Ver</button>
-							<!--Aqui acaba el panel emergente-->
+						<button type="button" class="btn btn-success"data-toggle="modal" data-target="#perro_1">Ver</button>
+						<!--Aqui acaba el panel emergente-->
 					</div>
 				</div>
             </div>
-			<div class="col-lg-2">
-				<div class="panel panel-default">
-					<div class="panel-heading"><span>Pipo:</span></div> <!-- Nombre del perro-->
-					<div class="panel-body">
-						 <img src="http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg" class="img-responsive" alt="perro"> 
-						 <!--boton-->
-							<button type="button" class="btn btn-success"data-toggle="modal" data-target="#perro_1">Ver</button>
-							<!--Aqui acaba el panel emergente-->
-					</div>
-				</div>
-            </div>
+			<% }); %>
 			<!--Final de los panel individual de los perros-->
         </div>
     </div>

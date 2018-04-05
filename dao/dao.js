@@ -6,6 +6,9 @@ var config = require('.././config');
 const daoProtectoras = require("./dao_protectora");
 const daoInvitados = require("./dao_invitado");
 
+/**
+ * Configuración de la conexion a la base de datos
+ */
 const pool = mysql.createPool({
     host: config.mysqlConfig.host,
     user: config.mysqlConfig.user,
