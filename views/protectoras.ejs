@@ -35,8 +35,9 @@
                                 <%= p.telefono %>
                             </p>
                         </div>
-                        <form action="iradetalleperro" method="GET">
-                            <input type="button" class="btn btn-info info" value="+Info">
+                        <form action="/detalleprotectora.html" method="GET">
+                            <input type="hidden" name="ident" value="<%= p.id %>">
+                            <input type="submit" class="btn btn-info info" value="+Info">
                         </form>
 
                     </div>

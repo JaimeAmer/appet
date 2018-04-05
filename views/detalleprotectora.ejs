@@ -1,0 +1,69 @@
+<html>
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilodetalleprotectora.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+
+</head>
+
+<body>
+    <%- include('./header'); %>
+
+        <div class="content">
+
+            <div class="externo">
+                <p class="fotoprotectora">
+                    <img class="img-thumbnail" src="img/imgprotectoras/<%=datos.imagen%>" width="600">
+
+                </p>
+                <p class="textoimagen">
+                    <%= datos.nombre %>
+                </p>
+            </div>
+
+            <p class="negrita">Ciudad: </p>
+            <p>
+                <%= datos.ciudad %>
+            </p>
+
+            <p class="negrita">Imagen</p>
+
+
+            <p class="negrita">Correo electrónico</p>
+            <p>
+                <%= datos.email %>
+            </p>
+
+            <p class="negrita">Dirección: </p>
+            <p>
+                <%= datos.direccion   %>
+            </p>
+
+            <p class="negrita">Teléfono: </p>
+            <p>
+                <%= datos.telefono %>
+            </p>
+
+            <p class="negrita">Descripción: </p>
+            <p>
+                <%=  datos.descripcion %>
+            </p>
+        </div>
+
+
+
+
+
+
+
+        <%- include('./footer'); %>
+</body>
+
+</html>

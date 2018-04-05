@@ -38,9 +38,20 @@ router.get("/iralistarperros", function(request, response) {
     response.render("./listarperros", {})
 });
 
-router.get("/iradetalleperro", function(request, response) {
-    console.log("VAMOS BIEN A DETALLE PERRO");
-    response.render("./detalleperro", {})
+router.get("/detalleprotectora.html", function(request, response) {
+    let idProtectora = Number(request.query.ident);
+    console.log("EL ID DE LA PROTECTORA ES:" + idProtectora);
+    dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
+        if (err) {
+            response.status(400);
+            response.end();
+        } else {
+            console.log("DATOS PROTECTORA: " + rows[0]);
+            response.render("./detalleprotectora", { datos: rows[0] });
+        }
+
+    });
+
 });
 
 router.get("/index", function(request, response) {

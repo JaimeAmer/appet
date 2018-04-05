@@ -1,0 +1,23 @@
+.content {
+    margin-left: 20px;
+}
+
+.negrita {
+    font-size: 30px;
+}
+
+.externo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textoimagen {
+    font-family: 'Bree Serif', serif;
+    font-size: 40px;
+    color: rgb(115, 115, 115);
+}
+
+.externo {
+    margin-top: 50px;
+}
