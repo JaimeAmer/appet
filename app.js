@@ -1,53 +1,77 @@
-"use strict"
+var express = require('express');
+var path = require('path');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var expressValidator = require("express-validator");
+var config = require('./config');
 
-//express
-const express = require("express");
-//paths
-const path = require("path");
-//Necesitamos mysql para las bases de datos 
-const mysql = require("mysql");
-//Importamos el  archivo config.js
-const config = require("./config.js");
-//Middleware body-parser para enviar datos a través de os POST
-const bodyParser = require("body-parser");
-//Importamos los daos
-const DAOUsers = require("./dao_users");
-const DAOPartidas = require("./dao_partidas");
 
-const app = express();
-
-//Creamos el poool de conexiones
-const pool = mysql.createPool({
+/*SESIONES*/
+var session = require("express-session");
+var mysqlSession = require("express-mysql-session");
+var MySQLStore = mysqlSession(session);
+var sessionStore = new MySQLStore({
     host: config.mysqlConfig.host,
     user: config.mysqlConfig.user,
     password: config.mysqlConfig.password,
-    database: config.mysqlConfig.database
+    database: config.mysqlConfig.name
 });
 
-//Creamos los objetos daos
-const DAOUser = new DAOUsers.DAOUsers(pool);
-const DAOGames = new DAOPartidas.DAOPartidas(pool);
-
-//Middleware static para la carpeta public de rescursos estáticos
-app.use(express.static(path.join(__dirname, "public")));
-
-/**
- * GET
- * Para la dirección "/"" redirige a "/index.html"
- */
-app.get("/", function(request, response) {
-    response.redirect("/index.html");
+var middlewareSession = session({
+    saveUninitialized: false,
+    secret: "practica1",
+    resave: false,
+    store: sessionStore
 });
 
-app.get("/", (request, response) => {
-    response.redirect("/index.html");
+
+//Rutas para los roles 
+var invitados = require('./routes/invitados');
+var protectoras = require('./routes/protectoras');
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(middlewareSession);
+app.use(expressValidator());
+
+
+app.use('/', invitados);
+app.use('/protectoras', protectoras);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
-app.listen(config.port, (err) => {
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
+
+
+/*app.listen(config.port, function(err) {
     if (err) {
-        console.log("No se ha podido iniciar el servidor.")
         console.log(err);
     } else {
-        console.log(`Servidor escuchando en puerto ${config.port}.`);
+        console.log(`Servidor escuchando en el puerto: ` + config.port);
     }
-});
+});*/
+
+module.exports = app;

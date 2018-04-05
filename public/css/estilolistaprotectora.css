@@ -1,0 +1,13 @@
+.caja {
+    width: 50%;
+}
+
+.info {
+    width: 230px;
+}
+
+.externo {
+    display: flow-root;
+    justify-content: space-around;
+    align-items: center;
+}

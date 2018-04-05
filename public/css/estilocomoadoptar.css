@@ -1,0 +1,45 @@
+			.textNegrita {
+			    color: #d23a35;
+			    font-family: inherit;
+			    font-weight: bold;
+			    margin: 30px;
+			}
+			
+			p {
+			    padding-top: 10px;
+			}
+			
+			.tnegrita {
+			    font-weight: bold;
+			}
+			
+			.justify {
+			    text-align: justify;
+			}
+			
+			.italic {
+			    font-style: italic;
+			}
+			
+			.texto {
+			    font-family: 'Bree Serif', serif;
+			    width: 100%;
+			    font-size: 19px;
+			    padding: 5px 30px;
+			}
+			
+			.divImg {
+			    width: 650px;
+			}
+			
+			.imagen {
+			    width: 640;
+			    height: 320;
+			    margin-bottom: 10px;
+			}
+			
+			.texto p {
+			    font-family: 'Bree Serif', serif;
+			    font-size: 20px;
+			    color: rgb(115, 115, 115);
+			}

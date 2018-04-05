@@ -1,0 +1,44 @@
+<html>
+	<head class = "headerColor">
+		<title>APPet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" type="image/png" href="img/logo.png" />
+	</head>
+	<body>
+		<%- include('./header'); %>
+    <div class="listaperros">
+      <h3>Mostrando perros:</h3>
+        <div class="panel-body">
+        	<!--Inicio de los paneles individuales de los perros-->
+			<div class="col-lg-2">
+				<div class="panel panel-default">
+					<div class="panel-heading"><span>Pipo:</span></div> <!-- Nombre del perro-->
+					<div class="panel-body">
+						 <img src="http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg" class="img-responsive" alt="perro"> 
+						 <!--boton-->
+							<button type="button" class="btn btn-success"data-toggle="modal" data-target="#perro_1">Ver</button>
+							<!--Aqui acaba el panel emergente-->
+					</div>
+				</div>
+            </div>
+			<div class="col-lg-2">
+				<div class="panel panel-default">
+					<div class="panel-heading"><span>Pipo:</span></div> <!-- Nombre del perro-->
+					<div class="panel-body">
+						 <img src="http://i0.kym-cdn.com/photos/images/original/000/581/296/c09.jpg" class="img-responsive" alt="perro"> 
+						 <!--boton-->
+							<button type="button" class="btn btn-success"data-toggle="modal" data-target="#perro_1">Ver</button>
+							<!--Aqui acaba el panel emergente-->
+					</div>
+				</div>
+            </div>
+			<!--Final de los panel individual de los perros-->
+        </div>
+    </div>
+		<%- include('./footer'); %>
+	</body>
+</html>
