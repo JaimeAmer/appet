@@ -11,7 +11,7 @@
     //descripcion
     //fallecido
 
-class DAOInvitado {
+class DAOPerro {
 
     /**
      * Inicializa el DAO de usuarios invitados
@@ -129,5 +129,5 @@ class DAOInvitado {
 }
 
 module.exports = {
-    DAOInvitado: DAOInvitado
+    DAOPerro: DAOPerro
 };

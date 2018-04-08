@@ -1,0 +1,60 @@
+<html>
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilodetalleperro.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+</head>
+
+<body>
+    <%- include('./header'); %>
+		<h1 class="titulo"><%= datos.nombre %></h1>
+        <div class="content">
+			
+			<div class="datos">
+			
+				<p class="negrita">Protectora: </p>
+				<p class="justify">
+					<%= datos.idProtectora %>
+				</p>
+
+				<p class="negrita">Edad</p>
+				<p class="justify">
+					<%= datos.edad %>
+				</p>
+
+				<p class="negrita">Raza: </p>
+				<p class="justify">
+					<%= datos.raza   %>
+				</p>
+
+				<p class="negrita">Color: </p>
+				<p class="justify">
+					<%= datos.color %>
+				</p>
+				
+				<p class="negrita">Peso: </p>
+				<p class="justify">
+					<%= datos.peso %>
+				</p>
+
+				<p class="negrita">Descripción: </p>
+				<p class="justify">
+					<%=  datos.descripcion %>
+				</p>
+			</div>
+			<div class=imagen>
+				<img class="img-thumbnail" src="img/imgperros/<%=datos.foto%>" width="400">
+			</div>
+        </div>
+
+        <%- include('./footer'); %>
+</body>
+
+</html>

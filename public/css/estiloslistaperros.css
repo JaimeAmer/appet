@@ -1,0 +1,14 @@
+.listaperros > h3 {
+    margin-left: 30px;
+}
+
+.contBot {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn {
+    margin-top: 10px;
+    width: 100px;
+}

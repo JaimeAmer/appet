@@ -4,7 +4,8 @@ var mysql = require("mysql");
 var config = require('.././config');
 
 const daoProtectoras = require("./dao_protectora");
-const daoInvitados = require("./dao_invitado");
+const daoPerros = require("./dao_perro");
+const daoGeneral = require("./dao_general");
 
 /**
  * Configuración de la conexion a la base de datos
@@ -18,9 +19,11 @@ const pool = mysql.createPool({
 
 
 const DAOProtectora = new daoProtectoras.DAOProtectora(pool);
-let DAOInvitado = new daoInvitados.DAOInvitado(pool); 
+const DAOPerro = new daoPerros.DAOPerro(pool); 
+const DAOGeneral = new daoGeneral.DAOGeneral(pool); 
 
 module.exports={
     protectora:DAOProtectora,
-    invitado:DAOInvitado
+    perro:DAOPerro,
+    general:DAOGeneral
 };

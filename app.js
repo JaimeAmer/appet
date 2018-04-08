@@ -65,13 +65,4 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-
-/*app.listen(config.port, function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(`Servidor escuchando en el puerto: ` + config.port);
-    }
-});*/
-
 module.exports = app;
