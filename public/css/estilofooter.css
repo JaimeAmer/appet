@@ -1,4 +1,3 @@
-
 /*Footer */
 
 .footer {
@@ -48,13 +47,17 @@ p.pull-left {
     font-size: 20px;
 }
 
+.pruebas {
+    width: 90%;
+}
+
 .rrss {
     margin-top: 20px;
     display: inline-block;
     width: 40px;
     height: 40px;
     border-bottom: 2px solid #BAC1C8;
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .fotoprotectora {
@@ -68,4 +71,8 @@ p.pull-left {
 
 button.btn-info {
     width: 130px;
+}
+
+.social {
+    width: 600px;
 }

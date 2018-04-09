@@ -1,15 +1,15 @@
 "use strict"
 
-    //------------ Atributos BD PERRO: ------------
-    //id
-    //idProtectora
-    //nombre
-    //foto
-    //raza
-    //color
-    //peso
-    //descripcion
-    //fallecido
+//------------ Atributos BD PERRO: ------------
+//id
+//idProtectora
+//nombre
+//foto
+//raza
+//color
+//peso
+//descripcion
+//fallecido
 
 class DAOPerro {
 
@@ -22,6 +22,52 @@ class DAOPerro {
     constructor(pool) {
         this.pool = pool;
     }
+
+
+    getListaPerrosProtectora(idPr, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) { callback(err); return; }
+            connection.query("SELECT * FROM perro WHERE idProtectora = ?", [idPr], (err, rows) => {
+                if (err) { callback(err); return; }
+
+                //Devuelvo la conexion al pool:
+                connection.release();
+
+                //En caso de que no hay encontrado nada:
+                if (rows.length === 0) {
+                    callback(null, undefined);
+                }
+
+                //En caso de que la busqueda haya devuelto al menos una fila:
+                else {
+                    let listaPerros = [];
+                    let perro = {
+                        id: null,
+                        idProtectora: null,
+                        foto: null,
+                        nombre: null
+                    };
+
+                    //Recorro las filas devueltas:
+                    rows.forEach(element => {
+                        //Creo un objeto nuevo por cada fila:
+                        perro = {
+                            id: element.id,
+                            idProtectora: element.idProtectora,
+                            nombre: element.nombre,
+                            foto: element.foto
+                        }
+
+                        //Inserto el objeto en el array:
+                        listaPerros.push(perro);
+                    });
+
+                    callback(null, listaPerros);
+                }
+            });
+        });
+    }
+
 
     /**
      * Obtiene la lista de todos los perros de la web:
@@ -36,18 +82,18 @@ class DAOPerro {
             if (err) { callback(err); return; }
             let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro"
             connection.query(sqlListaPerros, (err, rows) => {
-                
+
                 //En caso de error de consulta:
                 if (err) { callback(err); return; }
-                
+
                 //Devuelvo la conexion al pool:
                 connection.release();
 
                 //En caso de que no hay encontrado nada:
                 if (rows.length === 0) {
                     callback(null, undefined);
-                } 
-                
+                }
+
                 //En caso de que la busqueda haya devuelto al menos una fila:
                 else {
                     let listaPerros = [];
@@ -74,7 +120,7 @@ class DAOPerro {
 
                     callback(null, listaPerros);
                 }
-                
+
             });
         });
     }
@@ -95,14 +141,14 @@ class DAOPerro {
             connection.query(sqlDatosPerro, [idPerro], (err, rows) => {
                 //En caso de error de consulta:
                 if (err) { callback(err); return; }
-                
+
                 //Devuelvo la conexion al pool:
                 connection.release();
 
                 //En caso de que no hay encontrado al perro:
                 if (rows.length === 0) {
                     callback(null, undefined);
-                } 
+                }
 
                 //En caso de que la busqueda haya encontrado al perro:
                 else {
@@ -120,7 +166,7 @@ class DAOPerro {
                         descripcion: rows[0].descripcion,
                         fallecido: rows[0].fallecido
                     };
-                    
+
                     callback(null, perro);
                 }
             });

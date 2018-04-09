@@ -24,6 +24,42 @@ class DAOProtectora {
     }
 
     /**
+     * Obtiene el nombre de la protectora para mostrarlo en 
+     * vista detalle perro.
+     * @param {string} idProtectora //Id de la protectora
+     * @param {function} callback 
+     */
+    getNombreProtecotra(idProtectora, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+
+            connection.query("SELECT nombre FROM protectora WHERE id = ?", 
+            [idProtectora], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                
+                connection.release();
+
+                //En caso de que no hay encontrado nada:
+                if (rows.length === 0) {
+                    callback(null, undefined);
+                } 
+                
+                //En caso de que haya encontrado el nombre de la protectora:
+                else {
+                    let nomProtectora = rows[0].nombre;
+                    callback(null, nomProtectora);
+                }
+            });
+        });
+    }
+
+    /**
      * Obtiene la lista de todas las protectoras de la web:
      * Delvuelve los datos en un array de objetos;
      * 

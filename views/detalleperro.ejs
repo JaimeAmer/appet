@@ -1,5 +1,7 @@
 <html>
 
+<!-- Página web que muestra información detallada del perro solicitado por sl usuario-->
+
 <head class="headerColor">
     <title>APPet</title>
     <meta charset="utf-8">
@@ -14,45 +16,47 @@
 
 <body>
     <%- include('./header'); %>
-		<h1 class="titulo"><%= datos.nombre %></h1>
+
+        <h1 class="titulo">
+            <%= perro.nombre %>
+        </h1>
         <div class="content">
-			
-			<div class="datos">
-			
-				<p class="negrita">Protectora: </p>
-				<p class="justify">
-					<%= datos.idProtectora %>
-				</p>
+            <div class="imagen">
+                <img class="img-thumbnail" src="img/imgperros/<%=perro.foto%>" width="400">
+            </div>
+            <div class="datos">
+                <p class="negrita">Protectora:
+                    <span class="justify"> <%= perro.nombProtectora %> </span>
+                </p>
 
-				<p class="negrita">Edad</p>
-				<p class="justify">
-					<%= datos.edad %>
-				</p>
+                <p class="negrita">Edad:
+                    <span class="justify"> <%= perro.edad %> </span>
+                </p>
 
-				<p class="negrita">Raza: </p>
-				<p class="justify">
-					<%= datos.raza   %>
-				</p>
+                <p class="negrita">Raza:
+                    <span class="justify"> <%= perro.raza %> </span>
+                </p>
 
-				<p class="negrita">Color: </p>
-				<p class="justify">
-					<%= datos.color %>
-				</p>
-				
-				<p class="negrita">Peso: </p>
-				<p class="justify">
-					<%= datos.peso %>
-				</p>
+                <p class="negrita">Color:
+                    <span class="justify"> <%= perro.color %> </span>
+                </p>
 
-				<p class="negrita">Descripción: </p>
-				<p class="justify">
-					<%=  datos.descripcion %>
-				</p>
-			</div>
-			<div class=imagen>
-				<img class="img-thumbnail" src="img/imgperros/<%=datos.foto%>" width="400">
-			</div>
+                <p class="negrita">Peso:
+                    <span class="justify"> <%= perro.peso %> </span>
+                </p>
+
+                <p class="negrita">Descripción: </p>
+                <p class="justify">
+                    <%= perro.descripcion %>
+                </p>
+            </div>
         </div>
+
+        <form action="/iralistarperros" method="GET">
+            <div class="botonera">
+                <input type="submit" class="btn btn-info volver" value="Volver">
+            </div>
+        </form>
 
         <%- include('./footer'); %>
 </body>

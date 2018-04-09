@@ -1,5 +1,7 @@
 <html>
 
+<!-- Página web que muestra información relativa a la protectora solicitada por el usuario-->
+
 <head class="headerColor">
     <title>APPet</title>
     <meta charset="utf-8">
@@ -28,34 +30,61 @@
                 </p>
             </div>
 
-            <p class="negrita">Ciudad: </p>
-            <p>
-                <%= datos.ciudad %>
-            </p>
+            <div>
+                <p class="negrita">Ciudad: </p>
+                <p class="datos">
+                    <%= datos.ciudad %>
+                </p>
+            </div>
 
-            <p class="negrita">Imagen</p>
+            <div>
+                <p class="negrita">Correo electrónico</p>
+                <p class="datos">
+                    <%= datos.email %>
+                </p>
+            </div>
 
+            <div>
+                <p class="negrita">Dirección: </p>
+                <p class="datos">
+                    <%= datos.direccion   %>
+                </p>
+            </div>
 
-            <p class="negrita">Correo electrónico</p>
-            <p>
-                <%= datos.email %>
-            </p>
+            <div>
+                <p class="negrita">Teléfono: </p>
+                <p class="datos">
+                    <%= datos.telefono %>
+                </p>
+            </div>
 
-            <p class="negrita">Dirección: </p>
-            <p>
-                <%= datos.direccion   %>
-            </p>
+            <div>
+                <p class="negrita">Descripción: </p>
+                <p class="datos">
+                    <%=  datos.descripcion %>
+                </p>
+            </div>
 
-            <p class="negrita">Teléfono: </p>
-            <p>
-                <%= datos.telefono %>
-            </p>
-
-            <p class="negrita">Descripción: </p>
-            <p>
-                <%=  datos.descripcion %>
-            </p>
         </div>
+
+
+        <form action="/iralistarperrosprotectora" method="GET">
+            <div class="botonera">
+                <input type="hidden" name="nombrepro" value="<%= datos.nombre %>">
+                <input type="hidden" name="ident" value="<%= idp %>">
+                <input type="submit" class="btn btn-success volver" value="Ver los perros de la protectora!">
+            </div>
+        </form>
+
+        <form action="/iraprotectora" method="GET">
+
+
+            <div class="botonera">
+                <input type="submit" class="btn btn-info volver" value="Volver">
+            </div>
+        </form>
+
+
 
 
 

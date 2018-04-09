@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/estiloheader.css">
 
+<!-- Página web plantilla que muestra el header-->
 
 <div class="cabecera ">
     <nav class="headerColor">
@@ -8,23 +9,23 @@
         </div>
         <div class="sesion">
             <% if(idU==undefined){ %>
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-primary inicioSesion" data-toggle="modal" data-target="#exampleModal">Iniciar Sesión</button>
-            </div>
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-danger registro">Registrarse</button>
-            </div>
-            <% }else{ %>
-            <div class="col-lg-12">
-                <form>
-                    <button type="submit" formmethod="get" formaction="/cerrarSesion" class="btn btn-primary">Cerrar Sesión</button>
-                </form>
-            </div>
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-danger modificar">Modificar</button>
-            </div>
-            <% } %>
-           
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-primary inicioSesion" data-toggle="modal" data-target="#exampleModal">Iniciar Sesión</button>
+                </div>
+                <div class="col-lg-12">
+                    <button type="button" class="btn btn-danger registro">Registrarse</button>
+                </div>
+                <% }else{ %>
+                    <div class="col-lg-12">
+                        <form>
+                            <button type="submit" formmethod="get" formaction="/cerrarSesion" class="btn btn-primary">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-danger modificar">Modificar</button>
+                    </div>
+                    <% } %>
+
         </div>
     </nav>
     <nav class="navbar navbar-inverse">
@@ -48,7 +49,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
             </div>
             <div class="modal-body">
-                <form  class="formIS">
+                <form class="formIS">
                     <div class="form-group">
                         <label for="exampleInputEmail1">E-mail: </label>
                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email">
