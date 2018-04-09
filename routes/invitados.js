@@ -3,10 +3,7 @@ var _ = require("underscore");
 var router = express.Router();
 var dao = require('../dao/dao');
 
-/**
- * GET
- * Para la dirección "/"" redirige a "/index.html"
- */
+
 router.get("/", function(request, response) {
     response.render("./index", { idU: request.session.idU });
 });
@@ -85,7 +82,7 @@ router.get("/detalleperro.html", function(request, response) {
                         peso: dataPerro.peso,
                         descripcion: dataPerro.descripcion,
                         fallecido: dataPerro.fallecido
-                    }
+                    };
                     response.render("./detalleperro", { idU: request.session.idU, perro: datosPerro });
                 }
             });
@@ -113,13 +110,15 @@ router.get("/iraacercadeappet", function(request, response) {
 
 router.get("/iracomoadoptar", function(request, response) {
     console.log("VAMOS BIEN");
-    response.render("./comoadoptar", { idU: request.session.idU })
+    response.render("./comoadoptar", { idU: request.session.idU });
 });
 
 router.get('/cerrarSesion', function(request, response) {
-    request.session.idU = undefined;
-    request.session.typeU = undefined;
-    response.render("./index", { idU: request.session.idU });
+    //request.session.idU = undefined;
+    //request.session.typeU = undefined;
+    console.log(request.session.idU);
+    request.session.destroy();
+    response.render("./index", { idU: undefined });
 });
 
 router.post("/iniciarSesion", function(request, response) {
@@ -136,7 +135,8 @@ router.post("/iniciarSesion", function(request, response) {
                 else if (result) {
                     request.session.idU = result.id;
                     request.session.typeU = request.body.gridRadios;
-                    response.render('./perfil', { idU: request.session.idU });
+                    //response.render('./perfil', { idU: request.session.idU });
+                    response.redirect('/perfil');
                 } else {
                     warnings.push("Los datos no coinciden");
                     console.log(warnings);
@@ -149,4 +149,7 @@ router.post("/iniciarSesion", function(request, response) {
     });
 });
 
+router.get('/perfil',function(request,response){
+    response.render('./perfil', { idU: request.session.idU });
+});
 module.exports = router;

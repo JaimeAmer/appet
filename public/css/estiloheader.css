@@ -84,7 +84,7 @@
 /********************* cabeceraCS *********************/
 
 .headerColor {
-    background-color: rgb(204, 255, 230);
+    background-color: #9AFF5A/*rgb(204, 255, 230)*/;
     margin-bottom: 0px;
 }
 
