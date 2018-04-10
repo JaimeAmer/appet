@@ -2,7 +2,13 @@ var assert = require("chai").assert;
 var dao = require('../dao/dao');
 var expect  = require("chai").expect;
 
-
+const perro1 = {id: 1, idProtectora:1, nombre: "Baby", edad:2, raza:"collie", color: "golden", peso:15, fallecido:0};
+const perro2 = {id: 2, idProtectora:1, nombre: "Cari", edad:3, raza:"weimaraner", color: "marron", peso:25, fallecido:0};
+const perro3 = {id: 3, idProtectora:1, nombre: "Cuco", edad:4, raza:"corgi gales de Cardigan", color: "golden", peso:17, fallecido:0};
+const perro4 = {id: 4, idProtectora:2, nombre: "Nano", edad:5, raza:"bull terrier", color: "blanco", peso:28, fallecido:0};
+const perro5 = {id: 5, idProtectora:2, nombre: "Samy", edad:3, raza:"beagle", color: "con manchas", peso:16, fallecido:0};
+const perro6 = {id: 6, idProtectora:3, nombre: "Pixi", edad:1, raza:"cavalier king", color: "blanco y marron", peso:4, fallecido:0};
+const perro7 = {id: 7, idProtectora:4, nombre: "Simba", edad:5, raza:"boxer", color: "marron", peso:20, fallecido:0};
 //Tests de comprobacion de tipo de datos correctos
 
 describe("Color tipo", () =>{
