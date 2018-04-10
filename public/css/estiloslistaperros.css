@@ -1,0 +1,46 @@
+.listaperros>h3 {
+    margin-left: 30px;
+    margin-bottom: 20px;
+    font-family: 'Bree Serif', serif;
+    font-weight: bold;
+}
+
+.contBot {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.alerta {
+    font-size: 20px;
+    font-family: 'Bree Serif', serif;
+}
+
+.contenedor {
+    font-family: 'Bree Serif', serif;
+    font-weight: bolder;
+    color: rgb(37, 37, 37);
+}
+
+.textoo {
+    font-family: 'Bree Serif', serif;
+    color: rgb(83, 83, 83);
+    font-size: 30px;
+}
+
+.ver {
+    font-weight: bold;
+}
+
+
+/*
+.fotoperro {
+    width: 250px;
+    height: 150px;
+}
+*/

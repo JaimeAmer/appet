@@ -1,0 +1,17 @@
+#FondoEslogan{
+    background-image: url("../img/fondo.jpg");
+    height:550px;
+    background-position: center;
+    display:flex;
+    align-items: center;
+    color:white;
+    opacity: 1;
+}
+#eslogan{
+    margin-left: 10%;
+    align-items: center;
+    width:350px;
+    opacity: 0.5 ;
+    background: black;
+    padding: 1%;
+}

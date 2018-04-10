@@ -1,0 +1,78 @@
+/*Footer */
+
+.footer {
+    background: #EDEFF1;
+    height: auto;
+    padding-bottom: 5px;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #DDDDDD;
+}
+
+.footer h3 {
+    border-bottom: 1px solid #BAC1C8;
+    color: #54697E;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 27px;
+    padding: 15px 0 0px;
+    text-transform: uppercase;
+}
+
+.footer ul {
+    font-size: 13px;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 15px;
+    color: #7F8C8D;
+}
+
+.footer a {
+    color: #78828D
+}
+
+.footer-bottom {
+    background: #E3E3E3;
+    border-top: 1px solid #DDDDDD;
+}
+
+p.pull-right,
+p.pull-left {
+    padding-top: 10px;
+    color: grey;
+    padding-left: 100px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+}
+
+.pruebas {
+    width: 90%;
+}
+
+.rrss {
+    margin-top: 20px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-bottom: 2px solid #BAC1C8;
+    margin-left: 20px;
+}
+
+.fotoprotectora {
+    width: 230px;
+}
+
+.protectora {
+    margin: auto;
+    width: 50%;
+}
+
+button.btn-info {
+    width: 130px;
+}
+
+.social {
+    width: 600px;
+}
