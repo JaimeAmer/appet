@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="css/estiloheader.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <!-- Página web plantilla que muestra el header-->
 
@@ -10,34 +11,44 @@
         <div class="sesion">
             <% if(idU==undefined){ %>
                 <div class="col-lg-12">
+					<!--Boton para poder iniciar sesion abriendo un cuadro modal-->
                     <button type="button" class="btn btn-primary inicioSesion" data-toggle="modal" data-target="#exampleModal">Iniciar Sesión</button>
                 </div>
                 <div class="col-lg-12">
+					<!--Boton para Registrarse-->
+					<!--
                     <button type="button" class="btn registro">Registrarse</button>
+					-->
                 </div>
                 <% }else{ %>
+					<!--Boton para poder cerrar sesion-->
                     <div class="col-lg-12">
                         <form>
                             <button type="submit" formmethod="get" formaction="/cerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
                         </form>
                     </div>
-                    <div class="col-lg-12">
+                    <!--Boton que redirige a panel de modificacion del perfil de protectora -->
+					<!--
+					<div class="col-lg-12">
                         <button type="button" class="btn btn-primary modificar">Modificar</button>
                     </div>
+					-->
                     <% } %>
-
         </div>
     </nav>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
+				<!--Redirige a la pagina de inicio -->
                 <a class="navbar-brand" href="index">INICIO</a>
             </div>
             <ul class="nav navbar-nav">
+				<!-- Redirige a la lista de perros -->
                 <li><a class="nav-link" href="iralistarperros">Perros <span class="sr-only">(current)</span></a></li>
+				<!-- Redirige a la lista de protectoras -->
                 <li><a class="nav-link" href="iraprotectora">Protectoras</a></li>
-                <li><a class="nav-link" href="iracomoadoptar">Como adoptar</a></li>
-
+                <!-- Redirige a la lista de protectoras -->
+				<li><a class="nav-link" href="iracomoadoptar">Como adoptar</a></li>
             </ul>
         </div>
     </nav>

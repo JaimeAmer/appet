@@ -36,7 +36,7 @@ class DAOProtectora {
                 return;
             }
 
-            connection.query("SELECT nombre FROM protectora WHERE id = ?", 
+            connection.query("SELECT id,nombre FROM protectora WHERE id = ?", 
             [idProtectora], (err, rows) => {
                 if (err) {
                     callback(err);
@@ -52,8 +52,7 @@ class DAOProtectora {
                 
                 //En caso de que haya encontrado el nombre de la protectora:
                 else {
-                    let nomProtectora = rows[0].nombre;
-                    callback(null, nomProtectora);
+                    callback(null, rows[0]);
                 }
             });
         });

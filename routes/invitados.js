@@ -24,6 +24,12 @@ router.get("/iraprotectora", function(request, response) {
 
 });
 
+/**
+ *      llama a buscar lista de perros del dao del perro,
+ *      - si no lo encuentra lanza el error: 400 y finaliza
+ *      - si lo encuentra renderiza la plantila.ejs la de listar perros
+ *      que se ajustara a los nuevos datos sacados del dao.
+ */
 router.get("/iralistarperros", function(request, response) {
     dao.perro.getListaPerros((err, rows) => {
         if (err) {
@@ -57,8 +63,13 @@ router.get("/iralistarperrosprotectora", function(request, response) {
 
 });
 
-
-
+/**
+ *  llama a buscar detalles de perros del dao del perro,
+ *      - si no lo encuentra lanza el error: 400 y finaliza
+ *      - si lo encuentra renderiza la plantila.ejs la de mostrar
+ *      detalles de un perro que se ajustara a los nuevos datos 
+ *      sacados del dao.
+ */
 router.get("/detalleperro.html", function(request, response) {
     let idPerro = Number(request.query.idPerro);
     dao.perro.getDataPerro(idPerro, (err, dataPerro) => {
@@ -73,7 +84,8 @@ router.get("/detalleperro.html", function(request, response) {
                 } else {
                     let datosPerro = {
                         id: dataPerro.id,
-                        nombProtectora: resultado,
+						idProtectora: resultado.id,
+                        nombProtectora: resultado.nombre,
                         nombre: dataPerro.nombre,
                         foto: dataPerro.foto,
                         edad: dataPerro.edad,
