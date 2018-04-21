@@ -176,7 +176,7 @@ class DAOProtectora {
                     callback(err);
                     return;
                 }
-                callback(null, rows);
+                callback(null, rows[0]);
                 connection.release();
             });
         });

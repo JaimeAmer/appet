@@ -1,11 +1,12 @@
 #FondoEslogan{
     background-image: url("../img/fondo.jpg");
+    background-repeat:no-repeat;
     height:550px;
     background-position: center;
     display:flex;
     align-items: center;
     color:white;
-    opacity: 1;
+    background-color: black;
 }
 #eslogan{
     margin-left: 10%;

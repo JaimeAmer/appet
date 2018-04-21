@@ -59,6 +59,35 @@ CREATE TABLE `protectora` (
   `pendiente` tinyint(1) NOT NULL DEFAULT '1',
   `descripcion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `adoptante`
+--
+
+CREATE TABLE `adoptante` (
+  `id` int(11) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellidos` varchar(200) NOT NULL,
+  `fechaNacimiento` date NOT NULL,
+  `ciudad` varchar(200) NOT NULL,
+  `direccion` text NOT NULL,
+  `telefono` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `administrador`
+--
+
+CREATE TABLE `administrador` (
+  `id` int(11) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Índices para tablas volcadas
@@ -79,6 +108,20 @@ ALTER TABLE `protectora`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indices de la tabla `adoptante`
+--
+ALTER TABLE `adoptante`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indices de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+COMMIT;
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -93,6 +136,20 @@ ALTER TABLE `perro`
 --
 ALTER TABLE `protectora`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+--
+-- AUTO_INCREMENT de la tabla `adoptante`
+--
+ALTER TABLE `adoptante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 --
 -- Restricciones para tablas volcadas

@@ -16,40 +16,52 @@
 
 <body>
     <%- include("header") %>
-        <% protectoras.forEach(p => { %>
+
+        <div class="contenido">
+        </div>
+
+        <% if(protectoras !== undefined){ %>
+            <% protectoras.forEach(p => { %>
 
 
-            <div class="container">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <img class="fotoprotectora img-thumbnail" src="img/imgprotectoras/<%=p.imagen%>">
-                    </div>
-                    <div class="panel-body externo">
-                        <div>
-                            <p class="info">Nombre:
-                                <%= p.nombre %>
-                            </p>
-                            <p class="info"> Ciudad:
-                                <%= p.ciudad %>
-                            </p class="info">
-                            <p class="info"> Teléfono:
-                                <%= p.telefono %>
-                            </p>
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <img class="fotoprotectora img-thumbnail" src="img/imgprotectoras/<%=p.imagen%>">
                         </div>
-                        <form action="/detalleprotectora.html" method="GET">
-                            <input type="hidden" name="ident" value="<%= p.id %>">
-                            <input type="submit" class="btn btn-info botonInfo" value="Info">
-                        </form>
+                        <div class="panel-body externo">
+                            <div>
+                                <p class="info">Nombre:
+                                    <%= p.nombre %>
+                                </p>
+                                <p class="info"> Ciudad:
+                                    <%= p.ciudad %>
+                                </p class="info">
+                                <p class="info"> Teléfono:
+                                    <%= p.telefono %>
+                                </p>
+                            </div>
+                            <form action="/detalleprotectora.html" method="GET">
+                                <input type="hidden" name="ident" value="<%= p.id %>">
+                                <input type="submit" class="btn btn-info botonInfo" value="Info">
+                            </form>
 
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
 
-            <% }); %>
+                <% }); %>
+                    <% }  else { %>
+                        <div class="alert alert-warning alerta">
+                            No hay protectoras actualmente
+                        </div>
+                        <% } %>
 
-                <%- include("footer") %>
+
+
+                            <%- include("footer") %>
 
 </body>
 

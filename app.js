@@ -11,12 +11,18 @@ var session = require("express-session");
 var mysqlSession = require("express-mysql-session");
 var MySQLStore = mysqlSession(session);
 
+const sessionStore = new MySQLStore({
+    host: config.mysqlConfig.host,
+    user: config.mysqlConfig.user,
+    password: config.mysqlConfig.password,
+    database: config.mysqlConfig.database
+});
 
-var middlewareSession = session({
+const middlewareSession = session ({
     saveUninitialized: false,
-    secret: "practica1",
-    resave: false
-    //store: sessionStore
+    secret: "foobar34",
+    resave: false,
+    store: sessionStore    
 });
 
 

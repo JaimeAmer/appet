@@ -11,7 +11,9 @@ router.get("/", function(request, response) {
 router.get("/index", function(request, response) {
     response.render("./index", { idU: request.session.idU });
 });
-
+router.get("/login", function(request, response) {
+    response.render("./login", {idU: request.session.idU, errors:undefined,  mensaje: undefined});
+});
 router.get("/iraprotectora", function(request, response) {
     dao.protectora.listaProtectoras((err, rows) => {
         if (err) {
@@ -84,7 +86,7 @@ router.get("/detalleperro.html", function(request, response) {
                 } else {
                     let datosPerro = {
                         id: dataPerro.id,
-						idProtectora: resultado.id,
+                        idProtectora: resultado.id,
                         nombProtectora: resultado.nombre,
                         nombre: dataPerro.nombre,
                         foto: dataPerro.foto,
@@ -110,7 +112,7 @@ router.get("/detalleprotectora.html", function(request, response) {
             response.status(400);
             response.end();
         } else {
-            response.render("./detalleprotectora", { idU: request.session.idU, idp: idProtectora, datos: rows[0] });
+            response.render("./detalleprotectora", { idU: request.session.idU, idp: idProtectora, datos: rows });
         }
     });
 });
@@ -135,33 +137,44 @@ router.get('/cerrarSesion', function(request, response) {
 
 router.post("/iniciarSesion", function(request, response) {
     let warnings = new Array();
-
-    request.checkBody("email", "Email no puede estar vacio.").notEmpty();
-    request.checkBody("pass", "Clave no puede estar vacia.").notEmpty();
+    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
+    request.checkBody("userEmail", "Formato email incorrecto").isEmail();
+    request.checkBody("tipo","Debes seleccioar un tipo de usuario").notEmpty();
 
     request.getValidationResult().then(result => {
         if (result.isEmpty()) {
-            dao.general.verifyUser(request.body, (error, result) => {
+            let info={
+                user: "",
+                password:"",
+                tipo:""
+            };
+            info.user=request.body.userEmail;
+            info.password=request.body.password;
+            info.tipo=request.body.tipo;
+            dao.general.verifyUser(info, (error, result) => {
                 if (error)
                     console.log(error.message);
                 else if (result) {
                     request.session.idU = result.id;
-                    request.session.typeU = request.body.gridRadios;
-                    //response.render('./perfil', { idU: request.session.idU });
+                    request.session.typeU = request.body.tipo;
                     response.redirect('/perfil');
                 } else {
                     warnings.push("Los datos no coinciden");
                     console.log(warnings);
+                    let mensaje="El usuario con esos datos no se encuentra en este tipo de usuario";
+                    response.render("./login",{idU: request.session.idU, errors: undefined, mensaje:mensaje});
                 }
             });
         } else {
             warnings = _.pluck(result.array(), 'msg');
             console.log(warnings);
+            response.render("./login",{idU: request.session.idU, errors: result.array(),  mensaje: undefined});
         }
     });
 });
 
-router.get('/perfil',function(request,response){
+router.get('/perfil', function(request, response) {
+    /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
     response.render('./perfil', { idU: request.session.idU });
 });
 module.exports = router;

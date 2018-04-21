@@ -66,32 +66,32 @@ describe("Nombre", () =>{
 
 describe("Color", () =>{
     it('Devuelve el color del perro',() =>{
-        dao.perro.getDataPerro(1,function(err,result){
-            assert.deepStrictEqual(result.color, "golden");
+        dao.perro.getDataPerro(3,function(err,result){
+            assert.deepStrictEqual(result.color, "negro y marron");
         });
     });
 });
 
 describe("Edad", () =>{
     it('Devuelve la edad del perro', () =>{
-        dao.perro.getDataPerro(1,function(err,result){
-            assert.deepStrictEqual(result.edad, 2);
+        dao.perro.getDataPerro(3,function(err,result){
+            assert.deepStrictEqual(result.edad, 1);
         });    
     })
 });
 
 describe("Raza", () =>{
     it('Devuelve la raza del perro', () =>{
-        dao.perro.getDataPerro(7,function(err,result){
-            assert.deepStrictEqual(result.raza, "boxer");
+        dao.perro.getDataPerro(3,function(err,result){
+            assert.deepStrictEqual(result.raza, "rottweiler ");
         });    
     })
 });
 
 describe("Peso", () =>{
     it('Devuelve el peso del perro', () =>{
-        dao.perro.getDataPerro(4,function(err,result){
-            assert.deepStrictEqual(result.peso, 28);
+        dao.perro.getDataPerro(3,function(err,result){
+            assert.deepStrictEqual(result.peso, 2);
         });    
     })
 });
