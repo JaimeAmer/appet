@@ -29,6 +29,8 @@ const middlewareSession = session ({
 //Rutas para los roles 
 var invitados = require('./routes/invitados');
 var protectoras = require('./routes/protectoras');
+var admin = require('./routes/admin');
+var adoptante = require('./routes/adoptante');
 
 var app = express();
 
