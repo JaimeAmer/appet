@@ -4,6 +4,7 @@
 <!-- Página web plantilla que muestra el header-->
 
 <div class="cabecera ">
+
     <nav class="headerColor">
         <div class="logo1">
             <a href="index"><img class="logo" src="img\logo.png" alt="APPet@Corporation"></a>
@@ -41,16 +42,23 @@
                 <a class="navbar-brand" href="index">INICIO</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a class="nav-link" href="iramiperfilprotectora">Mi perfil</a></li>
-                <!-- Redirige a la lista de protectoras -->
-                <li><a class="nav-link" href="iraperrosmiosprotectora">Mis perros</a></li>
+                <% if(tipo === "Protectora"){ %>
+                    <li><a class="nav-link" href="iramiperfilprotectora">Mi perfil</a></li>
+                    <!-- Redirige a la lista de protectoras -->
+                    <li><a class="nav-link" href="iraperrosmiosprotectora">Mis perros</a></li>
+                    <li><a class="nav-link" href="#"> Solicitudes de adopción</a></li>
 
-                <li><a class="nav-link" href="iracomoadoptar">Cómo adoptar</a></li>
-                <!-- Redirige a la lista de perros -->
-                <li><a class="nav-link" href="iralistarperros">Perros <span class="sr-only">(current)</span></a></li>
-                <!-- Redirige a la lista de protectoras -->
-                <li><a class="nav-link" href="iraprotectora">Protectoras</a></li>
-                <!-- Redirige a la lista de protectoras -->
+                    <% } else {%>
+
+                        <li><a class="nav-link" href="iracomoadoptar">Cómo adoptar</a></li>
+                        <!-- Redirige a la lista de perros -->
+                        <li><a class="nav-link" href="iralistarperros">Perros <span class="sr-only">(current)</span></a></li>
+                        <!-- Redirige a la lista de protectoras -->
+                        <li><a class="nav-link" href="iraprotectora">Protectoras</a></li>
+                        <!-- Redirige a la lista de protectoras -->
+                        <% } %>
+
+
 
 
             </ul>
