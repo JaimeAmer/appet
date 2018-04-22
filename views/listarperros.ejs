@@ -32,12 +32,12 @@
                                 <!-- Nombre del perro-->
                                 <div class="panel-body">
                                     <div class="contImg">
-                                        <img class="fotoperro img-responsive" src="img/perro/">
+                                        <img class="fotoperro img-responsive" src="img/perro/<%= p.id %>">
                                     </div>
                                     <!--boton-->
                                     <div class="contBot">
                                         <form action="/detalleperro.html" method="GET">
-                                            <input type="submit" class="btn btn-success ver" value="Ver a <%=p.nombre%> ">
+                                            <input type="submit" class="btn btn-success ver" value="Ver Detalles ">
                                             <input type="hidden" name="idPerro" value="<%= p.id%>">
                                         </form>
                                     </div>
