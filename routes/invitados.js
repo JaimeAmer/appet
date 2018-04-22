@@ -5,22 +5,22 @@ var dao = require('../dao/dao');
 
 
 router.get("/", function(request, response) {
-    response.render("./index", { idU: request.session.idU });
+    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU });
 });
 
 router.get("/index", function(request, response) {
-    response.render("./index", { idU: request.session.idU });
+    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU });
 });
 router.get("/login", function(request, response) {
-    response.render("./login", {idU: request.session.idU, errors:undefined,  mensaje: undefined});
+    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
 router.get("/registroAdoptante", function(request, response) {
-	response.render("./registroAdoptante", {idU: request.session.idU, errors:undefined,  mensaje: undefined});
+    response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
 router.get("/registroProtectora", function(request, response) {
-	response.render("./registroProtectora", {idU: request.session.idU, errors:undefined,  mensaje: undefined});
+    response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
 router.get("/iraprotectora", function(request, response) {
@@ -29,130 +29,167 @@ router.get("/iraprotectora", function(request, response) {
             console.log("fallo");
         } else {
             console.log("exito, redirigimos a protectoras way");
-            response.render("./protectoras", { idU: request.session.idU, protectoras: rows });
+            response.render("./protectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows });
         }
     });
 
 });
 
+
+router.get("/iraperrosmiosprotectora", function(request, response) {
+    if (request.session.typeU === "Protectora") {
+        let idProtectora = request.session.idU;
+
+        dao.perro.getListaPerrosProtectora(idProtectora, (err, rows) => {
+            if (err) {
+                console.log("VAMOS MAL");
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./perrosmiosprotectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, perros: rows });
+            }
+
+        });
+    } else {
+        console.log("fallo");
+    }
+});
+
+router.get("/iramiperfilprotectora", function(request, response) {
+    if (request.session.typeU === "Protectora") {
+        let idProtectora = request.session.idU;
+
+        dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./detalleprotectoramio", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
+            }
+        });
+    } else {
+        console.log("fallo");
+    }
+});
+
 router.post("/registroProtectora1", function(request, response) {
     let warnings = new Array();
-	let mensaje = "";
+    let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
- //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
-	
+    //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
+
     request.getValidationResult().then(result => {
         if (result.isEmpty()) {
-            let datos={
+            let datos = {
                 nombre: "",
-                ciudad:"",
-				imagen:"",
-				email:"", 
-				password:"", 
-				direccion:"",
-				telefono:"",				
-				descripcion:"" 
+                ciudad: "",
+                imagen: "",
+                email: "",
+                password: "",
+                direccion: "",
+                telefono: "",
+                descripcion: ""
             };
-           
-			if(request.body.password != request.body.password1){
-				warnings.push("Las contraseñas no coinciden");
-						console.log(warnings);
-						mensaje="Las contraseñas no coinciden";
-						response.render("./registroProtectora",{idU: request.session.idU, errors: undefined, mensaje:mensaje});
-			}else{
-				console.log(request.body);
-				datos.nombre=request.body.nombre;
-				datos.ciudad=request.body.ciudad;
-				datos.imagen=request.body.imagen;
-				datos.email=request.body.email;
-				datos.password=request.body.password;
-				datos.direccion=request.body.direccion;
-				datos.telefono=request.body.telefono;
-				datos.descripcion=request.body.descripcion;
-			
-				dao.protectora.createProtectora(datos, (error, result) => {
-					if (error){
-						if(error.errno == 1062){
-							warnings.push("El email ya esta dado de alta en el sistema");
-							console.log(warnings);
-							mensaje="El email ya esta dado de alta en el sistema";
-							response.render("./registroProtectora",{idU: request.session.idU, errors: undefined, mensaje:mensaje});
-						}else
-							console.log(error.message);
-					}else if (result) {
-						response.render("./registroProtectora",{idU: request.session.idU, errors: undefined, mensaje:"exito"});
-					} else {
-						response.render("./registroProtectora",{idU: request.session.idU, errors: undefined, mensaje:"exito"});
-					}
-				});
-			}
-			} else {	
-			warnings = _.pluck(result.array(), 'msg');
-            console.log(warnings);
-            response.render("./registroProtectora",{idU: request.session.idU, errors: result.array(),  mensaje: undefined});
-		}
 
-	});
+            if (request.body.password != request.body.password1) {
+                warnings.push("Las contraseñas no coinciden");
+                console.log(warnings);
+                mensaje = "Las contraseñas no coinciden";
+                response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+            } else {
+                console.log(request.body);
+                datos.nombre = request.body.nombre;
+                datos.ciudad = request.body.ciudad;
+                datos.imagen = request.body.imagen;
+                datos.email = request.body.email;
+                datos.password = request.body.password;
+                datos.direccion = request.body.direccion;
+                datos.telefono = request.body.telefono;
+                datos.descripcion = request.body.descripcion;
+
+                dao.protectora.createProtectora(datos, (error, result) => {
+                    if (error) {
+                        if (error.errno == 1062) {
+                            warnings.push("El email ya esta dado de alta en el sistema");
+                            console.log(warnings);
+                            mensaje = "El email ya esta dado de alta en el sistema";
+                            response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+                        } else
+                            console.log(error.message);
+                    } else if (result) {
+                        response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
+                    } else {
+                        response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
+                    }
+                });
+            }
+        } else {
+            warnings = _.pluck(result.array(), 'msg');
+            console.log(warnings);
+            response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+        }
+
+    });
 });
 
 router.post("/registroAdoptante1", function(request, response) {
     let warnings = new Array();
-	let mensaje = "";
+    let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
     request.checkBody("email", "Formato email incorrecto").isEmail();
 
     request.getValidationResult().then(result => {
         if (result.isEmpty()) {
-            let datos={
+            let datos = {
                 email: "",
-                password:"",
-				nombre:"",
-				apellidos:"", 
-				fechaNacimiento:"", 
-				ciudad:"", 
-				direccion:"", 
-				telefono:""
+                password: "",
+                nombre: "",
+                apellidos: "",
+                fechaNacimiento: "",
+                ciudad: "",
+                direccion: "",
+                telefono: ""
             };
-            
-			if(request.body.password != request.body.password1){
-				warnings.push("Las contraseñas no coinciden");
-						console.log(warnings);
-						mensaje="Las contraseñas no coinciden";
-						response.render("./registroAdoptante",{idU: request.session.idU, errors: undefined, mensaje:mensaje});
-			}else{
-				console.log(request.body);
-				datos.email=request.body.email;
-				datos.password=request.body.password;
-				datos.nombre=request.body.nombre;
-				datos.apellidos=request.body.apellidos;
-				datos.fechaNacimiento=request.body.fecha;
-				datos.ciudad=request.body.ciudad;
-				datos.direccion=request.body.direccion;
-				datos.telefono=request.body.telefono;
-			
-				dao.general.createAdoptante(datos, (error, result) => {
-					if (error){
-						if(error.errno == 1062){
-							warnings.push("El email ya esta dado de alta en el sistema");
-							console.log(warnings);
-							mensaje="El email ya esta dado de alta en el sistema";
-							response.render("./registroAdoptante",{idU: request.session.idU, errors: undefined, mensaje:mensaje});
-						}else
-							console.log(error.message);
-					}else if (result) {
-						response.render("./registroAdoptante",{idU: request.session.idU, errors: undefined, mensaje:"exito"});
-					} else {
-						response.render("./registroAdoptante",{idU: request.session.idU, errors: undefined, mensaje:"exito"});
-					}
-				});
-			}
-			} else {	
-			warnings = _.pluck(result.array(), 'msg');
-            console.log(warnings);
-            response.render("./registroAdoptante",{idU: request.session.idU, errors: result.array(),  mensaje: undefined});
-		}
 
-	});
+            if (request.body.password != request.body.password1) {
+                warnings.push("Las contraseñas no coinciden");
+                console.log(warnings);
+                mensaje = "Las contraseñas no coinciden";
+                response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+            } else {
+                console.log(request.body);
+                datos.email = request.body.email;
+                datos.password = request.body.password;
+                datos.nombre = request.body.nombre;
+                datos.apellidos = request.body.apellidos;
+                datos.fechaNacimiento = request.body.fecha;
+                datos.ciudad = request.body.ciudad;
+                datos.direccion = request.body.direccion;
+                datos.telefono = request.body.telefono;
+
+                dao.general.createAdoptante(datos, (error, result) => {
+                    if (error) {
+                        if (error.errno == 1062) {
+                            warnings.push("El email ya esta dado de alta en el sistema");
+                            console.log(warnings);
+                            mensaje = "El email ya esta dado de alta en el sistema";
+                            response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+                        } else
+                            console.log(error.message);
+                    } else if (result) {
+                        response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
+                    } else {
+                        response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
+                    }
+                });
+            }
+        } else {
+            warnings = _.pluck(result.array(), 'msg');
+            console.log(warnings);
+            response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+        }
+
+    });
 });
 /**
  *      llama a buscar lista de perros del dao del perro,
@@ -166,7 +203,7 @@ router.get("/iralistarperros", function(request, response) {
             response.status(400);
             response.end();
         } else {
-            response.render("./listarperros", { idU: request.session.idU, perros: rows });
+            response.render("./listarperros", { tipo: request.session.typeU, idU: request.session.idU, perros: rows });
         }
     });
 });
@@ -186,7 +223,7 @@ router.get("/iralistarperrosprotectora", function(request, response) {
             response.status(400);
             response.end();
         } else {
-            response.render("./listarperrosprotectora", { idU: request.session.idU, nombrep: nombreProtectora, idp: idProtectora, perros: rows });
+            response.render("./listarperrosprotectora", { tipo: request.session.typeU, idU: request.session.idU, nombrep: nombreProtectora, idp: idProtectora, perros: rows });
         }
 
     });
@@ -225,7 +262,7 @@ router.get("/detalleperro.html", function(request, response) {
                         descripcion: dataPerro.descripcion,
                         fallecido: dataPerro.fallecido
                     };
-                    response.render("./detalleperro", { idU: request.session.idU, perro: datosPerro });
+                    response.render("./detalleperro", { tipo: request.session.typeU, idU: request.session.idU, perro: datosPerro });
                 }
             });
         }
@@ -240,19 +277,19 @@ router.get("/detalleprotectora.html", function(request, response) {
             response.status(400);
             response.end();
         } else {
-            response.render("./detalleprotectora", { idU: request.session.idU, idp: idProtectora, datos: rows });
+            response.render("./detalleprotectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
         }
     });
 });
 
 router.get("/iraacercadeappet", function(request, response) {
     console.log("VAMOS BIEN");
-    response.render("./acercadeappet", { idU: request.session.idU });
+    response.render("./acercadeappet", { tipo: request.session.typeU, idU: request.session.idU });
 });
 
 router.get("/iracomoadoptar", function(request, response) {
     console.log("VAMOS BIEN");
-    response.render("./comoadoptar", { idU: request.session.idU });
+    response.render("./comoadoptar", { tipo: request.session.typeU, idU: request.session.idU });
 });
 
 router.get('/cerrarSesion', function(request, response) {
@@ -260,25 +297,25 @@ router.get('/cerrarSesion', function(request, response) {
     //request.session.typeU = undefined;
     console.log(request.session.idU);
     request.session.destroy();
-    response.render("./index", { idU: undefined });
+    response.render("./index", { tipo: undefined, idU: undefined });
 });
 
 router.post("/iniciarSesion", function(request, response) {
     let warnings = new Array();
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
     request.checkBody("userEmail", "Formato email incorrecto").isEmail();
-    request.checkBody("tipo","Debes seleccioar un tipo de usuario").notEmpty();
+    request.checkBody("tipo", "Debes seleccioar un tipo de usuario").notEmpty();
 
     request.getValidationResult().then(result => {
         if (result.isEmpty()) {
-            let info={
+            let info = {
                 user: "",
-                password:"",
-                tipo:""
+                password: "",
+                tipo: ""
             };
-            info.user=request.body.userEmail;
-            info.password=request.body.password;
-            info.tipo=request.body.tipo;
+            info.user = request.body.userEmail;
+            info.password = request.body.password;
+            info.tipo = request.body.tipo;
             dao.general.verifyUser(info, (error, result) => {
                 if (error)
                     console.log(error.message);
@@ -289,20 +326,20 @@ router.post("/iniciarSesion", function(request, response) {
                 } else {
                     warnings.push("Los datos no coinciden");
                     console.log(warnings);
-                    let mensaje="El usuario con esos datos no se encuentra en este tipo de usuario";
-                    response.render("./login",{idU: request.session.idU, errors: undefined, mensaje:mensaje});
+                    let mensaje = "El usuario con esos datos no se encuentra en este tipo de usuario";
+                    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
                 }
             });
         } else {
             warnings = _.pluck(result.array(), 'msg');
             console.log(warnings);
-            response.render("./login",{idU: request.session.idU, errors: result.array(),  mensaje: undefined});
+            response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
         }
     });
 });
 
 router.get('/perfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
-    response.render('./perfil', { idU: request.session.idU });
+    response.render('./perfil', { tipo: request.session.typeU, idU: request.session.idU });
 });
 module.exports = router;

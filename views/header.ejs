@@ -41,44 +41,50 @@
                 <a class="navbar-brand" href="index">INICIO</a>
             </div>
             <ul class="nav navbar-nav">
+                <li><a class="nav-link" href="iramiperfilprotectora">Mi perfil</a></li>
+                <!-- Redirige a la lista de protectoras -->
+                <li><a class="nav-link" href="iraperrosmiosprotectora">Mis perros</a></li>
+
+                <li><a class="nav-link" href="iracomoadoptar">Cómo adoptar</a></li>
                 <!-- Redirige a la lista de perros -->
                 <li><a class="nav-link" href="iralistarperros">Perros <span class="sr-only">(current)</span></a></li>
                 <!-- Redirige a la lista de protectoras -->
                 <li><a class="nav-link" href="iraprotectora">Protectoras</a></li>
                 <!-- Redirige a la lista de protectoras -->
-                <li><a class="nav-link" href="iracomoadoptar">Como adoptar</a></li>
+
+
             </ul>
         </div>
     </nav>
 </div>
 <!-- Modal -->
 <style>
-	.registrarseStyle{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		padding:5% 5%;
-		
-	}
-	.botonReg{
-	    display: inline-block;
-		    font-size: 20px;
-			font-color:black;
-	}
-	.modal-dialog{
-		margin: 100px auto;
-	}
+    .registrarseStyle {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 5% 5%;
+    }
+    
+    .botonReg {
+        display: inline-block;
+        font-size: 20px;
+        font-color: black;
+    }
+    
+    .modal-dialog {
+        margin: 100px auto;
+    }
 </style>
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body registrarseStyle">
-        <a href="registroAdoptante"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Adoptante</button></a>
-		<a href="registroProtectora"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Protectora</button></a>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body registrarseStyle">
+                <a href="registroAdoptante"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Adoptante</button></a>
+                <a href="registroProtectora"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Protectora</button></a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 </div>
-    
