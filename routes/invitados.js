@@ -360,13 +360,40 @@ router.get('/perfil', function(request, response) {
 });
 
 
-
-router.get('/img/perro/:id',function(request,response){
-    
+   router.get('/img/perro/:id',function(request,response){
+     let n=request.params.id;
+      
+        if(isNaN(n)){
+            response.status(400);
+            response.end("Peticion incorrecta");
+        
+        }else{
+           dao.general.getImagePerro(n,(error,image)=>{
+                if(image){
+                    response.end(image);
+                }else if(error){
+                    console.log(error);
+                }
+            });
+        }
 });
 
 router.get('/img/protectora/:id',function(request,response){
-    console.log(request.params.id);
+     let n=request.params.id;
+      
+        if(isNaN(n)){
+            response.status(400);
+            response.end("Peticion incorrecta");
+        
+        }else{
+           dao.general.getImageProtectora(n,(error,image)=>{
+                if(image){
+                    response.end(image);
+                }else if(error){
+                    console.log(error);
+                }
+            });
+        }
 });
 
 
