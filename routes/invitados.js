@@ -11,6 +11,7 @@ router.get("/", function(request, response) {
 router.get("/index", function(request, response) {
     response.render("./index", { tipo: request.session.typeU, idU: request.session.idU });
 });
+
 router.get("/login", function(request, response) {
     response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
@@ -357,4 +358,21 @@ router.get('/perfil', function(request, response) {
         console.log("fallo");
     }
 });
+
+
+
+router.get('/img/perro/:id',function(request,response){
+    
+});
+
+router.get('/img/protectora/:id',function(request,response){
+    console.log(request.params.id);
+});
+
+
+
+
+
+
+
 module.exports = router;
