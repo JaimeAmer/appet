@@ -340,6 +340,21 @@ router.post("/iniciarSesion", function(request, response) {
 
 router.get('/perfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
-    response.render('./perfil', { tipo: request.session.typeU, idU: request.session.idU });
+
+    // 1) En el caso de que sea protectora
+    if (request.session.typeU === "Protectora") {
+        let idProtectora = request.session.idU;
+
+        dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./perfil", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
+            }
+        });
+    } else {
+        console.log("fallo");
+    }
 });
 module.exports = router;
