@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 // id
 // nombre
@@ -90,27 +90,19 @@ class DAOProtectora {
      * Tras la inserción se llamará a la función callback
      * Error, si se produjo alguno durante la inserción, o null en caso contrario.
      * 
-     * @param {int} id identificador de la protectora.
-     * @param {string} nombre nombre de la protectora.
-     * @param {string} ciudad ciudad de la protectora.
-     * @param {string} imagen imagen de la protectora.
-     * @param {string} email email de la protectora.
-     * @param {string} password contraseña de la protectora.
-     * @param {string} direccion direccion de la protectora.
-     * @param {int} telefono numero telefono de la protectora.
-     * @param {boolean} pendiente estado de la protectora: 1 pendiente de aceptar, 0 aceptada.
-     * @param {string} descripcion descripcion de la protectora.
+     *
+     * @param {object} datos
      * @param {function} callback
      * @exception {err} En caso de que se produzca un error en la insercion
      */
-    createProtectora(nombre, ciudad, imagen, email, password, direccion, telefono, pendiente, descripcion, callback) {
+    createProtectora(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
                 return;
             }
 
-            connection.query("INSERT INTO protectora(nombre, ciudad, imagen, email, password, direccion, telefono, pendiente, descripcion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [nombre, ciudad, imagen, email, password, direccion, telefono, pendiente, descripcion], (err) => {
+            connection.query("INSERT INTO protectora(nombre, ciudad, imagen, email, password, direccion, telefono, descripcion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, datos.telefono, datos.descripcion], (err) => {
                 if (err) {
                     callback(err);
                     return;

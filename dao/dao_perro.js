@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 //------------ Atributos BD PERRO: ------------
 //id
@@ -56,7 +56,7 @@ class DAOPerro {
                             idProtectora: element.idProtectora,
                             nombre: element.nombre,
                             foto: element.foto
-                        }
+                        };
 
                         //Inserto el objeto en el array:
                         listaPerros.push(perro);
@@ -80,7 +80,7 @@ class DAOPerro {
     getListaPerros(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro"
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro";
             connection.query(sqlListaPerros, (err, rows) => {
 
                 //En caso de error de consulta:
@@ -112,7 +112,7 @@ class DAOPerro {
                             idProtectora: element.idProtectora,
                             nombre: element.nombre,
                             foto: element.foto
-                        }
+                        };
 
                         //Inseerto el objeto en el array:
                         listaPerros.push(perro);
@@ -137,7 +137,7 @@ class DAOPerro {
     getDataPerro(idPerro, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlDatosPerro = "SELECT * FROM perro WHERE id = ?"
+            let sqlDatosPerro = "SELECT * FROM perro WHERE id = ?";
             connection.query(sqlDatosPerro, [idPerro], (err, rows) => {
                 //En caso de error de consulta:
                 if (err) { callback(err); return; }
