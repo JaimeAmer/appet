@@ -45,3 +45,17 @@
 			.abajo {
 				margin-bottom: 30px;
 			}
+			
+			/***********Registros*********/
+			
+			.formRegistro{
+			width:50%;
+			margin-left:5%;
+			display: inline-block;
+			}
+			@media only screen and (max-width: 600px) {
+				.formRegistro{
+					width:95%;		
+				}
+			}
+			
