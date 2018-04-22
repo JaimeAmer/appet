@@ -115,3 +115,39 @@
     display: inline-block;
     padding: 0% 5%;
 }
+
+/*********************registro modal ***************************/
+
+	.registrarseStyle{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding:5% 5%;
+		
+	}
+	.botonReg{
+	    display: inline-block;
+		    font-size: 20px;
+			font-color:black;
+	}
+	.modal-dialog{
+		margin: 100px auto;
+	}
+	
+	@media only screen and (max-width: 600px) {
+			.registrarseStyle{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				padding:5% 5%;
+				
+			}
+			.botonReg{
+				display: inline-block;
+					font-size: 10px;
+					font-color:black;
+			}
+			.modal-dialog{
+				margin: 100px auto;
+			}
+		}
