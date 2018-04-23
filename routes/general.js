@@ -20,4 +20,29 @@ router.get("/login", function(request, response) {
     response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
+
+router.get('/perfil', function(request, response) {
+    /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
+
+    // 1) En el caso de que sea protectora
+    if (request.session.typeU === "Protectora") {
+        let idProtectora = request.session.idU;
+        dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./perfilProtectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
+            }
+        });
+    }else if(request.session.typeU === "Adoptante"){
+        console.log("Aún no hay vista");
+        response.redirect("/index");
+    }else if(request.session.typeU === "Administrador"){
+        response.render("./perfilAdoptante", { tipo: request.session.typeU, idU: request.session.idU});
+    }
+    else{
+        console.log("Fallo, no es un usuario válido");
+    }
+});
 module.exports = router;

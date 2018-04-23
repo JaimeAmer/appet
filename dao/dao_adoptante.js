@@ -13,7 +13,23 @@ class DAOAdoptante {
         this.pool = pool;
     }
 
- 
+ getAdoptantes(callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+
+            connection.query("SELECT * FROM adoptante", [], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(err, rows);
+                connection.release();
+            });
+        });
+    }
 	
 }
 
