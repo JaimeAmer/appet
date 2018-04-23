@@ -24,6 +24,52 @@ router.get("/login", function(request, response) {
     response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
+router.post("/login", function(request, response) {
+    let warnings = new Array();
+    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
+    request.checkBody("userEmail", "Formato email incorrecto").isEmail();
+    request.checkBody("tipo", "Debes seleccioar un tipo de usuario").notEmpty();
+
+    request.getValidationResult().then(result => {
+        if (result.isEmpty()) {
+            let info = {
+                user: "",
+                password: "",
+                tipo: ""
+            };
+            info.user = request.body.userEmail;
+            info.password = request.body.password;
+            info.tipo = request.body.tipo;
+            dao.general.verifyUser(info, (error, result) => {
+                if (error)
+                    console.log(error.message);
+                else if (result) {
+                    request.session.idU = result.id;
+                    request.session.typeU = request.body.tipo;
+                    response.redirect('/perfil');
+                } else {
+                    warnings.push("Los datos no coinciden");
+                    console.log(warnings);
+                    let mensaje = "El usuario con esos datos no se encuentra en este tipo de usuario";
+                    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+                }
+            });
+        } else {
+            warnings = _.pluck(result.array(), 'msg');
+            console.log(warnings);
+            response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+        }
+    });
+});
+
+router.get('/logout', function(request, response) {
+    //request.session.idU = undefined;
+    //request.session.typeU = undefined;
+    console.log(request.session.idU);
+    request.session.destroy();
+    //response.render("./index", { tipo: undefined, idU: undefined });
+    response.redirect('/');
+});
 
 router.get('/perfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
@@ -177,50 +223,8 @@ router.get("/perrosprotectora", function(request, response) {
 
 });
 
-router.get('/cerrarSesion', function(request, response) {
-    //request.session.idU = undefined;
-    //request.session.typeU = undefined;
-    console.log(request.session.idU);
-    request.session.destroy();
-    response.render("./index", { tipo: undefined, idU: undefined });
-});
 
-router.post("/iniciarSesion", function(request, response) {
-    let warnings = new Array();
-    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
-    request.checkBody("userEmail", "Formato email incorrecto").isEmail();
-    request.checkBody("tipo", "Debes seleccioar un tipo de usuario").notEmpty();
 
-    request.getValidationResult().then(result => {
-        if (result.isEmpty()) {
-            let info = {
-                user: "",
-                password: "",
-                tipo: ""
-            };
-            info.user = request.body.userEmail;
-            info.password = request.body.password;
-            info.tipo = request.body.tipo;
-            dao.general.verifyUser(info, (error, result) => {
-                if (error)
-                    console.log(error.message);
-                else if (result) {
-                    request.session.idU = result.id;
-                    request.session.typeU = request.body.tipo;
-                    response.redirect('/perfil');
-                } else {
-                    warnings.push("Los datos no coinciden");
-                    console.log(warnings);
-                    let mensaje = "El usuario con esos datos no se encuentra en este tipo de usuario";
-                    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
-                }
-            });
-        } else {
-            warnings = _.pluck(result.array(), 'msg');
-            console.log(warnings);
-            response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
-        }
-    });
-});
+
 
 module.exports = router;
