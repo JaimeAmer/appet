@@ -67,6 +67,7 @@ class DAOProtectora {
      * @exception {err} Si hay un error en la consulta a la base de datos
      */
     listaProtectoras(callback) {
+        if(callback===undefined) callback=function(){};
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);

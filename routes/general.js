@@ -192,7 +192,7 @@ router.get("/protectoras", function(request, response) {
 router.get("/protectora", function(request, response) {
     let idProtectora = Number(request.query.ident);
     
-    dao.protectora.listaProtectoras(idProtectora, (err, rows) => {
+    dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
         if (err) {
             response.status(400);
             response.end();
