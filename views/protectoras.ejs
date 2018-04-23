@@ -27,7 +27,7 @@
                 <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <img class="fotoprotectora img-thumbnail" src="img/imgprotectoras/<%=p.imagen%>">
+                            <img class="fotoprotectora img-thumbnail" src="img/protectora/<%=p.id%>">
                         </div>
                         <div class="panel-body externo">
                             <div>
@@ -41,7 +41,7 @@
                                     <%= p.telefono %>
                                 </p>
                             </div>
-                            <form action="/detalleprotectora.html" method="GET">
+                            <form action="/protectora" method="GET">
                                 <input type="hidden" name="ident" value="<%= p.id %>">
                                 <input type="submit" class="btn btn-info botonInfo" value="Info">
                             </form>

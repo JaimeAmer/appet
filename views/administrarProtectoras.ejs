@@ -1,0 +1,60 @@
+<html>
+    
+    <!-- Página web que muestra información relativa a la protectora solicitada por el usuario-->
+    
+    <head class="headerColor">
+        <title>APPet</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+        <link rel="icon" type="image/png" href="img/logo.png" />
+    </head>
+    
+    <body>
+        <%- include('./header'); %>
+            <div class="container">
+                    <div class="row col-md-offset-2 col-md-8 custyle">
+                            <h2>Lista de protectoras</h2>
+                        <% if(protectoras.length === 0){ %>
+                            <div class="alert alert-warning alerta">
+                                No hay protectoras actualmente
+                            </div>
+                        <% }else{ %>
+                            <table class="table table-striped custab">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                                <% protectoras.forEach(p => { %>
+                                    <tr>
+                                        <td><%= p.id %></td>
+                                        <td><%= p.nombre %></td>
+                                        <td><%= p.email %></td>
+                                        <td class="text-center">
+                                            <form action="/eliminarProtectora" method="GET">
+                                                <button type="submit"class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Eliminar</button>
+                                                <input type="hidden" name="idProtectora" value="<%= p.id%>">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                        </table>
+                        <% }; %>
+                    </div>
+                </div>
+        <%- include('./footer'); %>
+        <%if(msg !== undefined){%>
+            <script type="text/javascript">
+                alert("<%= msg%>");
+            </script>
+        <%}%>
+    </body>
+    
+</html>

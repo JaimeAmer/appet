@@ -1,6 +1,6 @@
 <html>
 
-<!-- Página web que muestra la lista de perros de todas las protectoras-->
+<!-- Página web que muestra la lista de perros de una protectora especifica-->
 
 <head class="headerColor">
     <title>APPet</title>
@@ -9,19 +9,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/estiloslistaperros.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/logo.png" />
 </head>
 
 <body>
     <%- include('./header'); %>
         <div class="listaperros">
-            <h3>Mostrando perros:</h3>
+            <h3 class="textoo">Mostrando mis perros:
+            </h3>
 
             <div class="panel-body">
-
                 <!--Inicio de los paneles individuales de los perros-->
+
                 <% if(perros !== undefined){ %>
                     <% perros.forEach(p => { %>
                         <div class="col-sm-4 col-md-3 col-lg-2">
@@ -36,8 +37,8 @@
                                     </div>
                                     <!--boton-->
                                     <div class="contBot">
-                                        <form action="/perro" method="GET">
-                                            <input type="submit" class="btn btn-success ver" value="Ver Detalles ">
+                                        <form action="/detalleperro.html" method="GET">
+                                            <input type="submit" class="btn btn-success ver" value="Ver a <%=p.nombre%> ">
                                             <input type="hidden" name="idPerro" value="<%= p.id%>">
                                         </form>
                                     </div>
@@ -46,16 +47,22 @@
                             </div>
                         </div>
                         <% }); %>
+                            <!--Final de los panel individual de los perros-->
+                            <% }  else if(perros === undefined){ %>
 
-                            <% } else if (perros === undefined){ %>
                                 <div class="alert alert-warning alerta">
-                                    No existe ningún perro actualmente.
+                                    La protectora no tiene perros actualmente.
                                 </div>
+
                                 <% } %>
 
-                                    <!--Final de los panel individual de los perros-->
             </div>
-        </div>
+            <div class="contBot">
+                <form action="/nuevoperro" method="GET">
+                    <input type="submit" class="btn btn-primary nuevoperro" value="Añadir perro">
+                </form>
+            </div>
+        </div> -->
         <%- include('./footer'); %>
 </body>
 

@@ -23,15 +23,15 @@
                     <!--Boton para poder cerrar sesion-->
                     <div class="col-lg-12">
                         <form>
-                            <button type="submit" formmethod="get" formaction="/cerrarSesion" class="btn btn-danger">Cerrar Sesión</button>
+                            <button type="submit" formmethod="get" formaction="/logout" class="btn btn-danger">Cerrar Sesión</button>
                         </form>
                     </div>
                     <!--Boton que redirige a panel de modificacion del perfil de protectora -->
                     <!--
-					<div class="col-lg-12">
+     <div class="col-lg-12">
                         <button type="button" class="btn btn-primary modificar">Modificar</button>
                     </div>
-					-->
+     -->
                     <% } %>
         </div>
     </nav>
@@ -43,18 +43,22 @@
             </div>
             <ul class="nav navbar-nav">
                 <% if(tipo === "Protectora"){ %>
-                    <li><a class="nav-link" href="iramiperfilprotectora">Mi perfil</a></li>
+                    <li><a class="nav-link" href="/perfil">Mi perfil</a></li>
                     <!-- Redirige a la lista de protectoras -->
-                    <li><a class="nav-link" href="iraperrosmiosprotectora">Mis perros</a></li>
+                    <li><a class="nav-link" href="/misperros">Mis perros</a></li>
                     <li><a class="nav-link" href="#"> Solicitudes de adopción</a></li>
 
-                    <% } else {%>
+                    <% }else if(tipo === "Administrador"){%>
+                        <li><a class="nav-link" href="/listaAdoptantes">Adoptantes</a></li>
+                        <li><a class="nav-link" href="/listaProtectoras">Protectoras</a></li>
+                        <li><a class="nav-link" href="#">Solicitudes de protectoras</a></li>
+                    <%} else {%>
 
-                        <li><a class="nav-link" href="iracomoadoptar">Cómo adoptar</a></li>
+                        <li><a class="nav-link" href="comoadoptar">Cómo adoptar</a></li>
                         <!-- Redirige a la lista de perros -->
-                        <li><a class="nav-link" href="iralistarperros">Perros <span class="sr-only">(current)</span></a></li>
+                        <li><a class="nav-link" href="perros">Perros <span class="sr-only">(current)</span></a></li>
                         <!-- Redirige a la lista de protectoras -->
-                        <li><a class="nav-link" href="iraprotectora">Protectoras</a></li>
+                        <li><a class="nav-link" href="protectoras">Protectoras</a></li>
                         <!-- Redirige a la lista de protectoras -->
                         <% } %>
 
@@ -66,30 +70,12 @@
     </nav>
 </div>
 <!-- Modal -->
-<style>
-    .registrarseStyle {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 5% 5%;
-    }
-    
-    .botonReg {
-        display: inline-block;
-        font-size: 20px;
-        font-color: black;
-    }
-    
-    .modal-dialog {
-        margin: 100px auto;
-    }
-</style>
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bcolorfondo">
             <div class="modal-body registrarseStyle">
-                <a href="registroAdoptante"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Adoptante</button></a>
-                <a href="registroProtectora"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Protectora</button></a>
+                <a href="/regadoptante"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Adoptante</button></a>
+                <a href="/regprotectora"><button type="button" class="btn btn-primary botonReg tnegrita" data-toggle="modal" data-target="#myModal">Como Protectora</button></a>
             </div>
         </div>
     </div>

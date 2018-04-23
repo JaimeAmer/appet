@@ -67,6 +67,63 @@ class DAOGeneral {
             });
         });
     }
+      getImagePerro(id,callback){
+          if(callback===undefined) callback=function(){};
+        
+        this.pool.getConnection((error,conexion)=>{
+            if(error){
+                callback(error);
+            }else{
+                let sql="SELECT foto FROM perro WHERE id=?";
+                
+                conexion.query(sql,[id],(error,result)=>{
+                    conexion.release();
+                    if(error){
+                        callback(error);
+                    }else{
+                        if(result[0].length === 0){
+                            callback(null,undefined);
+                        }else{
+                            
+                            callback(null,result[0].foto);
+                        }
+                        
+                    }
+                });
+                
+            }
+        });
+        
+    }
+    
+    getImageProtectora(id,callback){
+        if(callback===undefined) callback=function(){};
+        
+        this.pool.getConnection((error,conexion)=>{
+            if(error){
+                callback(error);
+            }else{
+                let sql="SELECT imagen  FROM protectora WHERE id=?";
+                
+                conexion.query(sql,[id],(error,result)=>{
+                    conexion.release();
+                    if(error){
+                        callback(error);
+                    }else{
+                        if(result[0].length === 0){
+                            callback(null,undefined);
+                        }else{
+                            
+                            callback(null,result[0].imagen);
+                        }
+                        
+                    }
+                });
+                
+            }
+        });
+    }
+ 
 	
 }
 

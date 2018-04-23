@@ -22,7 +22,7 @@
 
             <div class="externo">
                 <p class="fotoprotectora">
-                    <img class="img-thumbnail" src="img/protectora/<%= datos.id %>" width="600">
+                    <img class="img-thumbnail" src="img/protectora/<%=datos.id%>" width="600">
 
                 </p>
                 <p class="textoimagen">
@@ -66,31 +66,6 @@
             </div>
 
         </div>
-
-
-        <form action="/perrosprotectora" method="GET">
-            <div class="botonera">
-                <input type="hidden" name="nombrepro" value="<%= datos.nombre %>">
-                <input type="hidden" name="ident" value="<%= idp %>">
-                <input type="submit" class="btn btn-success volver" value="Ver los perros de la protectora!">
-            </div>
-        </form>
-
-        <form action="/protectoras" method="GET">
-
-
-            <div class="botonera">
-                <input type="submit" class="btn btn-info volver" value="Volver">
-            </div>
-        </form>
-
-
-
-
-
-
-
-
 
         <%- include('./footer'); %>
 </body>

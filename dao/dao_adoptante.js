@@ -13,8 +13,61 @@ class DAOAdoptante {
         this.pool = pool;
     }
 
- 
-	
+    getAdoptantes(callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+
+            connection.query("SELECT * FROM adoptante WHERE estado=1", [], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(err, rows);
+                connection.release();
+            });
+        });
+    }
+
+    adoptarPerro(idPerro, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+
+            connection.query("UPDATE perro SET adoptado = 1 WHERE id = ?", [idPerro], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(err);
+                connection.release();
+            });
+        });
+    }
+    eliminarAdoptante(idAdoptante, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("UPDATE `adoptante` SET `estado` = '0' WHERE `adoptante`.`id` = ?;", [idAdoptante], (err) => {
+                if (err) {
+                    connection.release();
+                    callback(err);
+                    console.log(err);
+                } else {
+                    callback(null);
+                    connection.release();
+                }
+
+            });
+
+        });
+    }
 }
 
 module.exports = {
