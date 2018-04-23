@@ -13,7 +13,6 @@ router.get("/comoadoptar", function(request, response) {
 /**
  *      llama a buscar lista de perros del dao del perro,
  *      - si no lo encuentra lanza el error: 400 y finaliza
- *      - si lo encuentra renderiza la plantila.ejs la de listar perros
  *      que se ajustara a los nuevos datos sacados del dao.
  */
 router.get("/perros", function(request, response) {
