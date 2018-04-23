@@ -27,6 +27,7 @@ const middlewareSession = session ({
 
 
 //Rutas para los roles 
+var general = require('./routes/general');
 var invitados = require('./routes/invitados');
 var protectoras = require('./routes/protectoras');
 var admin = require('./routes/admin');
@@ -48,6 +49,7 @@ app.use(expressValidator());
 
 
 app.use('/', invitados);
+app.use('/', general);
 app.use('/protectoras', protectoras);
 
 // catch 404 and forward to error handler
