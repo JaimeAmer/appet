@@ -3,7 +3,8 @@ var _ = require("underscore");
 var router = express.Router();
 var dao = require('../dao/dao');
 var middles=require('../routes/middlewares');
-
+var multer = require("multer");
+var upload = multer({ storage: multer.memoryStorage() });
 
 ////////////////////////////Rutas Invitados////////////////////////////////
 router.get("/regadoptante", function(request, response) {
@@ -45,12 +46,7 @@ router.post("/regadoptante", function(request, response) {
                 datos.ciudad = request.body.ciudad;
                 datos.direccion = request.body.direccion;
                 datos.telefono = request.body.telefono;
-                datos.imagen=null;
-                
-                //Verficamos que exista una foto
-                if (request.file) {
-                    datos.photo= request.file.buffer;
-                }
+               
                 
                 dao.general.createAdoptante(datos, (error, result) => {
                     if (error) {
@@ -82,7 +78,7 @@ router.post("/regadoptante", function(request, response) {
 });
 
 
-router.post("/regprotectora", function(request, response) {
+router.post("/regprotectora",upload.single("foto"), function(request, response) {
     let warnings = new Array();
     let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
@@ -107,6 +103,13 @@ router.post("/regprotectora", function(request, response) {
                 datos.direccion = request.body.direccion;
                 datos.telefono = request.body.telefono;
                 datos.descripcion = request.body.descripcion;
+                datos.foto=null;
+                
+                //Verficamos que exista una foto
+                if (request.file) {
+                    datos.foto= request.file.buffer;
+                }
+                
 
                 dao.protectora.createProtectora(datos, (error, result) => {
                     if (error) {
