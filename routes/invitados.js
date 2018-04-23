@@ -78,7 +78,7 @@ router.post("/regadoptante", function(request, response) {
 });
 
 
-router.post("/regprotectora",upload.single("foto"), function(request, response) {
+router.post("/regprotectora",upload.single("imagen"), function(request, response) {
     let warnings = new Array();
     let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
@@ -103,11 +103,11 @@ router.post("/regprotectora",upload.single("foto"), function(request, response) 
                 datos.direccion = request.body.direccion;
                 datos.telefono = request.body.telefono;
                 datos.descripcion = request.body.descripcion;
-                datos.foto=null;
+                datos.imagen=null;
                 
                 //Verficamos que exista una foto
                 if (request.file) {
-                    datos.foto= request.file.buffer;
+                    datos.imagen= request.file.buffer;
                 }
                 
 
