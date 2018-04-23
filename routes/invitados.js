@@ -4,27 +4,30 @@ var router = express.Router();
 var dao = require('../dao/dao');
 
 
-router.get("/", function(request, response) {
-    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU });
+
+////////////////////////////Rutas Invitados////////////////////////////////
+router.get("/comoadoptar", function(request, response) {
+    response.render("./comoadoptar", { tipo: request.session.typeU, idU: request.session.idU });
 });
 
-router.get("/index", function(request, response) {
-    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU });
+/**
+ *      llama a buscar lista de perros del dao del perro,
+ *      - si no lo encuentra lanza el error: 400 y finaliza
+ *      - si lo encuentra renderiza la plantila.ejs la de listar perros
+ *      que se ajustara a los nuevos datos sacados del dao.
+ */
+router.get("/perros", function(request, response) {
+    dao.perro.getListaPerros((err, rows) => {
+        if (err) {
+            response.status(400);
+            response.end();
+        } else {
+            response.render("./listarperros", { tipo: request.session.typeU, idU: request.session.idU, perros: rows });
+        }
+    });
 });
 
-router.get("/login", function(request, response) {
-    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
-});
-
-router.get("/registroAdoptante", function(request, response) {
-    response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
-});
-
-router.get("/registroProtectora", function(request, response) {
-    response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
-});
-
-router.get("/iraprotectora", function(request, response) {
+router.get("/protectoras", function(request, response) {
     dao.protectora.listaProtectoras((err, rows) => {
         if (err) {
             console.log("fallo");
@@ -35,6 +38,58 @@ router.get("/iraprotectora", function(request, response) {
     });
 
 });
+
+
+/**
+ *  llama a buscar detalles de perros del dao del perro,
+ *      - si no lo encuentra lanza el error: 400 y finaliza
+ *      - si lo encuentra renderiza la plantila.ejs la de mostrar
+ *      detalles de un perro que se ajustara a los nuevos datos 
+ *      sacados del dao.
+ */
+router.get("/detalleperro.html", function(request, response) {
+    let idPerro = Number(request.query.idPerro);
+    dao.perro.getDataPerro(idPerro, (err, dataPerro) => {
+        if (err) {
+            response.status(400);
+            response.end();
+        } else {
+            dao.protectora.getNombreProtecotra(dataPerro.idProtectora, (err, resultado) => {
+                if (err) {
+                    response.status(400);
+                    response.end();
+                } else {
+                    let datosPerro = {
+                        id: dataPerro.id,
+                        idProtectora: resultado.id,
+                        nombProtectora: resultado.nombre,
+                        nombre: dataPerro.nombre,
+                        foto: dataPerro.foto,
+                        edad: dataPerro.edad,
+                        color: dataPerro.color,
+                        raza: dataPerro.raza,
+                        peso: dataPerro.peso,
+                        descripcion: dataPerro.descripcion,
+                        fallecido: dataPerro.fallecido
+                    };
+                    response.render("./detalleperro", { tipo: request.session.typeU, idU: request.session.idU, perro: datosPerro });
+                }
+            });
+        }
+    });
+});
+
+
+
+router.get("/registroAdoptante", function(request, response) {
+    response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+});
+
+router.get("/registroProtectora", function(request, response) {
+    response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+});
+
+
 
 
 router.get("/iraperrosmiosprotectora", function(request, response) {
@@ -192,22 +247,7 @@ router.post("/registroAdoptante1", function(request, response) {
 
     });
 });
-/**
- *      llama a buscar lista de perros del dao del perro,
- *      - si no lo encuentra lanza el error: 400 y finaliza
- *      - si lo encuentra renderiza la plantila.ejs la de listar perros
- *      que se ajustara a los nuevos datos sacados del dao.
- */
-router.get("/iralistarperros", function(request, response) {
-    dao.perro.getListaPerros((err, rows) => {
-        if (err) {
-            response.status(400);
-            response.end();
-        } else {
-            response.render("./listarperros", { tipo: request.session.typeU, idU: request.session.idU, perros: rows });
-        }
-    });
-});
+
 
 
 router.get("/iralistarperrosprotectora", function(request, response) {
@@ -231,44 +271,7 @@ router.get("/iralistarperrosprotectora", function(request, response) {
 
 });
 
-/**
- *  llama a buscar detalles de perros del dao del perro,
- *      - si no lo encuentra lanza el error: 400 y finaliza
- *      - si lo encuentra renderiza la plantila.ejs la de mostrar
- *      detalles de un perro que se ajustara a los nuevos datos 
- *      sacados del dao.
- */
-router.get("/detalleperro.html", function(request, response) {
-    let idPerro = Number(request.query.idPerro);
-    dao.perro.getDataPerro(idPerro, (err, dataPerro) => {
-        if (err) {
-            response.status(400);
-            response.end();
-        } else {
-            dao.protectora.getNombreProtecotra(dataPerro.idProtectora, (err, resultado) => {
-                if (err) {
-                    response.status(400);
-                    response.end();
-                } else {
-                    let datosPerro = {
-                        id: dataPerro.id,
-                        idProtectora: resultado.id,
-                        nombProtectora: resultado.nombre,
-                        nombre: dataPerro.nombre,
-                        foto: dataPerro.foto,
-                        edad: dataPerro.edad,
-                        color: dataPerro.color,
-                        raza: dataPerro.raza,
-                        peso: dataPerro.peso,
-                        descripcion: dataPerro.descripcion,
-                        fallecido: dataPerro.fallecido
-                    };
-                    response.render("./detalleperro", { tipo: request.session.typeU, idU: request.session.idU, perro: datosPerro });
-                }
-            });
-        }
-    });
-});
+
 
 router.get("/detalleprotectora.html", function(request, response) {
     let idProtectora = Number(request.query.ident);
@@ -283,15 +286,9 @@ router.get("/detalleprotectora.html", function(request, response) {
     });
 });
 
-router.get("/iraacercadeappet", function(request, response) {
-    console.log("VAMOS BIEN");
-    response.render("./acercadeappet", { tipo: request.session.typeU, idU: request.session.idU });
-});
 
-router.get("/iracomoadoptar", function(request, response) {
-    console.log("VAMOS BIEN");
-    response.render("./comoadoptar", { tipo: request.session.typeU, idU: request.session.idU });
-});
+
+
 
 router.get('/cerrarSesion', function(request, response) {
     //request.session.idU = undefined;

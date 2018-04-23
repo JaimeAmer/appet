@@ -50,7 +50,7 @@ app.use(expressValidator());
 
 app.use('/', invitados);
 app.use('/', general);
-app.use('/protectoras', protectoras);
+app.use('/', protectoras);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

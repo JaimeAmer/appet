@@ -16,4 +16,8 @@ router.get("/acercadeappet", function(request, response) {
     response.render("./acercadeappet", { tipo: request.session.typeU, idU: request.session.idU });
 });
 
+router.get("/login", function(request, response) {
+    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+});
+
 module.exports = router;
