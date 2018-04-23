@@ -1,12 +1,12 @@
 module.exports={
-    verifyInvitado:function (request, response, next){
+    verifyisUser:function (request, response, next){
        if(request.session.idU===undefined){
            response.redirect('/');
        }else{
            next();
        }
     },
-    verifyisUser: function (request, response,next){
+    verifyInvitado: function (request, response,next){
        if(request.session.idU!==undefined){
            response.redirect('/perfil');
        }else{
