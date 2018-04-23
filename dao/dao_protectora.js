@@ -29,7 +29,7 @@ class DAOProtectora {
      * @param {string} idProtectora //Id de la protectora
      * @param {function} callback 
      */
-    getNombreProtecotra(idProtectora, callback) {
+    getNombreProtectora(idProtectora, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
