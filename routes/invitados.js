@@ -11,7 +11,7 @@ router.get("/regadoptante", function(request, response) {
                 idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
-router.get("/registroProtectora", function(request, response) {
+router.get("/regprotectora", function(request, response) {
     response.render("./registroProtectora", { tipo: request.session.typeU,
                 idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
@@ -45,7 +45,13 @@ router.post("/regadoptante", function(request, response) {
                 datos.ciudad = request.body.ciudad;
                 datos.direccion = request.body.direccion;
                 datos.telefono = request.body.telefono;
-
+                datos.imagen=null;
+                
+                //Verficamos que exista una foto
+                if (request.file) {
+                    datos.photo= request.file.buffer;
+                }
+                
                 dao.general.createAdoptante(datos, (error, result) => {
                     if (error) {
                         if (error.errno === 1062) {
