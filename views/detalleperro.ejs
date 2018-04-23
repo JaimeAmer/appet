@@ -16,7 +16,7 @@
 <body>
     <%- include('./header'); %>
 
-        <h1 class="titulo">
+ <h1 class="titulo">
             <%= perro.nombre %>
         </h1>
         <div class="content">
@@ -50,19 +50,18 @@
                 </p>
             </div>
         </div>
-        <form action="/detalleprotectora.html" method="GET">
+        <form action="/protectora" method="GET">
             <div class="botonera">
                 <input type="hidden" name="ident" value="<%= perro.idProtectora %>">
                 <input type="submit" class="btn btn-success volver" value="¡Ver información de la protectora!">
             </div>
         </form>
-        <form action="/iralistarperros" method="GET">
+        <form action="/perros" method="GET">
             <div class="botonera">
                 <input type="submit" class="btn btn-info volver" value="Volver">
             </div>
         </form>
-
-        <%- include('./footer'); %>
+    <%- include('./footer'); %>
 </body>
 
 </html>
