@@ -28,7 +28,7 @@
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
-                            <% if(adoptantes !== undefined){ %>
+                            <% if(adoptantes.length !== 0){ %>
                                 <% adoptantes.forEach(adoptante => { %>
                                     <tr>
                                         <td><%= adoptante.id %></td>
@@ -53,6 +53,11 @@
                         </div>
                     </div>
             <%- include('./footer'); %>
+            <%if(msg !== undefined){%>
+                <script type="text/javascript">
+                    alert("<%= msg%>");
+                </script>
+            <%}%>
         </body>
         
     </html>

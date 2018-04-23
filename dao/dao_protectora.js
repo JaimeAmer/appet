@@ -72,8 +72,7 @@ class DAOProtectora {
                 callback(err);
                 return;
             }
-
-            connection.query("SELECT * FROM protectora", [], (err, rows) => {
+            connection.query("SELECT * FROM protectora WHERE estado=1", [], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;
@@ -179,6 +178,28 @@ class DAOProtectora {
                 callback(null, rows[0]);
                 connection.release();
             });
+        });
+    }
+
+    eliminarProtectora(idProtectora, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("UPDATE `protectora` SET `estado` = '0' WHERE `protectora`.`id` = ?;", [idProtectora],(err) => {
+                if(err){
+                    connection.release();
+                    callback(err);
+                    console.log(err);
+                }
+                else{
+                    callback(null);
+                    connection.release();
+                }
+                
+            });
+            
         });
     }
 }

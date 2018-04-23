@@ -3,7 +3,6 @@ var _ = require("underscore");
 var router = express.Router();
 let dao = require('../dao/dao');
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -14,7 +13,7 @@ router.get("/listaAdoptantes", function(request, response) {
     if (err) {
         console.log("fallo");
     } else {
-        response.render("./administrarAdoptantes", { tipo: request.session.typeU, idU: request.session.idU, adoptantes: rows });
+        response.render("./administrarAdoptantes", { tipo: request.session.typeU, idU: request.session.idU, adoptantes: rows, msg: request.session.msg });
     }
   });
 });
@@ -23,23 +22,37 @@ router.get("/listaProtectoras", function(request, response) {
     if (err) {
         console.log("fallo");
     } else {
-        response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows });
+        response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: request.session.msg });
     }
   });
 });
 
-router.get('/eliminarProtectora', function(request, response) {/*
+router.get('/eliminarProtectora', function(request, response) {
   let idProtectora = Number(request.query.idProtectora);
-  alert("Protectora con ID="+ idProtectora+" eliminada");
-  dao.protectora.eliminarProtectora((err, rows) => {
+  dao.protectora.eliminarProtectora(idProtectora, (err, result) => {
     if (err) {
-      alert("Ha habido un error al borrar la protectora");
+      request.session.msg="Ha habido un error al borrar la protectora";
+      response.redirect("./listaProtectoras");
     } else {
-      alert("Protectora con ID="+ idProtectora+" eliminada");
-      response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows });
+      request.session.msg="Protectora con ID="+ idProtectora+" eliminada";
+      response.redirect("./listaProtectoras");
     }
     
-  });*/
+  });
+});
+
+router.get('/eliminarAdoptante', function(request, response) {
+  let idAdoptante = Number(request.query.idAdoptante);
+  dao.adoptante.eliminarAdoptante(idAdoptante, (err, result) => {
+    if (err) {
+      request.session.msg="Ha habido un error al borrar el adoptante";
+      response.redirect("./listaAdoptantes");
+    } else {
+      request.session.msg="Adoptante con ID="+ idAdoptante+" eliminado";
+      response.redirect("./listaAdoptantes");
+    }
+    
+  });
 });
 
 module.exports = router;
