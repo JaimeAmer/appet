@@ -23,9 +23,7 @@ router.get("/login", function(request, response) {
 
 router.get('/perfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
-
-    // 1) En el caso de que sea protectora
-    if (request.session.typeU === "Protectora") {
+if (request.session.typeU === "Protectora") {
         let idProtectora = request.session.idU;
         dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
             if (err) {
@@ -39,7 +37,7 @@ router.get('/perfil', function(request, response) {
         console.log("Aún no hay vista");
         response.redirect("/index");
     }else if(request.session.typeU === "Administrador"){
-        response.render("./perfilAdoptante", { tipo: request.session.typeU, idU: request.session.idU});
+        response.redirect("/index");
     }
     else{
         console.log("Fallo, no es un usuario válido");

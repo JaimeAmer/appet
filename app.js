@@ -51,7 +51,7 @@ app.use(expressValidator());
 app.use('/', invitados);
 app.use('/', general);
 app.use('/', protectoras);
-
+app.use('/', admin);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

@@ -28,10 +28,10 @@
                     </div>
                     <!--Boton que redirige a panel de modificacion del perfil de protectora -->
                     <!--
-					<div class="col-lg-12">
+     <div class="col-lg-12">
                         <button type="button" class="btn btn-primary modificar">Modificar</button>
                     </div>
-					-->
+     -->
                     <% } %>
         </div>
     </nav>
@@ -48,7 +48,11 @@
                     <li><a class="nav-link" href="/misperros">Mis perros</a></li>
                     <li><a class="nav-link" href="#"> Solicitudes de adopción</a></li>
 
-                    <% } else {%>
+                    <% }else if(tipo === "Administrador"){%>
+                        <li><a class="nav-link" href="/listaAdoptantes">Adoptantes</a></li>
+                        <li><a class="nav-link" href="/listaProtectoras">Protectoras</a></li>
+                        <li><a class="nav-link" href="#">Solicitudes de protectoras</a></li>
+                    <%} else {%>
 
                         <li><a class="nav-link" href="comoadoptar">Cómo adoptar</a></li>
                         <!-- Redirige a la lista de perros -->
