@@ -4,7 +4,6 @@ var router = express.Router();
 let dao = require('../dao/dao');
 
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -27,6 +26,20 @@ router.get("/listaProtectoras", function(request, response) {
         response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows });
     }
   });
+});
+
+router.get('/eliminarProtectora', function(request, response) {/*
+  let idProtectora = Number(request.query.idProtectora);
+  alert("Protectora con ID="+ idProtectora+" eliminada");
+  dao.protectora.eliminarProtectora((err, rows) => {
+    if (err) {
+      alert("Ha habido un error al borrar la protectora");
+    } else {
+      alert("Protectora con ID="+ idProtectora+" eliminada");
+      response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows });
+    }
+    
+  });*/
 });
 
 module.exports = router;
