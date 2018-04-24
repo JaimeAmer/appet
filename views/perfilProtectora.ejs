@@ -17,55 +17,84 @@
 
 <body>
     <%- include('./header'); %>
-
-        <div class="content">
-
-            <div class="externo">
-                <p class="fotoprotectora">
-                    <img class="img-thumbnail" src="img/protectora/<%=datos.id%>" width="600">
-
-                </p>
-                <p class="textoimagen">
-                    <%= datos.nombre %>
-                </p>
+        <% if(tipo==="ProtectoraPendiente"){%>
+            <div class="container">
+                <div class="row" style="margin-bottom:10%;">
+                    <div class="col-md-12 text-center">
+                        <!-- Button trigger modal -->
+                        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalMessage">
+                        <span class="glyphicon glyphicon-envelope"></span> Mensaje
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div>
-                <p class="negrita">Ciudad: </p>
-                <p class="datos">
-                    <%= datos.ciudad %>
-                </p>
+            <!-- Modal -->
+            <div class="modal fade" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header btn-primary">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="text-center"  id="myModalLabel">Mensaje</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning page-alert" id="alert-3" >
+                                <h3>Aún no has sido aceptado, cry baby <span class="glyphicon glyphicon-tint"></span><span class="glyphicon glyphicon-tint"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        <%}else{%>
+            <div class="content">
 
-            <div>
-                <p class="negrita">Correo electrónico</p>
-                <p class="datos">
-                    <%= datos.email %>
-                </p>
+                <div class="externo">
+                    <p class="fotoprotectora">
+                        <img class="img-thumbnail" src="img/protectora/<%=datos.id%>" width="600">
+
+                    </p>
+                    <p class="textoimagen">
+                        <%= datos.nombre %>
+                    </p>
+                </div>
+
+                <div>
+                    <p class="negrita">Ciudad: </p>
+                    <p class="datos">
+                        <%= datos.ciudad %>
+                    </p>
+                </div>
+
+                <div>
+                    <p class="negrita">Correo electrónico</p>
+                    <p class="datos">
+                        <%= datos.email %>
+                    </p>
+                </div>
+
+                <div>
+                    <p class="negrita">Dirección: </p>
+                    <p class="datos">
+                        <%= datos.direccion   %>
+                    </p>
+                </div>
+
+                <div>
+                    <p class="negrita">Teléfono: </p>
+                    <p class="datos">
+                        <%= datos.telefono %>
+                    </p>
+                </div>
+
+                <div>
+                    <p class="negrita">Descripción: </p>
+                    <p class="datos">
+                        <%=  datos.descripcion %>
+                    </p>
+                </div>
+
             </div>
-
-            <div>
-                <p class="negrita">Dirección: </p>
-                <p class="datos">
-                    <%= datos.direccion   %>
-                </p>
-            </div>
-
-            <div>
-                <p class="negrita">Teléfono: </p>
-                <p class="datos">
-                    <%= datos.telefono %>
-                </p>
-            </div>
-
-            <div>
-                <p class="negrita">Descripción: </p>
-                <p class="datos">
-                    <%=  datos.descripcion %>
-                </p>
-            </div>
-
-        </div>
+        <%}%>    
 
         <%- include('./footer'); %>
 </body>

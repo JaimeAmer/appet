@@ -47,7 +47,8 @@
                     <!-- Redirige a la lista de protectoras -->
                     <li><a class="nav-link" href="/misperros">Mis perros</a></li>
                     <li><a class="nav-link" href="#"> Solicitudes de adopción</a></li>
-
+                    <% }else if(tipo === "ProtectoraPendiente"){%>
+                        <li><a class="nav-link" href="/perfil">Mi perfil</a></li>
                     <% }else if(tipo === "Administrador"){%>
                         <li><a class="nav-link" href="/listaAdoptantes">Adoptantes</a></li>
                         <li><a class="nav-link" href="/listaProtectoras">Protectoras</a></li>

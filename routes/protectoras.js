@@ -38,11 +38,11 @@ router.get('/misperros',middles.verifyisUser,//Verificar que ya hizo login
      */
 });
 
-router.get('/nuevoperro', function(req, res, next) {
+router.get('/nuevoperro', middles.verifyProtectora, function(req, res, next) {
     console.log("Aqui");
 });
 
-router.post('/eliminarperro', function(req, res, next) {
+router.post('/eliminarperro',middles.verifyProtectora, function(req, res, next) {
     console.log("Aqui");
 });
 module.exports = router;

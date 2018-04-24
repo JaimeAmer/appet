@@ -73,13 +73,16 @@ router.get('/logout', function(request, response) {
 
 router.get('/perfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
-if (request.session.typeU === "Protectora") {
+if (request.session.typeU === "Protectora" || request.session.typeU === "ProtectoraPendiente") {
         let idProtectora = request.session.idU;
         dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
             if (err) {
                 response.status(400);
                 response.end();
             } else {
+                if(rows.pendiente===1){
+                    request.session.typeU = "ProtectoraPendiente";
+                }
                 response.render("./perfilProtectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
             }
         });
