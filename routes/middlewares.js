@@ -32,7 +32,7 @@ module.exports={
     },
     verifyAdmin: function (request, response,next){
        if(request.session.typeU!=="Administrador"){
-           response.redirect('/perfil');
+           response.redirect('/');
        }else{
            next();
        }

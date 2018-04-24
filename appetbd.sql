@@ -221,6 +221,11 @@ ALTER TABLE `solicitud`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `adoptante`
+--
+ALTER TABLE `adoptante`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+--
 -- AUTO_INCREMENT de la tabla `administrador`
 --
 ALTER TABLE `administrador`

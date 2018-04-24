@@ -2,46 +2,45 @@ var express = require('express');
 var _ = require("underscore");
 var router = express.Router();
 let dao = require('../dao/dao');
+let middleware = require('./middlewares');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get("/listaAdoptantes", function(request, response) {
+router.get("/listaAdoptantes", middleware.verifyAdmin, function(request, response) {
   dao.adoptante.getAdoptantes((err, rows) => {
     if (err) {
         console.log("fallo");
     } else {
-        response.render("./administrarAdoptantes", { tipo: request.session.typeU, idU: request.session.idU, adoptantes: rows, msg: request.session.msg });
+        response.render("./administrarAdoptantes", { tipo: request.session.typeU, idU: request.session.idU, adoptantes: rows, msg: undefined });
     }
   });
 });
-router.get("/listaProtectoras", function(request, response) {
+router.get("/listaProtectoras", middleware.verifyAdmin, function(request, response) {
   dao.protectora.listaProtectoras((err, rows) => {
     if (err) {
         console.log("fallo");
     } else {
-        response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: request.session.msg });
+        response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: undefined });
     }
   });
 });
 
-router.get('/eliminarProtectora', function(request, response) {
+router.get('/eliminarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.query.idProtectora);
   dao.protectora.eliminarProtectora(idProtectora, (err, result) => {
     if (err) {
-      request.session.msg="Ha habido un error al borrar la protectora";
-      response.redirect("./listaProtectoras");
+      response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Ha habido un error al borrar la protectora" });
     } else {
-      request.session.msg="Protectora con ID="+ idProtectora+" eliminada";
-      response.redirect("./listaProtectoras");
+      response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Protectora con ID="+ idProtectora+" eliminada" });
     }
     
   });
 });
 
-router.get('/eliminarAdoptante', function(request, response) {
+router.get('/eliminarAdoptante', middleware.verifyAdmin, function(request, response) {
   let idAdoptante = Number(request.query.idAdoptante);
   dao.adoptante.eliminarAdoptante(idAdoptante, (err, result) => {
     if (err) {
@@ -55,7 +54,7 @@ router.get('/eliminarAdoptante', function(request, response) {
   });
 });
 
-router.get("/listaSolicitudesProtectoras", function(request, response) {
+router.get("/listaSolicitudesProtectoras", middleware.verifyAdmin, function(request, response) {
   dao.protectora.listaSolicitudes((err, rows) => {
     if (err) {
         console.log("fallo");
@@ -65,7 +64,7 @@ router.get("/listaSolicitudesProtectoras", function(request, response) {
   });
 });
 
-router.post('/aceptarProtectora', function(request, response) {
+router.post('/aceptarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.body.idProtectora);
   dao.protectora.aceptarProtectora(idProtectora, (err, result) => {
     if (err) {
@@ -79,7 +78,7 @@ router.post('/aceptarProtectora', function(request, response) {
   });
 });
 
-router.post('/rechazarProtectora', function(request, response) {
+router.post('/rechazarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.body.idProtectora);
   /* SIN TERMINAR--- NO HACE NADA*/
   request.session.msg="Protectora con ID="+ idProtectora+" ha sido rechazada";
