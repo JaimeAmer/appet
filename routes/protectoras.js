@@ -33,31 +33,18 @@ router.get('/nuevoperro', middles.verifyProtectora, function(req, res, next) {
 });
 
 router.get('/eliminarperro',middles.verifyProtectora, function(request, response) {
-    dao.perro. deletePerro(request.session.perro, (error,state)=>{
+    let idPerro = Number(request.query.idPerro);
+    dao.perro.deletePerro(idPerro, request.session.idU, (error,result)=>{
         if(error){
-            response.status(400);
-            response.end();
-        }else if(state){
-             dao.protectora.getMisPerros(request.session.idU,(err, perros)=>{
-                    if(err){
-                        response.status(400);
-                        response.end();
-                    }else{
-                        request.session.msgP="Se ha eliminado un perro correctamente.";
-                        response.redirect('/misperros');
-                    }
-        
-            });
+            console.log(error.message);
+        }else if(result){
+            request.session.msgP="Se ha eliminado correctamente un perro de la Protectora";
+            response.redirect('/misperros');
         }
-            
     });
-    
 });
 
 
-router.get('/eliminar/:id',middles.verifyProtectora, function(request, response){
-    request.session.perro=request.params.id;
-    response.redirect('/eliminarperro');
-});
+
 
 module.exports = router;
