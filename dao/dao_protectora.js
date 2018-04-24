@@ -262,6 +262,26 @@ class DAOProtectora {
             });
         });
     }
+    
+    getMisPerros(id,callback){
+         if(callback===undefined) callback=function(){};
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            
+            connection.query("SELECT * from perro WHERE idProtectora=?", [id], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+               
+                callback(err, rows);
+                connection.release();
+            });
+        });
+    }
 }
 
 
