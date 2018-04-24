@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-router.get('/enviarsolicitudadopcion', middles.verifyAdoptante, function(request, response, next) {
+router.get('/formularioAdopcion', middles.verifyAdoptante, function(request, response, next) {
     let idProtectora = Number(request.query.idProtectora);
     let idPerro = Number(request.query.idPerro);
     let idAdoptante = Number(request.query.idAdoptante);
