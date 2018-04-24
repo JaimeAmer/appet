@@ -255,6 +255,18 @@ ALTER TABLE `perro`
   ADD CONSTRAINT `fk_idProtectora` FOREIGN KEY (`idProtectora`) REFERENCES `protectora` (`id`);
 COMMIT;
 
+ALTER TABLE `solicitud`
+  ADD CONSTRAINT `fk_idAdoptante` FOREIGN KEY (`idAdoptante`) REFERENCES `adoptante` (`id`);
+COMMIT;
+
+ALTER TABLE `solicitud`
+  ADD CONSTRAINT `fk_idProtectoraSolicitud` FOREIGN KEY (`idProtectora`) REFERENCES `protectora` (`id`);
+COMMIT;
+
+ALTER TABLE `solicitud`
+  ADD CONSTRAINT `fk_idPerro` FOREIGN KEY (`idPerro`) REFERENCES `perro` (`id`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
