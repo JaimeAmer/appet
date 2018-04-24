@@ -6,18 +6,27 @@ var middles=require('../routes/middlewares');
 
 
 /* GET users listing. */
-router.get('/misperros',middles.verifyProtectora,function(req, res, next) {
-    console.log("aqui");
-    //res.render('./misperros', {idU:req.session.idU, tipo:req.session.typeU, perros:undefined, ipd:0});
+router.get('/misperros',middles.verifyisUser,//Verificar que ya hizo login
+                        middles.verifyProtectora,//Verifica que es Protectora
+                        function(request, response) {
+    
+    dao.protectora.getMisPerros(request.session.idU,(err, perros)=>{
+        if(err){
+            response.status(400);
+            response.end();
+        }else{
+            response.render('./misperros', {idU:request.session.idU, 
+                            tipo:request.session.typeU, perros:perros});
+        }
+        
+    } );
+    //
     /*
-      if (request.session.typeU === "Protectora") {
-        let idProtectora = request.session.idU;
+      
 
         dao.perro.getListaPerrosProtectora(idProtectora, (err, rows) => {
             if (err) {
-                console.log("VAMOS MAL");
-                response.status(400);
-                response.end();
+               
             } else {
                 response.render("./perrosmiosprotectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, perros: rows });
             }
