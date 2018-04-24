@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2018 a las 23:27:14
+-- Tiempo de generación: 24-04-2018 a las 09:13:05
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -165,6 +165,19 @@ CREATE TABLE `sessions` (
 INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
 ('KdYgrGnOLhn62hpCAHjDrqlbHGjbxDAO', 1524605097, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"idU\":1,\"typeU\":\"Adoptante\"}');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `solicitud`
+--
+
+CREATE TABLE `solicitud` (
+  `id` int(11) NOT NULL,
+  `idAdoptante` int(11) NOT NULL,
+  `idPerro` int(11) NOT NULL,
+  `pendiente` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Índices para tablas volcadas
 --
@@ -197,6 +210,12 @@ ALTER TABLE `sessions`
   ADD PRIMARY KEY (`session_id`);
 
 --
+-- Indices de la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -211,6 +230,12 @@ ALTER TABLE `perro`
 --
 ALTER TABLE `protectora`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
