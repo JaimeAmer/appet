@@ -1,0 +1,69 @@
+<html>
+
+<!-- Página web que muestra información al usuario realativa a la adopción de perros-->
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" type="text/css" href="css/estilocomoadoptar.css">
+</head>
+
+<body>
+    <%- include('./header'); %>
+        <div id="content">
+		        
+			<form id="login" class="form-login formRegistro justify" action="/nuevoperro" method="POST">
+				<h1>Rellenar los datos del Perro.</h1>
+			  <div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="inputAddress">Nombre</label>
+					<input type="text" class="form-control" name="nombre" id="inputAddress" placeholder="Nombre"  required>
+			  </div>
+                          <div class="form-group col-md-12">
+					<label for="inputAddress">Imagen</label>
+					<input type="file" class="form-control" name="foto" id="inputAddress1" required>
+			  </div>
+                          <div class="form-group col-md-12">
+					<label for="inputAddress">Raza</label>
+					<input type="text" class="form-control" name="raza" id="inputAddress" placeholder="Raza"  required>
+			  </div>	
+                          <div class="form-group col-md-4">
+					<label for="inputAddress">Color</label>
+					<input type="text" class="form-control" name="color" id="inputAddress" placeholder="Color"  required>
+			  </div>
+                          <div class="form-group col-md-4">
+					<label for="inputAddress">Edad</label>
+					<input type="text" class="form-control" name="edad" id="inputAddress" placeholder="Edad"  required>
+			  </div>
+                              
+                          <div class="form-group col-md-4">
+					<label for="inputAddress">Peso</label>
+					<input type="text" class="form-control" name="peso" id="inputAddress" placeholder="Peso"  required>
+			  </div>
+				
+			  </div>
+			  <div class="form-group col-md-12">
+				<label for="inputAddress2">Descripción</label>
+				<textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+			  </div>
+                                
+			  <div class="form-group col-md-4">
+					<label for="inputAddress2"></label>
+					<input type="hidden">
+			  </div>
+                                
+			  <button type="submit" class="btn btn-primary tnegrita col-md-4">Añadir</button>
+			</form>
+        </div>
+		
+
+        <%- include('./footer'); %>
+</body>
+
+</html>
