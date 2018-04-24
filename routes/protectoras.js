@@ -19,29 +19,22 @@ router.get('/misperros', middles.verifyProtectora,//Verifica que es Protectora
         }
         
     } );
-    //
-    /*
-      
-
-        dao.perro.getListaPerrosProtectora(idProtectora, (err, rows) => {
-            if (err) {
-               
-            } else {
-                response.render("./perrosmiosprotectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, perros: rows });
-            }
-
-        });
-    } else {
-        console.log("fallo");
-    }
-     */
+    
 });
 
 router.get('/nuevoperro', middles.verifyProtectora, function(req, res, next) {
     console.log("Aqui");
 });
 
-router.post('/eliminarperro',middles.verifyProtectora, function(req, res, next) {
-    console.log("Aqui");
+router.get('/eliminarperro',middles.verifyProtectora, function(request, response) {
+    dao.perro. deletePerro(request.session.perro, ()=>{});
+    
 });
+
+
+router.get('/eliminar/:id',middles.verifyProtectora, function(request, response){
+    request.session.perro=request.params.id;
+    response.redirect('/eliminarperro');
+});
+
 module.exports = router;

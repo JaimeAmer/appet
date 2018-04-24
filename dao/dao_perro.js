@@ -172,6 +172,27 @@ class DAOPerro {
             });
         });
     }
+    
+    deletePerro(idPerro, callback){
+        if(callback===undefined) callback=function(){};
+        
+        this.pool.getConnection((err, connection) => {
+            if (err) { callback(err); return; }
+            let sql = "DELETE FROM protectora WHERE id = ?";
+            connection.query(sql, [idPerro], (err, rows) => {
+                //Devuelvo la conexion al pool:
+                connection.release();
+                //En caso de error de consulta:
+                if (err) { 
+                    callback(err); 
+                
+                }else {
+                    callback(null, true);
+                }
+                
+            });
+        });
+    };
 }
 
 module.exports = {

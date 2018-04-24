@@ -38,7 +38,10 @@
                                     <!--boton-->
                                     <div class="contBot">
                                         <form action="/perro" method="GET">
-                                            <input type="submit" class="btn btn-success ver" value="Ver a <%=p.nombre%> ">
+                                            <input type="submit" class="btn btn-success " value="Ver a <%=p.nombre%> ">
+                                            <button type="submit" class="btn btn-danger " formmethod="get" formaction="/eliminar/<%= p.id %>">
+                                                <span class="glyphicons glyphicons-bin"></span>
+                                            </button>
                                             <input type="hidden" name="idPerro" value="<%= p.id%>">
                                         </form>
                                     </div>
