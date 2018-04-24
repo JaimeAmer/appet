@@ -16,6 +16,9 @@ router.get('/formularioAdopcion', middles.verifyAdoptante, function(request, res
     console.log("id: " + idPerro);
     console.log("id: " + idAdoptante);
 
+
+    response.render("./formAdopcion", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+
 });
 
 module.exports = router;
