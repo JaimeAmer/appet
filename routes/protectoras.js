@@ -6,8 +6,7 @@ var middles=require('../routes/middlewares');
 
 
 /* GET users listing. */
-router.get('/misperros',middles.verifyisUser,//Verificar que ya hizo login
-                        middles.verifyProtectora,//Verifica que es Protectora
+router.get('/misperros', middles.verifyProtectora,//Verifica que es Protectora
                         function(request, response) {
     
     dao.protectora.getMisPerros(request.session.idU,(err, perros)=>{
