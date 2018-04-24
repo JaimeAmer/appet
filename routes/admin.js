@@ -32,11 +32,22 @@ router.get('/eliminarProtectora', middleware.verifyAdmin, function(request, resp
   let idProtectora = Number(request.query.idProtectora);
   dao.protectora.eliminarProtectora(idProtectora, (err, result) => {
     if (err) {
-      response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Ha habido un error al borrar la protectora" });
+      dao.protectora.listaProtectoras((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+          response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Ha habido un error al borrar la protectora" });
+        }
+      });
     } else {
-      response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Protectora con ID="+ idProtectora+" eliminada" });
+      dao.protectora.listaProtectoras((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+          response.render("./administrarProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Protectora con ID="+ idProtectora+" eliminada" });
+        }
+      });
     }
-    
   });
 });
 
@@ -44,13 +55,22 @@ router.get('/eliminarAdoptante', middleware.verifyAdmin, function(request, respo
   let idAdoptante = Number(request.query.idAdoptante);
   dao.adoptante.eliminarAdoptante(idAdoptante, (err, result) => {
     if (err) {
-      request.session.msg="Ha habido un error al borrar el adoptante";
-      response.redirect("./listaAdoptantes");
+      dao.adoptante.getAdoptantes((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+          response.render("./administrarAdoptantes", { tipo: request.session.typeU, idU: request.session.idU, adoptantes: rows, msg: "Ha habido un error al borrar el adoptante" });
+        }
+      });
     } else {
-      request.session.msg="Adoptante con ID="+ idAdoptante+" eliminado";
-      response.redirect("./listaAdoptantes");
-    }
-    
+      dao.adoptante.getAdoptantes((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+          response.render("./administrarAdoptantes", { tipo: request.session.typeU, idU: request.session.idU, adoptantes: rows, msg: "Adoptante con ID="+ idAdoptante+" eliminado" });
+        }
+      });
+    }    
   });
 });
 
@@ -59,7 +79,7 @@ router.get("/listaSolicitudesProtectoras", middleware.verifyAdmin, function(requ
     if (err) {
         console.log("fallo");
     } else {
-        response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: request.session.msg });
+        response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: undefined });
     }
   });
 });
@@ -68,11 +88,21 @@ router.post('/aceptarProtectora', middleware.verifyAdmin, function(request, resp
   let idProtectora = Number(request.body.idProtectora);
   dao.protectora.aceptarProtectora(idProtectora, (err, result) => {
     if (err) {
-      request.session.msg="Ha habido un error al aceptar la protectora";
-      response.redirect("./listaSolicitudesProtectoras");
+      dao.protectora.listaSolicitudes((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+            response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Ha habido un error al aceptar la protectora" });
+        }
+      });
     } else {
-      request.session.msg="Protectora con ID="+ idProtectora+" ha sido aceptada";
-      response.redirect("./listaSolicitudesProtectoras");
+      dao.protectora.listaSolicitudes((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+            response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Protectora con ID="+ idProtectora+" ha sido aceptada" });
+        }
+      });
     }
     
   });
@@ -81,8 +111,25 @@ router.post('/aceptarProtectora', middleware.verifyAdmin, function(request, resp
 router.post('/rechazarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.body.idProtectora);
   /* SIN TERMINAR--- NO HACE NADA*/
-  request.session.msg="Protectora con ID="+ idProtectora+" ha sido rechazada";
-  response.redirect("./listaSolicitudesProtectoras");
+  dao.protectora.rechazarProtectora(idProtectora, (err, result) => {
+    if (err) {
+      dao.protectora.listaSolicitudes((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+            response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Ha habido un error al rechazar la protectora" });
+        }
+      });
+    } else {
+      dao.protectora.listaSolicitudes((err, rows) => {
+        if (err) {
+            console.log("fallo");
+        } else {
+            response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: "Protectora con ID="+ idProtectora+" ha sido rechazada" });
+        }
+      });
+    }
+  });
 });
 
 module.exports = router;

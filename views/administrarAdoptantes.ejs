@@ -28,7 +28,7 @@
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
-                            <% if(adoptantes.length !== 0){ %>
+                            <% if(adoptantes!== undefined || adoptantes.length !== 0){ %>
                                 <% adoptantes.forEach(adoptante => { %>
                                     <tr>
                                         <td><%= adoptante.id %></td>

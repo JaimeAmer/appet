@@ -224,6 +224,27 @@ class DAOProtectora {
             
         });
     }
+    rechazarProtectora(idProtectora, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query( "DELETE FROM `protectora` WHERE `protectora`.`id` = ?", [idProtectora],(err) => {
+                if(err){
+                    connection.release();
+                    callback(err);
+                    console.log(err);
+                }
+                else{
+                    callback(null);
+                    connection.release();
+                }
+                
+            });
+            
+        });
+    }
     listaSolicitudes(callback) {
         if(callback===undefined) callback=function(){};
         this.pool.getConnection((err, connection) => {
