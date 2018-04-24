@@ -28,8 +28,12 @@ router.get('/misperros', middles.verifyProtectora,//Verifica que es Protectora
     
 });
 
-router.get('/nuevoperro', middles.verifyProtectora, function(req, res, next) {
-    console.log("Aqui");
+router.get('/nuevoperro', middles.verifyProtectora, function(request, response) {
+    response.render('agregarPerro', {idU:request.session.idU, tipo:request.session.typeU});
+});
+
+router.post('/nuevoperro', middles.verifyProtectora, function(request, response) {
+    console.log(request.body);
 });
 
 router.get('/eliminarperro',middles.verifyProtectora, function(request, response) {
