@@ -162,6 +162,13 @@ CREATE TABLE `sessions` (
 --
 
 --
+-- Indices de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+  
+--
 -- Indices de la tabla `adoptante`
 --
 ALTER TABLE `adoptante`
@@ -193,16 +200,22 @@ ALTER TABLE `sessions`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `administrador`
+--
+ALTER TABLE `administrador`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
 -- AUTO_INCREMENT de la tabla `perro`
 --
 ALTER TABLE `perro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `protectora`
 --
 ALTER TABLE `protectora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Restricciones para tablas volcadas
