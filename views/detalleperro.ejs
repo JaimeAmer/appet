@@ -16,12 +16,24 @@
 <body>
     <%- include('./header'); %>
 
- <h1 class="titulo">
+        <h1 class="titulo">
             <%= perro.nombre %>
         </h1>
         <div class="content">
             <div class="imagen">
                 <img class="img-thumbnail" src="img/perro/<%= perro.id %>">
+
+                <% if(tipo === "Adoptante"){ %>
+                    <form action="/formularioAdopcion" method="GET">
+                        <div class="botonera">
+                            <input type="hidden" name="idPerro" value="<%= perro.id %>">
+                            <input type="hidden" name="idProtectora" value="<%= perro.idProtectora %>">
+                            <input type="hidden" name="idAdoptante" value="<%= idU %>">
+                            <input type="submit" class="btn btn-success volver" value="¡Adopta a <%= perro.nombre %>!">
+                        </div>
+                    </form>
+                    <% } %>
+
             </div>
             <div class="datos">
                 <p class="negrita">Protectora:
@@ -61,7 +73,7 @@
                 <input type="submit" class="btn btn-info volver" value="Volver">
             </div>
         </form>
-    <%- include('./footer'); %>
+        <%- include('./footer'); %>
 </body>
 
 </html>
