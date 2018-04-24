@@ -55,4 +55,35 @@ router.get('/eliminarAdoptante', function(request, response) {
   });
 });
 
+router.get("/listaSolicitudesProtectoras", function(request, response) {
+  dao.protectora.listaSolicitudes((err, rows) => {
+    if (err) {
+        console.log("fallo");
+    } else {
+        response.render("./solicitudesProtectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows, msg: request.session.msg });
+    }
+  });
+});
+
+router.post('/aceptarProtectora', function(request, response) {
+  let idProtectora = Number(request.body.idProtectora);
+  dao.protectora.aceptarProtectora(idProtectora, (err, result) => {
+    if (err) {
+      request.session.msg="Ha habido un error al aceptar la protectora";
+      response.redirect("./listaSolicitudesProtectoras");
+    } else {
+      request.session.msg="Protectora con ID="+ idProtectora+" ha sido aceptada";
+      response.redirect("./listaSolicitudesProtectoras");
+    }
+    
+  });
+});
+
+router.post('/rechazarProtectora', function(request, response) {
+  let idProtectora = Number(request.body.idProtectora);
+  /* SIN TERMINAR--- NO HACE NADA*/
+  request.session.msg="Protectora con ID="+ idProtectora+" ha sido rechazada";
+  response.redirect("./listaSolicitudesProtectoras");
+});
+
 module.exports = router;

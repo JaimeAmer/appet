@@ -80,7 +80,7 @@ class DAOPerro {
     getListaPerros(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro"
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE idProtectora not in (SELECT id FROM protectora WHERE estado = 0)"
             connection.query(sqlListaPerros, (err, rows) => {
 
                 //En caso de error de consulta:

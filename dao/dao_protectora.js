@@ -110,8 +110,7 @@ class DAOProtectora {
                 return;
             }
 
-            connection.query("INSERT INTO protectora(nombre, ciudad, imagen, email, password, direccion, telefono, descripcion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
-            [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, datos.telefono, datos.descripcion], (err) => {
+            connection.query("INSERT INTO protectora(nombre, ciudad, imagen, email, password, direccion, telefono, descripcion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, datos.telefono, datos.descripcion], (err) => {
                 if (err) {
                     callback(err);
                     return;
@@ -202,6 +201,44 @@ class DAOProtectora {
                 
             });
             
+        });
+    }
+    aceptarProtectora(idProtectora, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("UPDATE `protectora` SET `pendiente` = '0', `estado` = '1' WHERE `protectora`.`id` = ?;", [idProtectora],(err) => {
+                if(err){
+                    connection.release();
+                    callback(err);
+                    console.log(err);
+                }
+                else{
+                    callback(null);
+                    connection.release();
+                }
+                
+            });
+            
+        });
+    }
+    listaSolicitudes(callback) {
+        if(callback===undefined) callback=function(){};
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("SELECT * FROM protectora WHERE estado = 0 AND pendiente = 1", [], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(err, rows);
+                connection.release();
+            });
         });
     }
 }
