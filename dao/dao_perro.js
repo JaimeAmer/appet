@@ -173,13 +173,13 @@ class DAOPerro {
         });
     }
     
-    deletePerro(idPerro, callback){
+    deletePerro(idPerro, idProtectora, callback){
         if(callback===undefined) callback=function(){};
         
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sql = "DELETE FROM protectora WHERE id = ?";
-            connection.query(sql, [idPerro], (err, rows) => {
+            let sql = "DELETE FROM perro WHERE id= ? AND idProtectora= ?";
+            connection.query(sql, [idPerro, idProtectora], (err, rows) => {
                 //Devuelvo la conexion al pool:
                 connection.release();
                 //En caso de error de consulta:
@@ -187,6 +187,7 @@ class DAOPerro {
                     callback(err); 
                 
                 }else {
+                    
                     callback(null, true);
                 }
                 
