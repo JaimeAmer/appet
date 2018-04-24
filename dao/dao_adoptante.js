@@ -30,25 +30,44 @@ class DAOAdoptante {
             });
         });
     }
-	eliminarAdoptante(idAdoptante, callback) {
+
+
+    enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, msg, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
                 return;
             }
-            connection.query("UPDATE `adoptante` SET `estado` = '0' WHERE `adoptante`.`id` = ?;", [idAdoptante],(err) => {
-                if(err){
+
+            connection.query("INSERT INTO solicitud VALUES(?, ?, ?, 0, ?)", [idAdoptante, idPerro, idProtectora, msg], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(err);
+                connection.release();
+            });
+        });
+    }
+
+    eliminarAdoptante(idAdoptante, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("UPDATE `adoptante` SET `estado` = '0' WHERE `adoptante`.`id` = ?;", [idAdoptante], (err) => {
+                if (err) {
                     connection.release();
                     callback(err);
                     console.log(err);
-                }
-                else{
+                } else {
                     callback(null);
                     connection.release();
                 }
-                
+
             });
-            
+
         });
     }
 }
