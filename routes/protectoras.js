@@ -34,6 +34,11 @@ router.get('/nuevoperro', middles.verifyProtectora, function(request, response) 
 
 router.post('/nuevoperro', middles.verifyProtectora, function(request, response) {
     console.log(request.body);
+    let warnings=new Array(); 
+    
+    request.checkBody("nombre", "Nombre del perro no puede estar vacio.").notEmpty();
+    request.checkBody("raza", "La raza  del perro no puede estar vacio.").notEmpty();
+    request.checkBody("color", "El color del perro no puede estar vacio.").notEmpty();
 });
 
 router.get('/eliminarperro',middles.verifyProtectora, function(request, response) {
