@@ -1,0 +1,20 @@
+.caja {
+    width: 50%;
+}
+
+.info {
+    width: 230px;
+    font-family: 'Bree Serif', serif;
+    color: rgb(37, 37, 37);
+
+}
+
+.externo {
+    display: flow-root;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.botonInfo {
+    width: 200px;
+}

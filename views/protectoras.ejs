@@ -1,0 +1,68 @@
+<html>
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/estilolistaprotectora.css">
+
+
+    <link rel="icon" type="image/png" href="img/logo.png" />
+</head>
+
+<body>
+    <%- include("header") %>
+
+        <div class="contenido">
+        </div>
+
+        <% if(protectoras !== undefined){ %>
+            <% protectoras.forEach(p => { %>
+
+
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <img class="fotoprotectora img-thumbnail" src="img/protectora/<%=p.id%>">
+                        </div>
+                        <div class="panel-body externo">
+                            <div>
+                                <p class="info">Nombre:
+                                    <%= p.nombre %>
+                                </p>
+                                <p class="info"> Ciudad:
+                                    <%= p.ciudad %>
+                                </p class="info">
+                                <p class="info"> Teléfono:
+                                    <%= p.telefono %>
+                                </p>
+                            </div>
+                            <form action="/protectora" method="GET">
+                                <input type="hidden" name="ident" value="<%= p.id %>">
+                                <input type="submit" class="btn btn-info botonInfo" value="Info">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <% }); %>
+                    <% }  else { %>
+                        <div class="alert alert-warning alerta">
+                            No hay protectoras actualmente
+                        </div>
+                        <% } %>
+
+
+
+                            <%- include("footer") %>
+
+</body>
+
+</html>

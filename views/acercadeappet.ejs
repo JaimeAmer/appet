@@ -1,0 +1,77 @@
+<html>
+
+<!-- Página web que muestra información acerca de Appet-->
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estiloacercadeappet.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+</head>
+
+<body>
+    <%- include('./header'); %>
+        <div id="content">
+            <h1 class="encabezado">¿Quienes somos?</h1>
+
+            <div class="row cajatexto centrar">
+                <div class="col-md-4">
+                    <img src="./img/ucm.jpg" class="img-thumbnail ucm" alt="Cinque Terre" width="304">
+                </div>
+
+
+                <div class=" col-md-8 ">
+                    <p class="quienes ">
+                        Somos un grupo de estudiantes de ingeniería del software de la universidad complutense de madrid de tercero de carrera los cuales hemos desarrollado una aplicación web para facilitar la búsqueda de protectoras y perros a nivel nacional, así como facilitar
+                        el contacto inicial entre posibles adoptantes y protectoras realizando una labor social. La aplicación se dividirá en dos partes, una parte que gestiona perros y otra que gestiona protectoras, esperamos que os guste la aplicación.
+                    </p>
+                </div>
+            </div>
+
+
+            <h1 class="encabezado">Protectoras</h1>
+
+            <div class="row cajatexto centrar">
+
+
+
+                <div class=" col-md-9">
+                    <p class="quienes ">
+                        En el apartado de protectoras, el usuario podrá acceder a todas las protectoras a nivel nacional, obteniendo todos sus datos, tales como dirección, perros disponibles, teléfono, correo electrónico. Todo ello para facilitar al usuario encontrar la protectora
+                        que más le guste a la hora de elegir a su mascota.
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <img src="./img/protectora.jpg" class="img-circle" alt="Cinque Terre" width="280">
+                </div>
+            </div>
+
+
+            <h1 class="encabezado">Perros</h1>
+
+            <div class="row cajatexto centrar abajo">
+                <div class="col-md-4">
+                    <img src="./img/perro.jpg" class="img-circle" alt="Cinque Terre" width="304" height="250">
+                </div>
+
+
+                <div class=" col-md-8">
+                    <p class="quienes ">
+                        En el apartado de los perros, el usuario invitado podrá acceder a todos los perros disponibles para cada protectora, pudeindo llevar una lista de los perros favoritos que más le gusten. A la hora de buscar perros el usuario podrá hacerlo mediente filtros
+                        tales como raza, peso, color, comportamiento, edad etc... Todo ello para failitar la búsqueda y poder encontrar a tu compañero ideal. Asímismo el usuario registrado como adoptante podrá ponerse en contacto con la protectora que
+                        tenga al perro mediante un formulario de preadopción. </p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <%- include('./footer'); %>
+</body>
+
+</html>
