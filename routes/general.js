@@ -63,11 +63,7 @@ router.post("/login", function(request, response) {
 });
 
 router.get('/logout', function(request, response) {
-    //request.session.idU = undefined;
-    //request.session.typeU = undefined;
-    console.log(request.session.idU);
     request.session.destroy();
-    //response.render("./index", { tipo: undefined, idU: undefined });
     response.redirect('/');
 });
 
