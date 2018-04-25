@@ -52,11 +52,13 @@ router.post('/nuevoperro',upload.single("foto"), middles.verifyProtectora, funct
     //Verifica que haya una foto
     if(!request.file){
         warnings.push("La foto del perro no puede estar vacio.");
-    }
- 
-    //Verfifica el size del la foto
+    }else{
+        //Verfifica el size del la foto
     if(request.file.size >=65536)
       warnings.push("La foto del perro es muy pesada max(64KB).");
+    }
+ 
+    
      
      perro.edad=new Number (request.body.edad);
      perro.peso=new Number (request.body.peso);
