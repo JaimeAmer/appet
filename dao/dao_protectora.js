@@ -127,13 +127,15 @@ class DAOProtectora {
                 callback(err);
                 return;
             }
-
-            connection.query("INSERT INTO protectora(nombre, ciudad, imagen, email, password, direccion, telefono, descripcion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, datos.telefono, datos.descripcion], (err) => {
+            let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, ?, ?)";
+            connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
+                datos.telefono, datos.descripcion,datos.latitud,datos.longitud], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;
                 }
-                callback(null);
+                //console.log(rows);
+                callback(null, true);
                 connection.release();
             });
         });
