@@ -12,101 +12,95 @@
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/logo.png" />
     <link rel="stylesheet" type="text/css" href="css/estilocomoadoptar.css">
+	<style>
+		.formRegistro{
+			width:50%;
+			margin-left:5%;
+			display: inline-block;
+		}
+	</style>
 </head>
 
 <body>
     <%- include('./header'); %>
         <div id="content">
 			
-			<% if(mensaje!=undefined){%>
-				<% if(mensaje=="exito"){%>
-					<div class="modal fade in" id="myModal" role="dialog" style="display: block;">
-						<div class="modal-dialog">
-					  <!-- Modal content-->
-					  <div class="modal-content">
-						<div class="modal-header">
-						  <h4 class="modal-title">¡Se ha realizado el registro correctamente!</h4>
-						</div>
-						<div class="modal-body">
-						  <p>Pulsa para poder iniciar sesión en tu cuenta</p>
-						</div>
-						<div class="modal-footer">
-						  <a href="./login" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Iniciar Sesión</a>
-						</div>
-					  </div>
-					</div>
-				  </div>
-				<%}else{%>
-					<div class="alert alert-danger page-alert" id="alert-3" >
+			  <% if (msg!==undefined){ %>
+    <div class="modal fade in" id="myModal" role="dialog" style="display: block;">
+        <div class="modal-dialog">
+	  <!-- Modal content-->
+            <div class="modal-content">
+		<div class="modal-header">
+                    <h4 class="modal-title"><%= title %></h4>
+		</div>
+		<div class="modal-body">
+                    <p><%= subtitle %></p>
                     <ul>
-                        <%if(mensaje!=undefined){%>
-                            <li><%= mensaje %></li>
-                        <%}else{%>
-                            <% errors.forEach(error => { %>
-                                <li><%= error.msg %></li>
-                                <% }); %>
-                        <%}%>
-                    
+                        <% msg.forEach(function(error) { %>
+                        <li><%= error %></li>
+                        <% }); %>
                     </ul>
-                </div>
-            <%}}%>
+		</div>
+		<div class="modal-footer">
+                    <a href="/regprotectora" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver</a>
+		</div>
+            </div>
+	</div>
+    </div>
+    <% } %>
 			         
-			<form id="login" class="form-login formRegistro justify" action="/regprotectora" method="POST" enctype="multipart/form-data" >
+			<form enctype="multipart/form-data" id="login" class="form-login formRegistro justify" action="/regprotectora" method="POST" >
 				<h1>Rellenar todos los campos disponibles.</h1>
 			  <div class="form-row">
 				<div class="form-group col-md-12">
 					<label for="inputAddress">Nombre</label>
-					<input type="text" class="form-control" name="nombre" id="inputAddress" placeholder="Nombre"  required>
+					<input type="text" class="form-control" name="nombre" id="inputAddress" placeholder="Nombre"  >
 			  </div>
-			<div class="form-group col-md-12">
+				<div class="form-group col-md-12">
 					<label for="inputAddress">Imagen</label>
-                                        <input class="inputPhoto" type="file" name="foto" > 
-					<!--<input type="file" class="form-control" name="imagen" id="inputAddress1" required>-->
+					<input type="file"  name="foto" id="inputAddress1" >
 			  </div>
 				<div class="form-group col-md-12">
 				  <label for="inputEmail4">Email</label>
-				  <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email" required>
+				  <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email" >
 				</div>
 				<div class="form-group col-md-6">
 				  <label for="inputPassword4">Password</label>
-				  <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password"  required>
+				  <input type="password" class="form-control" name="password" id="inputPassword4" placeholder="Password"  >
 				</div>
 				<div class="form-group col-md-6">
 				  <label for="inputPassword4">Repita la Password</label>
-				  <input type="password" class="form-control" name="password1" id="inputPassword4" placeholder="Password" required>
+				  <input type="password" class="form-control" name="password1" id="inputPassword4" placeholder="Password" >
+				</div>
+                              <div class="form-group col-md-6">
+				  <label for="inputPassword4">Latitud</label>
+				  <input type="text" class="form-control" name="latitud" id="inputPassword4" placeholder="Latitud"  >
+				</div>
+				<div class="form-group col-md-6">
+				  <label for="inputPassword4">Longitud</label>
+				  <input type="text" class="form-control" name="longitud" id="inputPassword4" placeholder="Longitud" >
 				</div>
 				<div class="form-group col-md-4">
 				  <label for="inputCity">Ciudad</label>
-				  <input type="text" class="form-control" name="ciudad" id="inputCity" required>
+				  <input type="text" class="form-control" name="ciudad" id="inputCity" >
 				</div>
 				<div class="form-group col-md-4">
 					<label for="inputAddress2">Dirección</label>
-					<input type="text" class="form-control" name="direccion" id="inputAddress3" placeholder="Dirección" required>
+					<input type="text" class="form-control" name="direccion" id="inputAddress3" placeholder="Dirección" >
 			  </div>
 			  <div class="form-group col-md-4">
 					<label for="inputAddress2">Teléfono</label>
-					<input type="tel" class="form-control" name="telefono" id="inputAddress4" placeholder="Teléfono" required>
+					<input type="tel" class="form-control" name="telefono" id="inputAddress4" placeholder="Teléfono" >
 			  </div>
-                          <div class="form-group col-md-6">
-					<label for="inputAddress2">Latitud</label>
-					<input type="text" class="form-control" name="latitud" id="inputAddress4" placeholder="Latitud" required>
-			  </div>    
-                          <div class="form-group col-md-6">
-					<label for="inputAddress2">Longitud</label>
-					<input type="text" class="form-control" name="longitud" id="inputAddress4" placeholder="Longitud" required>
-			  </div> 
-                          
 			  </div>
 			  <div class="form-group col-md-12">
 				<label for="inputAddress2">Descripción</label>
 				<textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
 			  </div>
-                                
 			  <div class="form-group col-md-4">
 					<label for="inputAddress2"></label>
 					<input type="hidden">
 			  </div>
-                                
 			  <button type="submit" class="btn btn-primary tnegrita col-md-4">Registrar</button>
 			</form>
         </div>
