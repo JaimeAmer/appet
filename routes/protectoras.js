@@ -34,66 +34,7 @@ router.get('/nuevoperro', middles.verifyProtectora, function(request, response) 
                                 msg:undefined});
 });
 
-router.post("/modProtectora", function(request, response) {
-    let warnings = new Array();
-    let mensaje = "";
-    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
-    //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
 
-    request.getValidationResult().then(result => {
-        if (result.isEmpty()) {
-            let datos = new Object();
-
-            if (request.body.password !== request.body.password1) {
-                warnings.push("Las contraseñas no coinciden");
-                console.log(warnings);
-                mensaje = "Las contraseñas no coinciden";
-                response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
-            } else {
-                console.log(request.body);
-                datos.nombre = request.body.nombre;
-                datos.ciudad = request.body.ciudad;
-                datos.imagen = request.body.imagen;
-                datos.email = request.body.email;
-                datos.password = request.body.password;
-                datos.direccion = request.body.direccion;
-                datos.telefono = request.body.telefono;
-                datos.descripcion = request.body.descripcion;
-				datos.latitud = request.body.latitud;
-				datos.longitud = request.body.longitud;
-                datos.imagen=null;
-				datos.id=request.body.id;
-                
-                //Verficamos que exista una foto
-                if (request.file) {
-                    datos.imagen= request.file.buffer;
-                }
-                
-
-                dao.protectora.updateProtectora(datos, (error, result) => {
-                    if (error) {
-                        if (error.errno === 1062) {
-                            warnings.push("El email ya esta dado de alta en el sistema");
-                            console.log(warnings);
-                            mensaje = "El email ya esta dado de alta en el sistema";
-                            response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
-                        } else
-                            console.log(error.message);
-                    } else if (result) {
-                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
-                    } else {
-                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
-                    }
-                });
-            }
-        } else {
-            warnings = _.pluck(result.array(), 'msg');
-            console.log(warnings);
-            response.render("./modificarPerfil", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
-        }
-
-    });
-});
 
 
 router.post('/nuevoperro',upload.single("foto"), middles.verifyProtectora, function(request, response) {
@@ -173,7 +114,66 @@ router.get('/eliminarperro',middles.verifyProtectora, function(request, response
     });
 });
 
+router.post("/modProtectora", function(request, response) {
+    let warnings = new Array();
+    let mensaje = "";
+    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
+    //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
 
+    request.getValidationResult().then(result => {
+        if (result.isEmpty()) {
+            let datos = new Object();
+
+            if (request.body.password !== request.body.password1) {
+                warnings.push("Las contraseñas no coinciden");
+                console.log(warnings);
+                mensaje = "Las contraseñas no coinciden";
+                response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+            } else {
+                console.log(request.body);
+                datos.nombre = request.body.nombre;
+                datos.ciudad = request.body.ciudad;
+                datos.imagen = request.body.imagen;
+                datos.email = request.body.email;
+                datos.password = request.body.password;
+                datos.direccion = request.body.direccion;
+                datos.telefono = request.body.telefono;
+                datos.descripcion = request.body.descripcion;
+				datos.latitud = request.body.latitud;
+				datos.longitud = request.body.longitud;
+                datos.imagen=null;
+				datos.id=request.body.id;
+                
+                //Verficamos que exista una foto
+                if (request.file) {
+                    datos.imagen= request.file.buffer;
+                }
+                
+
+                dao.protectora.updateProtectora(datos, (error, result) => {
+                    if (error) {
+                        if (error.errno === 1062) {
+                            warnings.push("El email ya esta dado de alta en el sistema");
+                            console.log(warnings);
+                            mensaje = "El email ya esta dado de alta en el sistema";
+                            response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+                        } else
+                            console.log(error.message);
+                    } else if (result) {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
+                    } else {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
+                    }
+                });
+            }
+        } else {
+            warnings = _.pluck(result.array(), 'msg');
+            console.log(warnings);
+            response.render("./modificarPerfil", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+        }
+
+    });
+});
 
 
 module.exports = router;
