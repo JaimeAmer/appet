@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 //------------ Atributos BD PERRO: ------------
 //id
@@ -56,7 +56,7 @@ class DAOPerro {
                             idProtectora: element.idProtectora,
                             nombre: element.nombre,
                             foto: element.foto
-                        }
+                        };
 
                         //Inserto el objeto en el array:
                         listaPerros.push(perro);
@@ -80,7 +80,7 @@ class DAOPerro {
     getListaPerros(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE idProtectora not in (SELECT id FROM protectora WHERE estado = 0)"
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE idProtectora not in (SELECT id FROM protectora WHERE estado = 0)";
             connection.query(sqlListaPerros, (err, rows) => {
 
                 //En caso de error de consulta:
@@ -112,7 +112,7 @@ class DAOPerro {
                             idProtectora: element.idProtectora,
                             nombre: element.nombre,
                             foto: element.foto
-                        }
+                        };
 
                         //Inseerto el objeto en el array:
                         listaPerros.push(perro);
@@ -137,7 +137,7 @@ class DAOPerro {
     getDataPerro(idPerro, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlDatosPerro = "SELECT * FROM perro WHERE id = ?"
+            let sqlDatosPerro = "SELECT * FROM perro WHERE id = ?";
             connection.query(sqlDatosPerro, [idPerro], (err, rows) => {
                 //En caso de error de consulta:
                 if (err) { callback(err); return; }
@@ -188,6 +188,29 @@ class DAOPerro {
                 
                 }else {
                     
+                    callback(null, true);
+                }
+                
+            });
+        });
+    };
+    
+    newPerro(perro, callback){
+        if(callback===undefined) callback=function(){};
+        
+        this.pool.getConnection((err, connection) => {
+            if (err) { callback(err); return; }
+            let sql = "INSERT INTO perro (idProtectora, nombre, foto, edad, raza, color, peso, descripcion, fallecido) VALUES (? , ? , ? , ? , ? , ? , ? , ? , 0)";
+            connection.query(sql, 
+            [perro.idProtectora, perro.nombre, perro.foto, perro.edad, perro.raza, perro.color, perro.peso, perro.descripcion],
+            (err, rows) => {
+                //Devuelvo la conexion al pool:
+                connection.release();
+                //En caso de error de consulta:
+                if (err) { 
+                    callback(err); 
+                
+                }else {
                     callback(null, true);
                 }
                 
