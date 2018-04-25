@@ -34,57 +34,56 @@
 	</div>
     </div>
     <% } %>
-        <div class="listaperros">
-            
-            <h3 class="textoo">Mostrando mis perros:
-            </h3>
-
-            <div class="panel-body">
-                <!--Inicio de los paneles individuales de los perros-->
-
-                <% if(perros !== undefined){ %>
-                    <% perros.forEach(p => { %>
-                        <div class="col-sm-4 col-md-3 col-lg-2">
-                            <div class="panel panel-default">
-                                <div class="panel-heading contenedor">
-                                    <span><%= p.nombre %></span>
-                                </div>
-                                <!-- Nombre del perro-->
-                                <div class="panel-body">
-                                    <div class="contImg">
-                                        <img class="fotoperro img-responsive" src="img/perro/<%= p.id %>">
-                                    </div>
-                                    <!--boton-->
-                                    <div class="contBot">
-                                        <form action="/perro" method="GET">
-                                            <input type="submit" class="btn btn-success " value="Ver a <%=p.nombre%> ">
-                                            <button type="submit" class="btn btn-danger " formmethod="get" formaction="/eliminarperro">
-                                                <span class="glyphicons glyphicons-bin"></span>
-                                            </button>
-                                            <input type="hidden" name="idPerro" value="<%= p.id%>">
-                                        </form>
-                                    </div>
-                                    <!--Aqui acaba el panel emergente-->
-                                </div>
-                            </div>
-                        </div>
-                        <% }); %>
-                            <!--Final de los panel individual de los perros-->
-                            <% }  else if(perros === undefined){ %>
-
-                                <div class="alert alert-warning alerta">
-                                    La protectora no tiene perros actualmente.
-                                </div>
-
-                                <% } %>
-
-            </div>
-            <div class="contBot">
+    
+    <div class="contBot">
                 <form action="/nuevoperro" method="GET">
                     <input type="submit" class="btn btn-primary nuevoperro" value="Añadir perro">
                 </form>
             </div>
-        </div> 
+
+    <% if(perros !== undefined){ %>
+            <% perros.forEach(p => { %>
+
+
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <img class="fotoprotectora img-thumbnail" src="img/perro/<%=p.id%>">
+                        </div>
+                        <div class="panel-body externo">
+                            <div>
+                                <p class="info"><strong>Nombre:</strong>
+                                    <%= p.nombre %>
+                                </p>
+                                <p class="info"><strong> Edad:</strong>
+                                    <%= p.edad %>
+                                </p>
+                                <p class="info"><strong> Peso: </strong>
+                                    <%= p.peso %>
+                                </p>
+                            </div>
+                            <form action="/perro" method="GET">
+                                <input type="hidden" name="ident" value="<%= p.id %>">
+                                <input type="submit" class="form-group col-md-3 btn btn-info botonInfo" value="Ver Detalle"> 
+                                <button type="submit" class="btn btn-danger " formmethod="get" formaction="/eliminarperro">Eliminar</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <% }); %>
+    <% }  else { %>
+        <div class="alert alert-warning alerta">
+            No hay protectoras actualmente
+        </div>
+    <% } %>
+    
+    
+    
+    
         <%- include('./footer'); %>
 </body>
 
