@@ -51,16 +51,17 @@
                 </div>
             <%}}%>
 			         
-			<form id="login" class="form-login formRegistro justify" action="/regprotectora" method="POST">
+			<form id="login" class="form-login formRegistro justify" action="/regprotectora" method="POST" enctype="multipart/form-data" >
 				<h1>Rellenar todos los campos disponibles.</h1>
 			  <div class="form-row">
 				<div class="form-group col-md-12">
 					<label for="inputAddress">Nombre</label>
 					<input type="text" class="form-control" name="nombre" id="inputAddress" placeholder="Nombre"  required>
 			  </div>
-				<div class="form-group col-md-12">
+			<div class="form-group col-md-12">
 					<label for="inputAddress">Imagen</label>
-					<input type="file" class="form-control" name="imagen" id="inputAddress1" required>
+                                        <input class="inputPhoto" type="file" name="foto" > 
+					<!--<input type="file" class="form-control" name="imagen" id="inputAddress1" required>-->
 			  </div>
 				<div class="form-group col-md-12">
 				  <label for="inputEmail4">Email</label>
@@ -86,6 +87,15 @@
 					<label for="inputAddress2">Teléfono</label>
 					<input type="tel" class="form-control" name="telefono" id="inputAddress4" placeholder="Teléfono" required>
 			  </div>
+                          <div class="form-group col-md-6">
+					<label for="inputAddress2">Latitud</label>
+					<input type="text" class="form-control" name="latitud" id="inputAddress4" placeholder="Latitud" required>
+			  </div>    
+                          <div class="form-group col-md-6">
+					<label for="inputAddress2">Longitud</label>
+					<input type="text" class="form-control" name="longitud" id="inputAddress4" placeholder="Longitud" required>
+			  </div> 
+                          
 			  </div>
 			  <div class="form-group col-md-12">
 				<label for="inputAddress2">Descripción</label>
