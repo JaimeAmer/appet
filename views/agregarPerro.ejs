@@ -16,18 +16,45 @@
 
 <body>
     <%- include('./header'); %>
+    
+    <% if (msg!==undefined){ %>
+    <div class="modal fade in" id="myModal" role="dialog" style="display: block;">
+        <div class="modal-dialog">
+	  <!-- Modal content-->
+            <div class="modal-content">
+		<div class="modal-header">
+                    <h4 class="modal-title"><%= title %></h4>
+		</div>
+		<div class="modal-body">
+                    <p><%= subtitle %></p>
+                    <ul>
+                        <% msg.forEach(function(error) { %>
+                        <li><%= error %></li>
+                        <% }); %>
+                    </ul>
+		</div>
+		<div class="modal-footer">
+                    <a href="./misperros" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver</a>
+		</div>
+            </div>
+	</div>
+    </div>
+    <% } %>
+       
+ 
         <div id="content">
 		        
-			<form id="login" class="form-login formRegistro justify" action="/nuevoperro" method="POST">
+			<form id="login" class="form-login formRegistro justify" action="/nuevoperro" method="POST" enctype="multipart/form-data">
 				<h1>Rellenar los datos del Perro.</h1>
 			  <div class="form-row">
 				<div class="form-group col-md-12">
 					<label for="inputAddress">Nombre</label>
-					<input type="text" class="form-control" name="nombre" id="inputAddress" placeholder="Nombre"  required>
+					<input type="text" class="form-control" name="nombre" id="inputAddress" placeholder="Nombre"  >
 			  </div>
                           <div class="form-group col-md-12">
 					<label for="inputAddress">Imagen</label>
-					<input type="file" class="form-control" name="foto" id="inputAddress1" required>
+                                        <input class="inputPhoto" type="file" name="foto"> 
+					<!--<input type="file" class="form-control" name="foto" id="inputAddress1" required>-->
 			  </div>
                           <div class="form-group col-md-12">
 					<label for="inputAddress">Raza</label>
@@ -39,12 +66,12 @@
 			  </div>
                           <div class="form-group col-md-4">
 					<label for="inputAddress">Edad</label>
-					<input type="number" class="form-control" name="edad" id="inputAddress" placeholder="Edad"  >
+					<input type="text" class="form-control" name="edad" id="inputAddress" placeholder="Edad" >
 			  </div>
                               
                           <div class="form-group col-md-4">
 					<label for="inputAddress">Peso</label>
-					<input type="number" class="form-control" name="peso" id="inputAddress" placeholder="Peso" >
+					<input type="text" class="form-control" name="peso" id="inputAddress" placeholder="Peso" >
 			  </div>
 				
 			  </div>
