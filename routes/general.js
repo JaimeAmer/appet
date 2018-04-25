@@ -5,7 +5,7 @@ var dao = require('../dao/dao');
 
 /* Peticiones que comparten varios Roles  */
 router.get("/", function(request, response) {
-    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU });
+    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU, mensaje:undefined });
 });
 
 router.get("/index", function(request, response) {
@@ -22,6 +22,32 @@ router.get("/comoadoptar", function(request, response) {
 
 router.get("/login", function(request, response) {
     response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+});
+
+router.get('/modificarPerfil', function(request, response) {
+    /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
+if (request.session.typeU === "Protectora" || request.session.typeU === "ProtectoraPendiente") {
+        let idProtectora = request.session.idU;
+        dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
+            if (err) {
+                response.status(400);
+                response.end();logout
+            } else {
+                if(rows.pendiente===1){
+                    request.session.typeU = "ProtectoraPendiente";
+                }
+                response.render("./modificarProtectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows,mensaje:undefined });
+            }
+        });
+    }else if(request.session.typeU === "Adoptante"){
+        console.log("Aún no hay vista");
+        response.redirect("/index",{ mensaje:undefined});
+    }else if(request.session.typeU === "Administrador"){
+        response.redirect("/index",{ mensaje:undefined});
+    }
+    else{
+        console.log("Fallo, no es un usuario válido");
+    }
 });
 
 router.post("/login", function(request, response) {

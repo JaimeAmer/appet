@@ -1,0 +1,102 @@
+<html>
+
+<!-- Página web que muestra información al usuario realativa a la adopción de perros-->
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" type="text/css" href="css/estilocomoadoptar.css">
+</head>
+
+<body>
+    <%- include('./header'); %>
+        <div id="content">
+			
+			<% if(mensaje!=undefined){%>
+				<% if(mensaje=="exito"){%>
+					<div class="modal fade in" id="myModal" role="dialog" style="display: block;">
+				  </div>
+				<%}else{%>
+					<div class="alert alert-danger page-alert" id="alert-3" >
+                    <ul>
+                        <%if(mensaje!=undefined){%>
+                            <li><%= mensaje %></li>
+                        <%}else{%>
+                            <% errors.forEach(error => { %>
+                                <li><%= error.msg %></li>
+                                <% }); %>
+                        <%}%>
+                    
+                    </ul>
+                </div>
+            <%}}%>
+			         
+			<form id="login" class="form-login formRegistro justify" action="/modProtectora" method="POST">
+				<h1>Modificar los campos que considere necesario y pulsar en Modificar.</h1>
+			  <div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="inputAddress">Nombre</label>
+					<input type="text" class="form-control" name="nombre" id="inputAddress" value="<%= datos.nombre %>" placeholder="Nombre"  required>
+			  </div>
+				<div class="form-group col-md-12">
+					<label for="inputAddress">Imagen</label>
+					<input type="file" class="form-control" name="imagen" id="inputAddress1" value="pepe.jpg"  accept="image/*" required>
+			  </div>
+				<div class="form-group col-md-12">
+				  <label for="inputEmail4">Email</label>
+				  <input type="email" class="form-control" name="email" id="inputEmail4" value="<%= datos.email %>" placeholder="Email" required>
+				</div>
+				<div class="form-group col-md-6">
+				  <label for="inputPassword4">Password</label>
+				  <input type="password" class="form-control" name="password" id="inputPassword4" value="<%= datos.password %>" placeholder="Password" required>
+				</div>
+				<div class="form-group col-md-6">
+				  <label for="inputPassword4">Repita la Password</label>
+				  <input type="password" class="form-control" name="password1" id="inputPassword4" value="<%= datos.password %>" placeholder="Password" required>
+				</div>
+				<div class="form-group col-md-4">
+				  <label for="inputCity">Ciudad</label>
+				  <input type="text" class="form-control" name="ciudad" value="<%= datos.ciudad %>" id="inputCity" required>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputAddress2">Dirección</label>
+					<input type="text" class="form-control" name="direccion" id="inputAddress3" value="<%= datos.direccion %>" placeholder="Dirección" required>
+			  </div>
+			  <div class="form-group col-md-4">
+					<label for="inputAddress2">Teléfono</label>
+					<input type="tel" class="form-control" name="telefono" id="inputAddress4" value="<%= datos.telefono %>" placeholder="Teléfono" required>
+			  </div>
+			  </div>
+			  <div class="form-group col-md-6">
+				  <label for="inputLatitud">Latitud</label>
+				  <input type="text" class="form-control" name="latitud" value="<%= datos.latitud %>" id="inputLatitud" placeholder="40.4256834" required>
+			</div>
+			<div class="form-group col-md-6">
+				  <label for="inputLongitud">Longitud</label>
+				  <input type="text" class="form-control" name="longitud" value="<%= datos.longitud %>" id="inputLongitud" placeholder="-3.6891157999999677" required>
+			</div>
+			  <div class="form-group col-md-12">
+				<label for="inputAddress2">Descripción</label>
+				<textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"><%= datos.descripcion %></textarea>
+			  </div>
+                                
+			  <div class="form-group col-md-4">
+					<label for="inputAddress2"></label>
+					<input type="hidden" name="id" value="<%= datos.id %>">
+			  </div>
+                                
+			  <button type="submit" class="btn btn-primary tnegrita col-md-4 ">Modificar</button>
+			</form>
+        </div>
+		
+
+        <%- include('./footer'); %>
+</body>
+
+</html>

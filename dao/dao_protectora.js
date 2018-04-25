@@ -58,6 +58,24 @@ class DAOProtectora {
         });
     }
 
+	updateProtectora(datos, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+			
+			connection.query("UPDATE protectora SET nombre=?, ciudad=?, email=?, password=?, direccion=?, telefono=?, descripcion=?, longitud=?, latitud=? WHERE id=?", [datos.nombre, datos.ciudad, datos.email, datos.password, datos.direccion, datos.telefono, datos.descripcion, datos.longitud, datos.latitud, datos.id], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null);
+                connection.release();
+            });
+        });
+    }
+	
     /**
      * Obtiene la lista de todas las protectoras de la web:
      * Delvuelve los datos en un array de objetos;
