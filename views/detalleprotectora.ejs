@@ -12,86 +12,131 @@
     <link rel="stylesheet" type="text/css" href="css/estilodetalleprotectora.css">
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
     <link rel="icon" type="image/png" href="img/logo.png" />
-
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
     <%- include('./header'); %>
-
-        <div class="content">
-
-            <div class="externo">
-                <p class="fotoprotectora">
-                    <img class="img-thumbnail" src="img/protectora/<%= datos.id %>" width="600">
-
-                </p>
-                <p class="textoimagen">
-                    <%= datos.nombre %>
-                </p>
+    <div class="container">
+    <div class="row col-md-offset-2 col-md-10 custyle">
+        <div class="col-lg-12">
+          <div class="col-md-4">
+            <figure>
+              <img class="img-thumbnail" src="img/protectora/<%= datos.id %>" width="600">
+              <h1 >
+                <%= datos.nombre %>
+              </h1>
+            </figure>
+            <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Contacto
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-decks">
+                            <p>Correo: <span class="glyphicon glyphicon-envelope"></span>
+                            <%= datos.email %>
+                            </p>
+                            Teléfono: <span class="glyphicon glyphicon-earphone"></span>
+                            <%= datos.telefono %>
+                        </div>        
+                    </div>
+                </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                        Ciudad
+                </div>
+                <div class="panel-body">
+                    <div class="list-decks">
+                        <%= datos.ciudad %>
+                    </div>        
+                </div>
             </div>
-
-            <div>
-                <p class="negrita">Ciudad: </p>
-                <p class="datos">
-                    <%= datos.ciudad %>
-                </p>
-            </div>
-
-            <div>
-                <p class="negrita">Correo electrónico</p>
-                <p class="datos">
-                    <%= datos.email %>
-                </p>
-            </div>
-
-            <div>
-                <p class="negrita">Dirección: </p>
-                <p class="datos">
-                    <%= datos.direccion   %>
-                </p>
-            </div>
-
-            <div>
-                <p class="negrita">Teléfono: </p>
-                <p class="datos">
-                    <%= datos.telefono %>
-                </p>
-            </div>
-
-            <div>
-                <p class="negrita">Descripción: </p>
-                <p class="datos">
-                    <%=  datos.descripcion %>
-                </p>
-            </div>
-
+            
+                <div class="panel panel-info">
+                        <div class="panel-heading">
+                                Dirección
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <%= datos.direccion  %>
+                            <% if(datos.latitud !== undefined){%>
+                                <button class="btn btn-primary mapa" data-toggle="modal" data-target="#ModalMessage">
+                                        Mostrar mapa
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="ModalMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header btn-primary">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                                <h4 class="text-center"  id="myModalLabel"><%= datos.direccion  %></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                    <div id="map"></div>
+                                                    <input id="latitud" type="hide" value="<%=datos.latitud%>">
+                                                    <input id="longitud" type="hide" value="<%=datos.longitud%>">
+                                                    <script>
+                                                    function initMap() {
+                                                        var uluru = {lat: Number($('#latitud').val()), lng: Number($('#longitud').val())};
+                                                        var map = new google.maps.Map(document.getElementById('map'), {
+                                                        zoom: 18,
+                                                        center: uluru
+                                                        });
+                                                        var marker = new google.maps.Marker({
+                                                        position: uluru,
+                                                        map: map
+                                                        });
+                                                    }
+                                                    </script>
+                                                    <script async defer
+                                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj7NvU99igfiawBYaknurm3Ib_Pn2U8tA&callback=initMap">
+                                                    </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%> 
+                        </div>       
+                        </div>
+                    </div>
+                
+                <div class="panel panel-info">
+                        <div class="panel-heading">
+                                Descripción
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-decks">
+                                <%=  datos.descripcion %>
+                            </div>        
+                        </div>
+                    </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <form action="/perrosprotectora" method="GET">
+        <div class="botonera">
+            <input type="hidden" name="nombrepro" value="<%= datos.nombre %>">
+            <input type="hidden" name="ident" value="<%= idp %>">
+            <input type="submit" class="btn btn-success volver" value="Ver los perros de la protectora!">
+        </div>
+    </form>
+
+    <form action="/protectoras" method="GET">
 
 
-        <form action="/perrosprotectora" method="GET">
-            <div class="botonera">
-                <input type="hidden" name="nombrepro" value="<%= datos.nombre %>">
-                <input type="hidden" name="ident" value="<%= idp %>">
-                <input type="submit" class="btn btn-success volver" value="Ver los perros de la protectora!">
-            </div>
-        </form>
-
-        <form action="/protectoras" method="GET">
-
-
-            <div class="botonera">
-                <input type="submit" class="btn btn-info volver" value="Volver">
-            </div>
-        </form>
-
-
-
-
-
-
-
-
-
+        <div class="botonera">
+            <input type="submit" class="btn btn-info volver" value="Volver">
+        </div>
+    </form>
+        </div>
         <%- include('./footer'); %>
 </body>
 
