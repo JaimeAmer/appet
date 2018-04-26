@@ -4,10 +4,6 @@ var router = express.Router();
 let dao = require('../dao/dao');
 let middleware = require('./middlewares');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
 
 router.get("/listaAdoptantes", middleware.verifyAdmin, function(request, response) {
   dao.adoptante.getAdoptantes((err, rows) => {
