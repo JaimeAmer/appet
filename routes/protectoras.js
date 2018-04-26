@@ -177,9 +177,9 @@ router.post("/modProtectora", middles.verifyProtectora, function(request, respon
     });
 });
 
-router.get('/versolicitudes', middles.verifyProtectora, function(request,response){});
+router.get('/solicitudesadopcion', middles.verifyProtectora, function(request,response){});
 
-router.get('/aceptarsolicitud',middles.verifyProtectora, function(request,response){});
+router.get('/aceptaradopcion',middles.verifyProtectora, function(request,response){});
 
-router.get('rechazarsolicitud', middles.verifyProtectora, function(request,response){});
+router.get('/rechazaradopcion', middles.verifyProtectora, function(request,response){});
 module.exports = router;
