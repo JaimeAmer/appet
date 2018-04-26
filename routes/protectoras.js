@@ -116,7 +116,7 @@ router.get('/eliminarperro',middles.verifyProtectora, function(request, response
     });
 });
 
-router.post("/modProtectora", function(request, response) {
+router.post("/modProtectora", middles.verifyProtectora, function(request, response) {
     let warnings = new Array();
     let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
@@ -177,5 +177,9 @@ router.post("/modProtectora", function(request, response) {
     });
 });
 
+router.get('/versolicitudes', middles.verifyProtectora, function(request,response){});
 
+router.get('/aceptarsolicitud',middles.verifyProtectora, function(request,response){});
+
+router.get('rechazarsolicitud', middles.verifyProtectora, function(request,response){});
 module.exports = router;
