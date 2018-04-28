@@ -313,7 +313,7 @@ class DAOProtectora {
                 let sql="SELECT solicitud.*, perro.nombre,perro.raza, adoptante.email,adoptante.ciudad FROM solicitud "+
                         "LEFT JOIN perro ON solicitud.idPerro = perro.id "+
                         "LEFT JOIN adoptante ON solicitud.idAdoptante= adoptante.id "+
-                        "WHERE perro.adoptado=0 AND perro.idProtectora=?";
+                        "WHERE perro.adoptado=0 AND perro.idProtectora=? AND solicitud.estado=0";
                 conexion.query(sql,[idProtectora],(error,rows)=>{
                     conexion.release();
                     if(error){
@@ -332,6 +332,27 @@ class DAOProtectora {
         });
         
     }
+    
+    actualizarSolicitud(idSolicitud,respuesta, callback){
+        if(callback===undefined)callback=function(){};
+        this.pool.getConnection((error,conexion)=>{
+            if(error){
+                callback(error);
+                
+            }else{
+                let sql="UPDATE solicitud SET estado=? WHERE id=?";
+                conexion.query(sql,[respuesta,idSolicitud], (error, rows)=>{
+                    if(error){
+                        callback(error);
+                    }else{
+                        callback(null, true);
+                    }
+                });
+            }
+        });
+    }
+    
+    
 }
 
 
