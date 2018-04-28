@@ -15,6 +15,25 @@
     
     <body>
         <%- include('./header'); %>
+        
+         <% if(msg!==undefined){ %>
+    <div class="modal fade in" id="myModal" role="dialog" style="display: block;">
+	<div class="modal-dialog">
+	<!-- Modal content-->
+            <div class="modal-content">
+		<div class="modal-header">
+		  <h4 class="modal-title"><%= msg %></h4>
+		</div>
+		<div class="modal-body">
+		  <p>Pulsa para poder volver a ver el resto de solicitudes .</p>
+		</div>
+		<div class="modal-footer">
+                    <a href="/solicitudesadopcion" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver</a>
+		</div>
+            </div>
+	</div>
+    </div>
+    <% } %>
             <div class="container">
                     <div class="row col-md-offset-0 col-md-12 custyle">
                             <h2>Solicitudes de Adopcion</h2>
@@ -45,11 +64,11 @@
                                         <td><%= p.mensaje %></td>
                                         
                                         <td class="text-center">
-                                            <form action="/aceptarado" method="POST">
+                                            <form method="POST">
                                                 <input type="hidden" name="idSolicitud" value="<%= p.id%>">
-                                                
-                                                <button type="submit"class="btn btn-success btn-xs">Aceptar</button>
-                                                <button type="submit"class="btn btn-danger btn-xs">Rechazar</button>
+                                                <input type="hidden" name="idPerro" value="<%= p.idPerro%>">
+                                                <button type="submit"class="btn btn-success btn-xs" formaction="/aceptaradopcion">Aceptar</button>
+                                                <button type="submit"class="btn btn-danger btn-xs" formaction="/rechazaradopcion">Rechazar</button>
                                                 
                                             </form>                                            
                                         </td>

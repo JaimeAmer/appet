@@ -10,7 +10,7 @@ var upload = multer({ storage: multer.memoryStorage() });
 router.get('/misperros', middles.verifyProtectora,//Verifica que es Protectora
                         function(request, response) {
                             
-      msg=undefined;                      
+     let msg=undefined;                      
      if(request.session.msgP!==undefined){
          msg=request.session.msgP;
          request.session.msgP=undefined;
@@ -33,8 +33,6 @@ router.get('/nuevoperro', middles.verifyProtectora, function(request, response) 
     response.render('agregarPerro', {idU:request.session.idU, tipo:request.session.typeU,
                                 msg:undefined});
 });
-
-
 
 
 router.post('/nuevoperro',upload.single("foto"), middles.verifyProtectora, function(request, response) {
@@ -177,9 +175,46 @@ router.post("/modProtectora", middles.verifyProtectora, function(request, respon
     });
 });
 
-router.get('/solicitudesadopcion', middles.verifyProtectora, function(request,response){});
+router.get('/solicitudesadopcion', middles.verifyProtectora, function(request,response){
+    
+    let msg=undefined;                      
+     if(request.session.msgA!==undefined){
+         msg=request.session.msgA;
+         request.session.msgA=undefined;
+     } 
+    dao.protectora.listarSolicitudes(request.session.idU,(error,result)=>{
+        if(error){
+            response.status(400);
+            response.end();
+        }else{
+            response.render('solicitudesAdopcion',{idU:request.session.idU,
+                tipo:request.session.typeU, solicitudes:result, msg:msg});
+        }
+    });
+});
 
-router.get('/aceptaradopcion',middles.verifyProtectora, function(request,response){});
+router.post('/aceptaradopcion',middles.verifyProtectora, function(request,response){
+    dao.protectora.actualizarSolicitud(request.body.idSolicitud,1, (err, result)=>{
+        if(err){
+            response.status(400);
+            response.end();
+        }else{
+                               
+            request.session.msgA="La solicitud de adopcion ha sido actualizada";
+            response.redirect("/solicitudesadopcion");
+        }
+    });
+});
 
-router.get('/rechazaradopcion', middles.verifyProtectora, function(request,response){});
+router.post('/rechazaradopcion', middles.verifyProtectora, function(request,response){
+    dao.protectora.actualizarSolicitud(request.body.idSolicitud,2, (err, result)=>{
+        if(err){
+            response.status(400);
+            response.end();
+        }else{
+            request.session.msgA="La solicitud de adopcion ha sido actualizada";
+            response.redirect("/solicitudesadopcion");
+        }
+    });
+});
 module.exports = router;

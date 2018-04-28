@@ -342,6 +342,7 @@ class DAOProtectora {
             }else{
                 let sql="UPDATE solicitud SET estado=? WHERE id=?";
                 conexion.query(sql,[respuesta,idSolicitud], (error, rows)=>{
+                   conexion.release();
                     if(error){
                         callback(error);
                     }else{
@@ -350,8 +351,14 @@ class DAOProtectora {
                 });
             }
         });
+        
+     
     }
     
+     verificarEstadoSolicitud(idSolicitud, callback){
+          //SELECT estado FROM `solicitud` WHERE id=3
+          
+      }
     
 }
 
