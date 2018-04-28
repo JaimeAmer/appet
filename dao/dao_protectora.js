@@ -302,8 +302,50 @@ class DAOProtectora {
             });
         });
     }
+    
+    listarSolicitudes(idProtectora, callback){
+        if(callback===undefined) callback=function(){};
+        
+        this.pool.getConnection((error,conexion)=>{
+            if(error){
+                callback(error);
+            }else{
+                let sql="SELECT solicitud.*, perro.nombre,perro.raza, adoptante.email,adoptante.ciudad FROM solicitud "+
+                        "LEFT JOIN perro ON solicitud.idPerro = perro.id "+
+                        "LEFT JOIN adoptante ON solicitud.idAdoptante= adoptante.id "+
+                        "WHERE perro.adoptado=0 AND perro.idProtectora=?";
+                conexion.query(sql,[idProtectora],(error,rows)=>{
+                    conexion.release();
+                    if(error){
+                        callback(error);
+                    }else{
+                        let array=new Array();
+                        for (let i=0 ; i<rows.length; i++){
+                            array.push(new solicitud(rows[i].id,rows[i].idProtectora,
+                            rows[i].idAdoptante,rows[i].email,rows[i].ciudad,rows[i].idPerro,rows[i].nombre,rows[i].raza,rows[i].mensaje));
+                            
+                        }
+                        callback(null,array);
+                    }
+                });
+            }
+        });
+        
+    }
 }
 
+
+function solicitud(id, idProtectora, idAdoptante,email, ciudad, idPerro,nombre,raza,mensaje){
+    this.id=id;
+    this.idProtectora=idProtectora;
+    this.idAdoptante=idAdoptante;
+    this.email=email;
+    this.ciudad=ciudad;
+    this.idPerro=idPerro;
+    this.nombre=nombre;
+    this.raza=raza;
+    this.mensaje=mensaje;
+}
 
 module.exports = {
     DAOProtectora: DAOProtectora
