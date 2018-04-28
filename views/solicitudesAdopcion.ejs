@@ -1,0 +1,66 @@
+<html>
+    
+    <!-- Página web que muestra información relativa a la protectora solicitada por el usuario-->
+    
+    <head class="headerColor">
+        <title>APPet</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+        <link rel="icon" type="image/png" href="img/logo.png" />
+    </head>
+    
+    <body>
+        <%- include('./header'); %>
+            <div class="container">
+                    <div class="row col-md-offset-0 col-md-12 custyle">
+                            <h2>Solicitudes de Adopcion</h2>
+                        <% if(solicitudes.length === 0){ %>
+                            <div class="alert alert-warning alerta">
+                                No hay solicitudes de protectoras actualmente
+                            </div>
+                        <% }else{ %>
+                            <table class="table table-striped custab">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Ciudad</th>
+                                    <th>Perro</th>
+                                    <th>Raza</th>
+                                    <th>Mensaje</th>
+                                    <th class="text-center">Acción</th>
+                                </tr>
+                            </thead>
+                                <% solicitudes.forEach(p => { %>
+                                    <tr>
+                                        <td><%= p.id %></td>
+                                        <td><%= p.email %></td>
+                                        <td><%= p.ciudad %></td>
+                                        <td><%= p.nombre %></td>
+                                        <td><%= p.raza %></td>
+                                        <td><%= p.mensaje %></td>
+                                        
+                                        <td class="text-center">
+                                            <form action="/aceptarado" method="POST">
+                                                <input type="hidden" name="idSolicitud" value="<%= p.id%>">
+                                                
+                                                <button type="submit"class="btn btn-success btn-xs">Aceptar</button>
+                                                <button type="submit"class="btn btn-danger btn-xs">Rechazar</button>
+                                                
+                                            </form>                                            
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                        </table>
+                        <% }; %>
+                    </div>
+                </div>
+        <%- include('./footer'); %>
+        
+    </body>
+    
+</html>
