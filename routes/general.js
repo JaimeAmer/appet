@@ -5,7 +5,8 @@ var dao = require('../dao/dao');
 
 /* Peticiones que comparten varios Roles  */
 router.get("/", function(request, response) {
-    response.render("./index", { tipo: request.session.typeU, idU: request.session.idU, mensaje:undefined });
+    response.render("./index", { tipo: request.session.typeU, 
+        idU: request.session.idU, mensaje:undefined });
 });
 
 router.get("/index", function(request, response) {
@@ -13,30 +14,35 @@ router.get("/index", function(request, response) {
 });
 
 router.get("/acercadeappet", function(request, response) {
-    response.render("./acercadeappet", { tipo: request.session.typeU, idU: request.session.idU });
+    response.render("./acercadeappet", { tipo: request.session.typeU,
+        idU: request.session.idU });
 });
 
 router.get("/comoadoptar", function(request, response) {
-    response.render("./comoadoptar", { tipo: request.session.typeU, idU: request.session.idU });
+    response.render("./comoadoptar", { tipo: request.session.typeU,
+        idU: request.session.idU });
 });
 
 router.get("/login", function(request, response) {
-    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+    response.render("./login", { tipo: request.session.typeU, 
+        idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
 router.get('/modificarPerfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
-if (request.session.typeU === "Protectora" || request.session.typeU === "ProtectoraPendiente") {
+if (request.session.typeU === "Protectora" || 
+        request.session.typeU === "ProtectoraPendiente") {
         let idProtectora = request.session.idU;
         dao.protectora.getDataProtectora(idProtectora, (err, rows) => {
             if (err) {
                 response.status(400);
-                response.end();logout
+                response.end();
             } else {
                 if(rows.pendiente===1){
                     request.session.typeU = "ProtectoraPendiente";
                 }
-                response.render("./modificarProtectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows,mensaje:undefined });
+                response.render("./modificarProtectora", { tipo: request.session.typeU,
+                    idU: request.session.idU, idp: idProtectora, datos: rows,mensaje:undefined });
             }
         });
     }else if(request.session.typeU === "Adoptante"){
@@ -77,13 +83,15 @@ router.post("/login", function(request, response) {
                     warnings.push("Los datos no coinciden");
                     console.log(warnings);
                     let mensaje = "El usuario con esos datos no se encuentra en este tipo de usuario";
-                    response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
+                    response.render("./login", { tipo: request.session.typeU,
+                        idU: request.session.idU, errors: undefined, mensaje: mensaje });
                 }
             });
         } else {
             warnings = _.pluck(result.array(), 'msg');
             console.log(warnings);
-            response.render("./login", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+            response.render("./login", { tipo: request.session.typeU,
+                idU: request.session.idU, errors: result.array(), mensaje: undefined });
         }
     });
 });
@@ -105,7 +113,9 @@ if (request.session.typeU === "Protectora" || request.session.typeU === "Protect
                 if(rows.pendiente===1){
                     request.session.typeU = "ProtectoraPendiente";
                 }
-                response.render("./perfilProtectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
+                response.render("./perfilProtectora", 
+                { tipo: request.session.typeU, idU: request.session.idU,
+                    idp: idProtectora, datos: rows });
             }
         });
     }else if(request.session.typeU === "Adoptante"){
@@ -162,7 +172,8 @@ router.get("/perros",function(request, response) {
             response.status(400);
             response.end();
         } else {
-            response.render("./listarperros", { tipo: request.session.typeU, idU: request.session.idU, perros: rows });
+            response.render("./listarperros", { tipo: request.session.typeU, 
+                idU: request.session.idU, perros: rows });
         }
     });
 });
@@ -194,7 +205,9 @@ router.get('/perro', function(request,response){
                         descripcion: dataPerro.descripcion,
                         fallecido: dataPerro.fallecido
                     };
-                    response.render("./detalleperro", { tipo: request.session.typeU, idU: request.session.idU, perro: datosPerro });
+                    response.render("./detalleperro", 
+                    { tipo: request.session.typeU, idU: request.session.idU,
+                        perro: datosPerro });
                     }
             });
         }
@@ -208,7 +221,8 @@ router.get("/protectoras", function(request, response) {
             console.log("fallo");
         } else {
             console.log("exito, redirigimos a protectoras way");
-            response.render("./protectoras", { tipo: request.session.typeU, idU: request.session.idU, protectoras: rows });
+            response.render("./protectoras", { tipo: request.session.typeU,
+                idU: request.session.idU, protectoras: rows });
         }
     });
 
@@ -222,7 +236,8 @@ router.get("/protectora", function(request, response) {
             response.status(400);
             response.end();
         } else {
-            response.render("./detalleprotectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows });
+            response.render("./detalleprotectora", { tipo: request.session.typeU,
+                idU: request.session.idU, idp: idProtectora, datos: rows });
         }
     });
 });
@@ -232,16 +247,18 @@ router.get("/perrosprotectora", function(request, response) {
     let nombreProtectora = String(request.query.nombrepro);
 
 
-    console.log("Id de la protectora: " + idProtectora);
-    console.log("Nombre  de la protectora: " + nombreProtectora);
+    //console.log("Id de la protectora: " + idProtectora);
+    //console.log("Nombre  de la protectora: " + nombreProtectora);
 
     dao.perro.getListaPerrosProtectora(idProtectora, (err, rows) => {
         if (err) {
-            console.log("VAMOS MAL");
+           
             response.status(400);
             response.end();
         } else {
-            response.render("./listarperrosprotectora", { tipo: request.session.typeU, idU: request.session.idU, nombrep: nombreProtectora, idp: idProtectora, perros: rows });
+            response.render("./listarperrosprotectora",
+            { tipo: request.session.typeU, idU: request.session.idU,
+                nombrep: nombreProtectora, idp: idProtectora, perros: rows });
         }
 
     });
