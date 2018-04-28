@@ -64,13 +64,19 @@
         </div>
         <form action="/protectora" method="GET">
             <div class="botonera">
+                <% if(tipo!=="Protectora"){ %>
                 <input type="hidden" name="ident" value="<%= perro.idProtectora %>">
                 <input type="submit" class="btn btn-success volver" value="¡Ver información de la protectora!">
+                <% } %>
             </div>
         </form>
-        <form action="/perros" method="GET">
+        <form >
             <div class="botonera">
-                <input type="submit" class="btn btn-info volver" value="Volver">
+                <% if(tipo===undefined){ %>
+                <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/perros"> Volver </button>
+                <% }else if(tipo==="Protectora"){%>
+                <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/misperros"> Volver </button>
+                <% } %>
             </div>
         </form>
         <%- include('./footer'); %>
