@@ -101,6 +101,52 @@ router.post('/nuevoperro',upload.single("foto"), middles.verifyProtectora, funct
     });
 });
 
+router.get('/modificarPerro', function(request, response) {
+    /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
+if (request.session.typeU === "Protectora") {
+        let idProtectora = request.session.idU;
+		let idPerro = request.query.idPerro;
+        dao.perro.getDataPerro(idPerro, (err, rows) => {
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./modificarPerro", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows,mensaje:undefined });
+            }
+        });
+    }
+    else{
+        console.log("Fallo, no es un usuario válido");
+    }
+});
+
+router.post("/modPerro", function(request, response) {
+    let warnings = new Array();
+    let mensaje = "";
+    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
+    //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
+
+    request.getValidationResult().then(result => {
+        if (result.isEmpty()) {
+                dao.perro.updatePerro(request.body, (error, result) => {
+					console.log(result);
+                    if (error) {
+                            console.log(error.message);
+                    } else if (result) {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, datos: undefined, mensaje: "exito" });
+                    } else {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, datos: undefined, mensaje: "exito" });
+                    }
+                });
+        } else {
+            warnings = _.pluck(result.array(), 'msg');
+            console.log(warnings);
+            response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+        }
+
+    });
+});
+
 router.get('/eliminarperro',middles.verifyProtectora, function(request, response) {
     let idPerro = Number(request.query.idPerro);
     dao.perro.deletePerro(idPerro, request.session.idU, (error,result)=>{

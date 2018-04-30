@@ -154,7 +154,8 @@ class DAOPerro {
                 else {
 
                     //Monto el objeto perro con todos sus datos:
-                    let perro = {
+                    /*
+					let perro = {
                         id: rows[0].id,
                         idProtectora: rows[0].idProtectora,
                         nombre: rows[0].nombre,
@@ -166,13 +167,31 @@ class DAOPerro {
                         descripcion: rows[0].descripcion,
                         fallecido: rows[0].fallecido
                     };
+					*/
 
-                    callback(null, perro);
+                    callback(null, rows[0]);
                 }
             });
         });
     }
     
+	updatePerro(datos, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+			connection.query("UPDATE perro SET nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.nombre, datos.edad, datos.raza, datos.color, datos.peso, datos.fallecido, datos.adoptado, datos.descripcion, datos.id], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null);
+                connection.release();
+            });
+        });
+    }
+	
     deletePerro(idPerro, idProtectora, callback){
         if(callback===undefined) callback=function(){};
         

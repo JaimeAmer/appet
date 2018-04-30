@@ -39,15 +39,23 @@ if (request.session.typeU === "Protectora" ||
                 response.end();
             } else {
                 if(rows.pendiente===1){
+					console.log("Pendiente");
                     request.session.typeU = "ProtectoraPendiente";
-                }
-                response.render("./modificarProtectora", { tipo: request.session.typeU,
-                    idU: request.session.idU, idp: idProtectora, datos: rows,mensaje:undefined });
+                }else{
+                response.render("./modificarProtectora", { tipo: request.session.typeU, idU: request.session.idU, idp: idProtectora, datos: rows,mensaje:undefined });
+				}
             }
         });
     }else if(request.session.typeU === "Adoptante"){
-        console.log("Aún no hay vista");
-        response.redirect("/index",{ mensaje:undefined});
+       let idAdoptante = request.session.idU;
+        dao.adoptante.getDataAdoptante(idAdoptante, (err, rows) => {
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./modificarAdoptante", { tipo: request.session.typeU, idU: request.session.idU, idp: idAdoptante, datos: rows,mensaje:undefined });
+            }
+        });
     }else if(request.session.typeU === "Administrador"){
         response.redirect("/index",{ mensaje:undefined});
     }

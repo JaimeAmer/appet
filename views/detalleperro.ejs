@@ -70,15 +70,15 @@
                 <% } %>
             </div>
         </form>
-        <form >
             <div class="botonera">
+				<input type="hidden" name="ident" value="<%= perro.id %>">
                 <% if(tipo===undefined){ %>
                 <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/perros"> Volver </button>
                 <% }else if(tipo==="Protectora"){%>
+				<a href="/modificarPerro?idPerro=<%= perro.id %>"><button class="btn btn-primary btn-lg volver">Modificar Perfil</button></a>
                 <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/misperros"> Volver </button>
                 <% } %>
             </div>
-        </form>
         <%- include('./footer'); %>
 </body>
 
