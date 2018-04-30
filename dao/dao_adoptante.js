@@ -13,6 +13,24 @@ class DAOAdoptante {
         this.pool = pool;
     }
 
+    createAdoptante(datos, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+				connection.query("INSERT INTO adoptante(email, password, nombre, apellidos, fechaNacimiento, ciudad, direccion, telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [datos.email, datos.password, datos.nombre, datos.apellidos, datos.fechaNacimiento, datos.ciudad, datos.direccion, datos.telefono], (err) => {
+		
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null, err);
+                connection.release();
+            });
+        });
+    }
+
     getAdoptantes(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {

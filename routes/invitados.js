@@ -63,6 +63,7 @@ router.post("/regadoptante", function(request, response) {
                         response.render("./registroAdoptante", 
                         { tipo: request.session.typeU, idU: request.session.idU,
                             errors: undefined, mensaje: "exito" });
+                        //response.redirect('/login');
                     } else {
                         response.render("./registroAdoptante", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
                     }

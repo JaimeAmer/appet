@@ -127,8 +127,17 @@ if (request.session.typeU === "Protectora" || request.session.typeU === "Protect
             }
         });
     }else if(request.session.typeU === "Adoptante"){
-        console.log("Aún no hay vista");
-        response.redirect("/index");
+        let idAdoptante = request.session.idU;
+        dao.adoptante.getDataAdoptante(idAdoptante, function(err, rows){
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.render("./perfilAdoptante", 
+                { tipo: request.session.typeU, idU: request.session.idU,
+                    ida: idAdoptante, datos: rows });
+            }
+        });
     }else if(request.session.typeU === "Administrador"){
         response.redirect("/index");
     }

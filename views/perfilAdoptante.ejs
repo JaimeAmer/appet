@@ -1,0 +1,103 @@
+<html>
+
+<!-- Página web que muestra información relativa al adoptante-->
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilodetalleprotectora.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+
+</head>
+
+<body>
+    <%- include('./header'); %>
+           <div class="container">
+    
+    <div class="row col-md-offset-2 col-md-10 custyle">
+        <div class="col-lg-12">
+          <div class="col-md-4">
+              <!-- Descomentar en el caso de añadir una imagen al perfil del adoptante
+            <figure>
+              <img class="img-thumbnail" src="img/protectora/<%= datos.id %>" width="600">
+              <h1 >
+                <%= datos.nombre %>
+              </h1>
+            </figure> -->
+            <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Contacto
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-decks">
+                            <p>Correo: <span class="glyphicon glyphicon-envelope"></span>
+                            <%= datos.email %>
+                            </p>
+                            Teléfono: <span class="glyphicon glyphicon-earphone"></span>
+                            <%= datos.telefono %>
+                        </div>        
+                    </div>
+                </div>
+          </div>
+          <div class="col-xs-12 col-sm-8">
+                <div class="panel panel-info">
+                        <div class="panel-heading">
+                                Nombre y apellidos
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-decks">
+                                <%= datos.ciudad %> <%= datos.apellidos %>
+                            </div>        
+                        </div>
+                    </div>
+                
+                    <div class="panel panel-info">
+                            <div class="panel-heading">
+                                    Fecha de Nacimiento
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-decks">
+                                    <%= datos.fechaNacimiento %>
+                                </div>        
+                            </div>
+                        </div>
+
+                        <div class="panel panel-info">
+                                <div class="panel-heading">
+                                        Dirección
+                                </div>
+                                <div class="panel-body">
+                                    <div class="list-decks">
+                                        <%= datos.direccion %>
+                                    </div>        
+                                </div>
+                            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                        Ciudad
+                </div>
+                <div class="panel-body">
+                    <div class="list-decks">
+                        <%= datos.ciudad %>
+                    </div>        
+                </div>
+            </div>
+              
+                <div class="panel perfil-protectora">
+                    <a href="/modificarPerfil"><button type="button" class="btn btn-primary btn-lg">Modificar Mi Perfil</button></a>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+        <!--  -->
+        <%- include('./footer'); %>
+</body>
+
+</html>
