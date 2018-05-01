@@ -21,16 +21,22 @@ router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request
     let idAdoptante = Number(request.query.idAdoptante);
     let descripcion = String(request.query.descripcion);
 
-    dao.adoptante.enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, descripcion, (err) => {
-        if (err) {
-            response.status(400);
-            response.end();
-        } else {
-            response.redirect('/perfil');
-        }
 
-    });
+    if (!descripcion || /^\s*$/.test(descripcion)) {
+        console.log("DESCRIPCION vacia");
+        response.render("./formAdopcion", { idPerro: idPerro, idProtectora: idProtectora, idAdoptante: idAdoptante, tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "Por favor, rellena el formulario" });
 
+    } else {
+        dao.adoptante.enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, descripcion, (err) => {
+            if (err) {
+                response.status(400);
+                response.end();
+            } else {
+                response.redirect('/perfil');
+            }
+
+        });
+    }
 });
 
 router.post("/modAdoptante", upload.single("imagen"), function(request, response) {
