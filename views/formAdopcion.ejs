@@ -36,11 +36,17 @@
             </div>
         </form>
 
+        <% if(mensaje !== undefined){ %>
+            <p id="errores">
+                <%= mensaje %>
+            </p>
+            <% } %>
 
 
 
 
-        <%- include('./footer'); %>
+
+                <%- include('./footer'); %>
 </body>
 
 </html>
