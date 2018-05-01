@@ -119,17 +119,53 @@ if (request.session.typeU === "Protectora") {
         console.log("Fallo, no es un usuario válido");
     }
 });
-
+/*
 router.post("/modPerro", function(request, response) {
     let warnings = new Array();
     let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
     //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
-
+/*
     request.getValidationResult().then(result => {
         if (result.isEmpty()) {
                 dao.perro.updatePerro(request.body, (error, result) => {
 					console.log(result);
+                    if (error) {
+                            console.log(error.message);
+                    } else if (result) {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, datos: undefined, mensaje: "exito" });
+                    } else {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, datos: undefined, mensaje: "exito" });
+                    }
+                });
+        } else {
+            warnings = _.pluck(result.array(), 'msg');
+            console.log(warnings);
+            response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: undefined });
+        }
+
+    });
+});
+*/
+
+router.post('/modPerro',upload.single("imagen"), function(
+request, response) {
+    let warnings = new Array();
+    let mensaje = "";
+	let datos = new Object();
+    /**Comprobamos que los datos sean correctos y que no falte ningun campo */
+    //   request.checkBody("email", "Formato email1 incorrecto").isEmail();
+		console.log("--------");
+		
+    request.getValidationResult().then(result => {
+		datos.texto=request.body;
+		if(request.file==undefined)
+			datos.imagen=1;
+		else
+			datos.imagen=request.file.buffer;
+	
+		if (result.isEmpty()) {
+                dao.perro.updatePerro(datos, (error, result) => {
                     if (error) {
                             console.log(error.message);
                     } else if (result) {
@@ -160,7 +196,7 @@ router.get('/eliminarperro',middles.verifyProtectora, function(request, response
     });
 });
 
-router.post("/modProtectora", middles.verifyProtectora, function(request, response) {
+router.post("/modProtectora", upload.single("imagen"), function(request, response) {
     let warnings = new Array();
     let mensaje = "";
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
@@ -176,24 +212,15 @@ router.post("/modProtectora", middles.verifyProtectora, function(request, respon
                 mensaje = "Las contraseñas no coinciden";
                 response.render("./registroProtectora", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: mensaje });
             } else {
-                console.log(request.body);
-                datos.nombre = request.body.nombre;
-                datos.ciudad = request.body.ciudad;
-                datos.imagen = request.body.imagen;
-                datos.email = request.body.email;
-                datos.password = request.body.password;
-                datos.direccion = request.body.direccion;
-                datos.telefono = request.body.telefono;
-                datos.descripcion = request.body.descripcion;
-				datos.latitud = request.body.latitud;
-				datos.longitud = request.body.longitud;
-                datos.imagen=null;
-				datos.id=request.body.id;
-                
+				datos.texto=request.body;
+				if(request.file==undefined)
+					datos.imagen=1;
+				else
+					datos.imagen=request.file.buffer;                
                 //Verficamos que exista una foto
-                if (request.file) {
-                    datos.imagen= request.file.buffer;
-                }
+   //             if (request.file) {
+    //                datos.imagen= request.file.buffer;
+     //           }
                 
 
                 dao.protectora.updateProtectora(datos, (error, result) => {

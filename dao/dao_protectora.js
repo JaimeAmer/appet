@@ -64,15 +64,26 @@ class DAOProtectora {
                 callback(err);
                 return;
             }
-			
-			connection.query("UPDATE protectora SET nombre=?, ciudad=?, email=?, password=?, direccion=?, telefono=?, descripcion=?, longitud=?, latitud=? WHERE id=?", [datos.nombre, datos.ciudad, datos.email, datos.password, datos.direccion, datos.telefono, datos.descripcion, datos.longitud, datos.latitud, datos.id], (err) => {
+			console.log(datos.imagen);
+			if(datos.imagen==1){				
+				connection.query("UPDATE protectora SET nombre=?, ciudad=?, email=?, password=?, direccion=?, telefono=?, descripcion=?, longitud=?, latitud=? WHERE id=?", [datos.texto.nombre, datos.texto.ciudad, datos.texto.email, datos.texto.password, datos.texto.direccion, datos.texto.telefono, datos.texto.descripcion, datos.texto.longitud, datos.texto.latitud, datos.texto.id], (err) => {
                 if (err) {
                     callback(err);
                     return;
                 }
                 callback(null);
                 connection.release();
-            });
+				});
+			}else{
+				connection.query("UPDATE protectora SET imagen=?, nombre=?, ciudad=?, email=?, password=?, direccion=?, telefono=?, descripcion=?, longitud=?, latitud=? WHERE id=?", [datos.imagen, datos.texto.nombre, datos.texto.ciudad, datos.texto.email, datos.texto.password, datos.texto.direccion, datos.texto.telefono, datos.texto.descripcion, datos.texto.longitud, datos.texto.latitud, datos.texto.id], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null);
+                connection.release();
+				});
+			}
         });
     }
 	

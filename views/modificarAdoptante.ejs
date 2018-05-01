@@ -49,7 +49,7 @@
                 </div>
             <%}}%>
 			
-			<form id="login" class="form-login formRegistro justify" action="/modAdoptante" method="POST">
+			<form id="login" class="form-login formRegistro justify" action="/modAdoptante" method="POST" enctype="multipart/form-data">
 					 <h1>Modificar los campos que considere necesario y pulsar en Modificar.</h1>
 					<div class="form-group col-md-12">
 					  <label for="inputEmail4">Email</label>
@@ -57,7 +57,8 @@
 					</div>
 					<div class="form-group col-md-12">
 					<label for="inputAddress">Imagen</label>
-					<input type="file" class="form-control" name="imagen" id="inputAddress1" value="<%= datos.foto %>"  accept="image/*" required>
+					<input type="file" class="form-control" name="imagen" id="inputAddress1" value="<%= datos.foto %>"  accept="image/*">
+					<span class="red">Solo añadir imagen si quiere cambiar la actual.</span>
 			  </div>
 					<div class="form-group col-md-6">
 					  <label for="inputPassword4">Password</label>

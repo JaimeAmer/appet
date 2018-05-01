@@ -71,9 +71,19 @@ class DAOAdoptante {
             if (err) {
                 callback(err);
                 return;
-            }
-			
-			connection.query("UPDATE adoptante SET email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=?, foto=? WHERE id=?", [datos.email, datos.password, datos.nombre, datos.apellidos, datos.ciudad, datos.direccion, datos.telefono, datos.foto, datos.id], (err) => {
+            }			
+						console.log(datos.imagen);
+			if(datos.imagen==1){				
+				connection.query("UPDATE adoptante SET email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=? WHERE id=?", [datos.texto.email, datos.texto.password, datos.texto.nombre, datos.texto.apellidos, datos.texto.ciudad, datos.texto.direccion, datos.texto.telefono, datos.texto.id], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null);
+                connection.release();
+				});
+			}else{
+				connection.query("UPDATE adoptante SET foto=?, email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=? WHERE id=?", [datos.imagen, datos.texto.email, datos.texto.password, datos.texto.nombre, datos.texto.apellidos, datos.texto.ciudad, datos.texto.direccion, datos.texto.telefono, datos.texto.id], (err) => {
                 if (err) {
                     callback(err);
                     return;
@@ -81,6 +91,7 @@ class DAOAdoptante {
                 callback(null);
                 connection.release();
             });
+			}			
         });
     }
 

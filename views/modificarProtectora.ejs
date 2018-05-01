@@ -37,7 +37,7 @@
                 </div>
             <%}}%>
 			         
-			<form id="login" class="form-login formRegistro justify" action="/modProtectora" method="POST">
+			<form id="login" class="form-login formRegistro justify" action="/modProtectora" method="POST" enctype="multipart/form-data">
 				<h1>Modificar los campos que considere necesario y pulsar en Modificar.</h1>
 			  <div class="form-row">
 				<div class="form-group col-md-12">
@@ -46,7 +46,7 @@
 			  </div>
 				<div class="form-group col-md-12">
 					<label for="inputAddress">Imagen</label>
-					<input type="file" class="form-control" name="imagen" id="inputAddress1" value="pepe.jpg"  accept="image/*" required>
+					<input type="file" class="form-control" name="imagen" id="inputAddress1" value="pepe.jpg"  accept="image/*"><span class="red">Solo añadir imagen si quiere cambiar la actual.</span>
 			  </div>
 				<div class="form-group col-md-12">
 				  <label for="inputEmail4">Email</label>

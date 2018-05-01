@@ -181,14 +181,26 @@ class DAOPerro {
                 callback(err);
                 return;
             }
-			connection.query("UPDATE perro SET nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.nombre, datos.edad, datos.raza, datos.color, datos.peso, datos.fallecido, datos.adoptado, datos.descripcion, datos.id], (err) => {
-                if (err) {
-                    callback(err);
-                    return;
-                }
-                callback(null);
-                connection.release();
-            });
+			console.log(datos.imagen);
+			if(datos.imagen==1){				
+				connection.query("UPDATE perro SET nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.texto.nombre, datos.texto.edad, datos.texto.raza, datos.texto.color, datos.texto.peso, datos.texto.fallecido, datos.texto.adoptado, datos.texto.descripcion, datos.texto.id], (err) => {
+					if (err) {
+						callback(err);
+						return;
+					}
+					callback(null);
+					connection.release();
+				});
+			}else{
+				connection.query("UPDATE perro SET foto=?, nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.imagen, datos.texto.nombre, datos.texto.edad, datos.texto.raza, datos.texto.color, datos.texto.peso, datos.texto.fallecido, datos.texto.adoptado, datos.texto.descripcion, datos.texto.id], (err) => {
+					if (err) {
+						callback(err);
+						return;
+					}
+					callback(null);
+					connection.release();
+				});
+			}
         });
     }
 	
