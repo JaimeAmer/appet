@@ -1,8 +1,31 @@
 #text_observ {
+    font-family: 'Bree Serif', serif;
     display: block;
-    width: 30em;
-    height: 5em;
+    width: 600px;
+    height: 200px;
     background: linear-gradient(to bottom, white, #E0E0E0);
     border: 1px solid #A0A0A0;
-    color: blue;
+    color: black;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#volver {
+    font-family: 'Bree Serif', serif;
+    font-size: 30px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#botones {
+    font-family: 'Bree Serif', serif;
+    font-size: 30px;
+    margin-left: 230px;
+    margin-bottom: 20px;
+}
+
+#enc {
+    font-family: 'Bree Serif', serif;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }

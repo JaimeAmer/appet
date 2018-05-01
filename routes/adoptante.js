@@ -11,12 +11,24 @@ router.get('/formularioAdopcion', middles.verifyAdoptante, function(request, res
     let idPerro = Number(request.query.idPerro);
     let idAdoptante = Number(request.query.idAdoptante);
 
+    response.render("./formAdopcion", { idPerro: idPerro, idProtectora: idProtectora, idAdoptante: idAdoptante, tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+
+});
+
+router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request, response, next) {
+    let idProtectora = Number(request.query.idProtectora);
+    let idPerro = Number(request.query.idPerro);
+    let idAdoptante = Number(request.query.idAdoptante);
+    let descripcion = String(request.query.descripcion);
+
     console.log("id: " + idProtectora);
     console.log("id: " + idPerro);
     console.log("id: " + idAdoptante);
+    console.log("id: " + descripcion);
 
 
-    response.render("./formAdopcion", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
+
+    //response.render("./formAdopcion", { idPerro: idPerro, idProtectora: idProtectora, idAdoptante: idAdoptante, tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: undefined });
 
 });
 
@@ -34,30 +46,41 @@ router.post("/modAdoptante", upload.single("imagen"), function(request, response
                 warnings.push("Las contraseñas no coinciden");
                 console.log(warnings);
                 mensaje = "Las contraseñas no coinciden";
-                response.render("./", { tipo: request.session.typeU,
-                    idU: request.session.idU, errors: undefined, mensaje: mensaje });
+                response.render("./", {
+                    tipo: request.session.typeU,
+                    idU: request.session.idU,
+                    errors: undefined,
+                    mensaje: mensaje
+                });
             } else {
-                datos.texto=request.body;
-				if(request.file==undefined)
-					datos.imagen=1;
-				else
-					datos.imagen=request.file.buffer;                
-				console.log(request);
+                datos.texto = request.body;
+                if (request.file == undefined)
+                    datos.imagen = 1;
+                else
+                    datos.imagen = request.file.buffer;
+                console.log(request);
                 dao.adoptante.updateAdoptante(datos, (error, result) => {
                     if (error) {
                         if (error.errno === 1062) {
-							console.log(error);
+                            console.log(error);
                             warnings.push("El email ya esta dado de alta en el sistema");
                             console.log(warnings);
                             mensaje = "El email ya esta dado de alta en el sistema";
-                            response.render("./", { tipo: request.session.typeU, idU: request.session.idU,
-                                errors: undefined, mensaje: mensaje });
+                            response.render("./", {
+                                tipo: request.session.typeU,
+                                idU: request.session.idU,
+                                errors: undefined,
+                                mensaje: mensaje
+                            });
                         } else
                             console.log(error.message);
                     } else if (result) {
-                        response.render("./", 
-                        { tipo: request.session.typeU, idU: request.session.idU,
-                            errors: undefined, mensaje: "exito" });
+                        response.render("./", {
+                            tipo: request.session.typeU,
+                            idU: request.session.idU,
+                            errors: undefined,
+                            mensaje: "exito"
+                        });
                     } else {
                         response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "exito" });
                     }
