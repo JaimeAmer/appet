@@ -106,7 +106,6 @@ class DAOAdoptante {
 
             connection.query("INSERT INTO solicitud(idAdoptante,idPerro, idProtectora, estado, mensaje) VALUES(?, ?, ?, ?, ?)", [idAdoptante, idPerro, idProtectora, estado, msg], (err) => {
                 if (err) {
-                    console.log("fallo gordo");
                     callback(err);
                     return;
                 }
