@@ -19,8 +19,8 @@ class DAOAdoptante {
                 callback(err);
                 return;
             }
-				connection.query("INSERT INTO adoptante(email, password, nombre, apellidos, fechaNacimiento, ciudad, direccion, telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [datos.email, datos.password, datos.nombre, datos.apellidos, datos.fechaNacimiento, datos.ciudad, datos.direccion, datos.telefono], (err) => {
-		
+            connection.query("INSERT INTO adoptante(email, password, nombre, apellidos, fechaNacimiento, ciudad, direccion, telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?)", [datos.email, datos.password, datos.nombre, datos.apellidos, datos.fechaNacimiento, datos.ciudad, datos.direccion, datos.telefono], (err) => {
+
                 if (err) {
                     callback(err);
                     return;
@@ -49,7 +49,7 @@ class DAOAdoptante {
         });
     }
 
-	 getDataAdoptante(idAdoptante, callback) {
+    getDataAdoptante(idAdoptante, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
@@ -66,44 +66,47 @@ class DAOAdoptante {
         });
     }
 
-	updateAdoptante(datos, callback) {
+    updateAdoptante(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
                 return;
-            }			
-						console.log(datos.imagen);
-			if(datos.imagen==1){				
-				connection.query("UPDATE adoptante SET email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=? WHERE id=?", [datos.texto.email, datos.texto.password, datos.texto.nombre, datos.texto.apellidos, datos.texto.ciudad, datos.texto.direccion, datos.texto.telefono, datos.texto.id], (err) => {
-                if (err) {
-                    callback(err);
-                    return;
-                }
-                callback(null);
-                connection.release();
-				});
-			}else{
-				connection.query("UPDATE adoptante SET foto=?, email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=? WHERE id=?", [datos.imagen, datos.texto.email, datos.texto.password, datos.texto.nombre, datos.texto.apellidos, datos.texto.ciudad, datos.texto.direccion, datos.texto.telefono, datos.texto.id], (err) => {
-                if (err) {
-                    callback(err);
-                    return;
-                }
-                callback(null);
-                connection.release();
-            });
-			}			
+            }
+            console.log(datos.imagen);
+            if (datos.imagen == 1) {
+                connection.query("UPDATE adoptante SET email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=? WHERE id=?", [datos.texto.email, datos.texto.password, datos.texto.nombre, datos.texto.apellidos, datos.texto.ciudad, datos.texto.direccion, datos.texto.telefono, datos.texto.id], (err) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    callback(null);
+                    connection.release();
+                });
+            } else {
+                connection.query("UPDATE adoptante SET foto=?, email=?, password=?, nombre=?, apellidos=?, ciudad=?, direccion=?, telefono=? WHERE id=?", [datos.imagen, datos.texto.email, datos.texto.password, datos.texto.nombre, datos.texto.apellidos, datos.texto.ciudad, datos.texto.direccion, datos.texto.telefono, datos.texto.id], (err) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    callback(null);
+                    connection.release();
+                });
+            }
         });
     }
 
     enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, msg, callback) {
+        let estado = 0;
+
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
                 return;
             }
 
-            connection.query("INSERT INTO solicitud VALUES(?, ?, ?, 0, ?)", [idAdoptante, idPerro, idProtectora, msg], (err) => {
+            connection.query("INSERT INTO solicitud(idAdoptante,idPerro, idProtectora, estado, mensaje) VALUES(?, ?, ?, ?, ?)", [idAdoptante, idPerro, idProtectora, estado, msg], (err) => {
                 if (err) {
+                    console.log("fallo gordo");
                     callback(err);
                     return;
                 }
