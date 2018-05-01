@@ -38,7 +38,7 @@
 					<div class="alert alert-danger page-alert" id="alert-3" >
                     <ul>
                         <%if(mensaje!=undefined){%>
-                            <li><%= mensaje %></li>
+                            <li><%= mensaje %><a href="javascript:history.back(1)">Volver</a></li>
                         <%}else{%>
                             <% errors.forEach(error => { %>
                                 <li><%= error.msg %></li>

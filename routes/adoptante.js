@@ -54,12 +54,15 @@ router.post("/modAdoptante", upload.single("imagen"), function(request, response
                     mensaje: mensaje
                 });
             } else {
-                datos.texto = request.body;
-                if (request.file == undefined)
-                    datos.imagen = 1;
-                else
-                    datos.imagen = request.file.buffer;
-                console.log(request);
+				datos.texto = request.body;
+				if(request.file==undefined)
+					datos.imagen=1;
+				else{
+					if(request.file.size >=65536){
+						response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: "La foto del perro es muy pesada max(64KB)." });
+					}else
+						datos.imagen=request.file.buffer;
+				}
                 dao.adoptante.updateAdoptante(datos, (error, result) => {
                     if (error) {
                         if (error.errno === 1062) {
