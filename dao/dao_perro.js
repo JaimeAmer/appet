@@ -27,7 +27,7 @@ class DAOPerro {
     getListaPerrosProtectora(idPr, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            connection.query("SELECT * FROM perro WHERE idProtectora = ?", [idPr], (err, rows) => {
+            connection.query("SELECT * FROM perro WHERE idProtectora = ? AND adoptado = 0", [idPr], (err, rows) => {
                 if (err) { callback(err); return; }
 
                 //Devuelvo la conexion al pool:
@@ -80,7 +80,7 @@ class DAOPerro {
     getListaPerros(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE idProtectora not in (SELECT id FROM protectora WHERE estado = 0)";
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE adoptado = 0 AND idProtectora not in (SELECT id FROM protectora WHERE estado = 0)";
             connection.query(sqlListaPerros, (err, rows) => {
 
                 //En caso de error de consulta:

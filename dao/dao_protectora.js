@@ -302,7 +302,7 @@ class DAOProtectora {
                 return;
             }
             
-            connection.query("SELECT * from perro WHERE idProtectora=?", [id], (err, rows) => {
+            connection.query("SELECT * from perro WHERE adoptado = 0 AND idProtectora=?", [id], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;
