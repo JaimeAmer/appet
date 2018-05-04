@@ -231,7 +231,7 @@ class DAOPerro {
         
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sql = "INSERT INTO perro (idProtectora, nombre, foto, edad, raza, color, peso, descripcion, fallecido) VALUES (? , ? , ? , ? , ? , ? , ? , ? , 0)";
+            let sql = "INSERT INTO perro (idProtectora, nombre, foto, edad, raza, color, peso, descripcion) VALUES (? , ? , ? , ? , ? , ? , ? , ?)";
             connection.query(sql, 
             [perro.idProtectora, perro.nombre, perro.foto, perro.edad, perro.raza, perro.color, perro.peso, perro.descripcion],
             (err, rows) => {
