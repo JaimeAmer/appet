@@ -87,7 +87,7 @@ class DAOAdoptante {
                 callback(err);
                 return;
             }
-            connection.query("SELECT * FROM solicitud LEFT JOIN perro ON solicitud.idPerro = perro.id WHERE idAdoptante = ?", [idAdoptante], (err, rows) => {
+            connection.query("SELECT * FROM solicitud JOIN perro ON solicitud.idPerro = perro.id WHERE idAdoptante = ?", [idAdoptante], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;
