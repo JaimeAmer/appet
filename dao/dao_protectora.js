@@ -138,17 +138,32 @@ class DAOProtectora {
                 callback(err);
                 return;
             }
-            let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, ?, ?)";
-            connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
-                datos.telefono, datos.descripcion,datos.latitud,datos.longitud], (err, rows) => {
-                if (err) {
-                    callback(err);
-                    return;
-                }
-                //console.log(rows);
-                callback(null, true);
-                connection.release();
-            });
+            if(datos.latitud!== undefined && datos.longitud !==undefined){
+                let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, ?, ?)";
+                connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
+                    datos.telefono, datos.descripcion,datos.latitud,datos.longitud], (err, rows) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    //console.log(rows);
+                    callback(null, true);
+                    connection.release();
+                });
+            }
+            else{
+                let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, null, null)";
+                connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
+                    datos.telefono, datos.descripcion], (err, rows) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    //console.log(rows);
+                    callback(null, true);
+                    connection.release();
+                });
+            }
         });
     }
 
@@ -302,7 +317,7 @@ class DAOProtectora {
                 return;
             }
             
-            connection.query("SELECT * from perro WHERE idProtectora=?", [id], (err, rows) => {
+            connection.query("SELECT * from perro WHERE adoptado = 0 AND idProtectora=?", [id], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;
@@ -362,10 +377,23 @@ class DAOProtectora {
                 });
             }
         });
-        
-     
     }
-    
+    getSolicitudesPendientesPerro(idProtectora, idPerro, callback){
+       this.pool.getConnection((err, connection) => {
+           if (err) {
+               callback(err);
+               return;
+           }
+           connection.query("SELECT * from solicitud WHERE idProtectora = ? AND idPerro = ? AND estado = 0", [idProtectora, idPerro], (err, rows) => {
+               if (err) {
+                   callback(err);
+                   return;
+               } 
+               callback(err, rows);
+               connection.release();
+           });
+       });
+   }
      verificarEstadoSolicitud(idSolicitud, callback){
           //SELECT estado FROM `solicitud` WHERE id=3
           

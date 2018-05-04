@@ -27,7 +27,7 @@ class DAOPerro {
     getListaPerrosProtectora(idPr, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            connection.query("SELECT * FROM perro WHERE idProtectora = ?", [idPr], (err, rows) => {
+            connection.query("SELECT * FROM perro WHERE idProtectora = ? AND adoptado = 0", [idPr], (err, rows) => {
                 if (err) { callback(err); return; }
 
                 //Devuelvo la conexion al pool:
@@ -80,7 +80,7 @@ class DAOPerro {
     getListaPerros(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE idProtectora not in (SELECT id FROM protectora WHERE estado = 0)";
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE adoptado = 0 AND idProtectora not in (SELECT id FROM protectora WHERE estado = 0)";
             connection.query(sqlListaPerros, (err, rows) => {
 
                 //En caso de error de consulta:
@@ -203,6 +203,22 @@ class DAOPerro {
 			}
         });
     }
+    adoptarPerro(idPerro, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }		
+            connection.query("UPDATE perro SET adoptado=1 WHERE id=?", [idPerro], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null);
+                connection.release();
+            });
+        });
+    }
 	
     deletePerro(idPerro, idProtectora, callback){
         if(callback===undefined) callback=function(){};
@@ -231,7 +247,7 @@ class DAOPerro {
         
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
-            let sql = "INSERT INTO perro (idProtectora, nombre, foto, edad, raza, color, peso, descripcion, fallecido) VALUES (? , ? , ? , ? , ? , ? , ? , ? , 0)";
+            let sql = "INSERT INTO perro (idProtectora, nombre, foto, edad, raza, color, peso, descripcion) VALUES (? , ? , ? , ? , ? , ? , ? , ?)";
             connection.query(sql, 
             [perro.idProtectora, perro.nombre, perro.foto, perro.edad, perro.raza, perro.color, perro.peso, perro.descripcion],
             (err, rows) => {

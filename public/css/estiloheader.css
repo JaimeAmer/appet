@@ -84,7 +84,7 @@
 /********************* cabeceraCS *********************/
 
 .headerColor {
-    background-color: #9AFF5A/*rgb(204, 255, 230)*/;
+    background-color: #6FC329;
     margin-bottom: 0px;
 }
 
@@ -135,7 +135,7 @@
 	}
 	
 	.bcolorfondo{
-	    background-color: rgb(77, 127, 45);
+	    background-color: rgb(217, 218, 216);
 	}
 	@media only screen and (max-width: 600px) {
 			.registrarseStyle{
@@ -143,7 +143,6 @@
 				flex-direction: row;
 				justify-content: space-between;
 				padding:5% 5%;
-				
 			}
 			.botonReg{
 				display: inline-block;

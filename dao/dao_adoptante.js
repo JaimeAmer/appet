@@ -1,6 +1,5 @@
 "use strict"
 
-
 class DAOAdoptante {
 
     /**
@@ -55,12 +54,62 @@ class DAOAdoptante {
                 callback(err);
                 return;
             }
-            connection.query("SELECT * FROM adoptante WHERE id = ?", [idAdoptante], (err, rows) => {
+            connection.query("SELECT id, email, password, nombre, apellidos, DATE_FORMAT(fechaNacimiento, \"%d-%m-%Y\") as fechaNacimiento, ciudad, direccion, telefono, foto, estado FROM adoptante WHERE id = ?", [idAdoptante], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;
                 }
                 callback(null, rows[0]);
+                connection.release();
+            });
+        });
+    }
+
+    getSolicitud(idAdoptante, idPerro, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("SELECT * FROM solicitud WHERE idAdoptante = ? AND idPerro = ?", [idAdoptante, idPerro], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null, rows);
+                connection.release();
+            });
+        });
+    }
+    getSolicitudes(idAdoptante, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("SELECT * FROM solicitud JOIN perro ON solicitud.idPerro = perro.id WHERE idAdoptante = ?", [idAdoptante], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                if(rows.length!==0){ // hay solicitudes, por lo que voy a coger los datos del perro.
+                    let solicitudes=[];
+                    rows.forEach(solicitud => {
+                        let datos={
+                            idPerro: solicitud.idPerro,
+                            nombrePerro: solicitud.nombre,
+                            idProtectora: solicitud.idProtectora,
+                            mensaje: solicitud.mensaje,
+                            estado: solicitud.estado
+                        };
+                        solicitudes.push(datos);
+                    });
+                    callback(null, solicitudes);
+                }
+                else{
+                    callback(null, undefined);
+                }
+                
                 connection.release();
             });
         });

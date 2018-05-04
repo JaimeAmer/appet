@@ -12,19 +12,17 @@ module.exports={
        }else{
            next();
        }
-    
     }, 
     verifyProtectora: function (request, response,next){
        if(request.session.typeU!=="Protectora"){
-           response.redirect('/perfil');
+           response.redirect('/');
        }else{
            next();
        }
-    
     },
     verifyAdoptante: function (request, response,next){
        if(request.session.typeU!=="Adoptante"){
-           response.redirect('/perfil');
+           response.redirect('/');
        }else{
            next();
        }

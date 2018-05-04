@@ -1,0 +1,61 @@
+<html>
+    
+    <!-- Página web que muestra información relativa a la protectora solicitada por el usuario-->
+    
+    <head class="headerColor">
+        <title>APPet</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+        <link rel="icon" type="image/png" href="img/logo.png" />
+    </head>
+    
+    <body>
+        <%- include('./header'); %>
+            <div class="container">
+                <div class="row col-md-offset-0 col-md-12 custyle">
+                        <h2 class="text-center">Solicitudes de Adopcion</h2>
+                        <% if(solicitudes===undefined){ %>
+                            <div class="alert alert-warning alerta ">
+                                No hay solicitudes actualmente
+                            </div>
+                        <% }else{ %>
+                        <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Imagen</th>
+                                <th>ID Perro</th>
+                                <th>Nombre Perro</th>
+                                <th>Mensaje</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                            <% solicitudes.forEach(solicitud => { %>
+                                <tr>
+                                    <td class="text-center"><img width="150px" class="fotoperro img-thumbnail" src="img/perro/<%=solicitud.idPerro%>"></td>
+                                    <td valign="baseline"><%= solicitud.idPerro %></td>
+                                    <td valign="middle"><%= solicitud.nombrePerro %></td>
+                                    <td valign="middle"><%= solicitud.mensaje %></td>
+                                    <td valign="middle">
+                                        <% if(solicitud.estado===0){%>
+                                            <span class="label label-info">Pendiente</span>
+                                        <%}else if(solicitud.estado===1){%>
+                                            <span class="label label-success">Aceptada</span>
+                                        <%}else{%>
+                                            <span class="label label-danger">Rechazada</span>
+                                        <%}%>                                       
+                                    </td>
+                                </tr>
+                            <% }); %>
+                    </table>
+                    <% }; %>
+                </div>
+            </div>
+        <%- include('./footer'); %>
+        
+    </body>
+    
+</html>

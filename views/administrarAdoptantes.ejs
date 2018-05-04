@@ -19,6 +19,11 @@
                 <div class="container">
                         <div class="row col-md-offset-2 col-md-8 custyle">
                                 <h2>Lista de adoptantes</h2>
+                                <% if(adoptantes===undefined || adoptantes.length === 0){ %>
+                                    <div class="alert alert-warning alerta">
+                                        No hay adoptantes actualmente
+                                    </div>
+                                <% }else{ %>
                             <table class="table table-striped custab">
                             <thead>
                                 <tr>
@@ -28,7 +33,6 @@
                                     <th class="text-center"></th>
                                 </tr>
                             </thead>
-                            <% if(adoptantes!== undefined || adoptantes.length !== 0){ %>
                                 <% adoptantes.forEach(adoptante => { %>
                                     <tr>
                                         <td><%= adoptante.id %></td>
@@ -42,14 +46,8 @@
                                         </td>
                                     </tr>
                                 <% }); %>
-                            <% }else{ %>
-                                <tr>
-                                    <div class="alert alert-warning alerta">
-                                        No hay adoptantes actualmente
-                                    </div>
-                                </tr>
-                            <% } %>
                         </table>
+                        <% } %>
                         </div>
                     </div>
             <%- include('./footer'); %>
