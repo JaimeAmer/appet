@@ -66,6 +66,23 @@ class DAOAdoptante {
         });
     }
 
+    getSolicitud(idAdoptante, idPerro, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("SELECT * FROM solicitud WHERE idAdoptante = ? AND idPerro = ?", [idAdoptante, idPerro], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null, rows);
+                connection.release();
+            });
+        });
+    }
+
     updateAdoptante(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
