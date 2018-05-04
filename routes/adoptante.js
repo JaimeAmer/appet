@@ -27,15 +27,43 @@ router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request
         response.render("./formAdopcion", { idPerro: idPerro, idProtectora: idProtectora, idAdoptante: idAdoptante, tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "Por favor, rellena el formulario" });
 
     } else {
-        dao.adoptante.enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, descripcion, (err) => {
+        dao.adoptante.getDataAdoptante(idAdoptante, (err, rows) => {
             if (err) {
                 response.status(400);
                 response.end();
             } else {
-                response.redirect('/perfil');
+                if (rows.estado === 0) {
+                    response.render("./formAdopcion", { idPerro: idPerro, idProtectora: idProtectora, idAdoptante: idAdoptante, tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "No estás activo como adoptante, no puedes adoptar!" });
+                } else {
+                    dao.adoptante.getSolicitud(idAdoptante, idPerro, (err, rows) => {
+                        if (err) {
+                            response.status(400);
+                            response.end();
+                        } else {
+                            if (rows.length !== 0) {
+                                response.render("./formAdopcion", { idPerro: idPerro, idProtectora: idProtectora, idAdoptante: idAdoptante, tipo: request.session.typeU, idU: request.session.idU, errors: undefined, mensaje: "Ya has enviado la solicitud de adopción a este perro!" });
+                            } else {
+                                dao.adoptante.enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, descripcion, (err) => {
+                                    if (err) {
+                                        response.status(400);
+                                        response.end();
+                                    } else {
+                                        response.redirect('/perfil');
+                                    }
+
+                                });
+                            }
+                        }
+
+                    });
+                }
+
             }
 
         });
+
+
+
     }
 });
 
@@ -60,15 +88,15 @@ router.post("/modAdoptante", upload.single("imagen"), function(request, response
                     mensaje: mensaje
                 });
             } else {
-				datos.texto = request.body;
-				if(request.file==undefined)
-					datos.imagen=1;
-				else{
-					if(request.file.size >=65536){
-						response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: "La foto del perro es muy pesada max(64KB)." });
-					}else
-						datos.imagen=request.file.buffer;
-				}
+                datos.texto = request.body;
+                if (request.file == undefined)
+                    datos.imagen = 1;
+                else {
+                    if (request.file.size >= 65536) {
+                        response.render("./", { tipo: request.session.typeU, idU: request.session.idU, errors: result.array(), mensaje: "La foto del perro es muy pesada max(64KB)." });
+                    } else
+                        datos.imagen = request.file.buffer;
+                }
                 dao.adoptante.updateAdoptante(datos, (error, result) => {
                     if (error) {
                         if (error.errno === 1062) {
