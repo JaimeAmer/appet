@@ -1,6 +1,5 @@
 "use strict"
 
-
 class DAOAdoptante {
 
     /**
@@ -78,6 +77,39 @@ class DAOAdoptante {
                     return;
                 }
                 callback(null, rows);
+                connection.release();
+            });
+        });
+    }
+    getSolicitudes(idAdoptante, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }
+            connection.query("SELECT * FROM solicitud LEFT JOIN perro ON solicitud.idPerro = perro.id WHERE idAdoptante = ?", [idAdoptante], (err, rows) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                if(rows.length!==0){ // hay solicitudes, por lo que voy a coger los datos del perro.
+                    let solicitudes=[];
+                    rows.forEach(solicitud => {
+                        let datos={
+                            idPerro: solicitud.idPerro,
+                            nombrePerro: solicitud.nombre,
+                            idProtectora: solicitud.idProtectora,
+                            mensaje: solicitud.mensaje,
+                            estado: solicitud.estado
+                        };
+                        solicitudes.push(datos);
+                    });
+                    callback(null, solicitudes);
+                }
+                else{
+                    callback(null, undefined);
+                }
+                
                 connection.release();
             });
         });

@@ -15,6 +15,19 @@ router.get('/formularioAdopcion', middles.verifyAdoptante, function(request, res
 
 });
 
+router.get('/solicitudesAdoptante', middles.verifyAdoptante, function(request, response, next) {
+    let idAdoptante = request.session.idU;
+    dao.adoptante.getSolicitudes(idAdoptante, (err, rows) => {
+        if (err) {
+            response.status(400);
+            response.end();
+        } else {
+            
+            response.render("./solicitudesAdoptante", { tipo: request.session.typeU, idU: request.session.idU, solicitudes: rows});
+        }
+    });
+});
+
 router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request, response, next) {
     let idProtectora = Number(request.query.idProtectora);
     let idPerro = Number(request.query.idPerro);
@@ -48,7 +61,7 @@ router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request
                                         response.status(400);
                                         response.end();
                                     } else {
-                                        response.redirect('/perfil');
+                                        response.redirect('/solicitudesAdoptante');
                                     }
 
                                 });

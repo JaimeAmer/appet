@@ -203,6 +203,22 @@ class DAOPerro {
 			}
         });
     }
+    adoptarPerro(idPerro, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) {
+                callback(err);
+                return;
+            }		
+            connection.query("UPDATE perro SET adoptado=1 WHERE id=?", [idPerro], (err) => {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(null);
+                connection.release();
+            });
+        });
+    }
 	
     deletePerro(idPerro, idProtectora, callback){
         if(callback===undefined) callback=function(){};

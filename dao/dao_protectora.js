@@ -377,10 +377,23 @@ class DAOProtectora {
                 });
             }
         });
-        
-     
     }
-    
+    getSolicitudesPendientesPerro(idProtectora, idPerro, callback){
+       this.pool.getConnection((err, connection) => {
+           if (err) {
+               callback(err);
+               return;
+           }
+           connection.query("SELECT * from solicitud WHERE idProtectora = ? AND idPerro = ? AND estado = 0", [idProtectora, idPerro], (err, rows) => {
+               if (err) {
+                   callback(err);
+                   return;
+               } 
+               callback(err, rows);
+               connection.release();
+           });
+       });
+   }
      verificarEstadoSolicitud(idSolicitud, callback){
           //SELECT estado FROM `solicitud` WHERE id=3
           

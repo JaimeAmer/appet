@@ -274,10 +274,34 @@ router.post('/aceptaradopcion',middles.verifyProtectora, function(request,respon
             response.status(400);
             response.end();
         }else{
-                               
-            request.session.msgA="La solicitud de adopcion ha sido actualizada";
-            response.redirect("/solicitudesadopcion");
+            dao.perro.adoptarPerro(request.body.idPerro, (err, result)=>{//actualizo estado del perro a adoptado
+                if(err){
+                    response.status(400);
+                    response.end();
+                }else{//compruebo resto de solicitudes hacia ese perro
+                    dao.protectora.getSolicitudesPendientesPerro(request.session.idU, request.body.idPerro, (err, rows)=>{
+                        if(err){
+                            response.status(400);
+                            response.end();
+                        }else{
+                            if(rows.length!==0){ //Si hay más solicitudes hacia ese perro las rechazo
+                                rows.forEach(solicitud => {
+                                    dao.protectora.actualizarSolicitud(solicitud.id,2, (err, result)=>{
+                                        if(err){
+                                            response.status(400);
+                                            response.end();
+                                        }
+                                    });
+                                });
+                            }
+                            request.session.msgA="La solicitud de adopcion ha sido actualizada";
+                            response.redirect("/solicitudesadopcion");
+                        }                 
+                    });
+                }
+            });
         }
+
     });
 });
 
