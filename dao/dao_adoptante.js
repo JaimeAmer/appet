@@ -54,7 +54,7 @@ class DAOAdoptante {
                 callback(err);
                 return;
             }
-            connection.query("SELECT * FROM adoptante WHERE id = ?", [idAdoptante], (err, rows) => {
+            connection.query("SELECT id, email, password, nombre, apellidos, DATE_FORMAT(fechaNacimiento, \"%d-%m-%Y\") as fechaNacimiento, ciudad, direccion, telefono, foto, estado FROM adoptante WHERE id = ?", [idAdoptante], (err, rows) => {
                 if (err) {
                     callback(err);
                     return;

@@ -19,81 +19,35 @@
     <%- include('./header'); %>
            <div class="container">
     
-    <div class="row col-md-offset-2 col-md-10 custyle">
+    <div class="row col-md-offset-2 col-md-8 custyle">
         <div class="col-lg-12">
-          <div class="col-md-4">
-              <!-- Descomentar en el caso de añadir una imagen al perfil del adoptante
-            <figure>
-              <img class="img-thumbnail" src="img/protectora/<%= datos.id %>" width="600">
-              <h1 >
-                <%= datos.nombre %>
-              </h1>
-            </figure> -->
+            <h1 class="text-center"><%= datos.nombre %> <%= datos.apellidos %></h1>
             <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Contacto
-                    </div>
-                    <div class="panel-body">
-                        <div class="list-decks">
-                            <p>Correo: <span class="glyphicon glyphicon-envelope"></span>
-                            <%= datos.email %>
-                            </p>
-                            Teléfono: <span class="glyphicon glyphicon-earphone"></span>
-                            <%= datos.telefono %>
-                        </div>        
-                    </div>
-                </div>
-          </div>
-          <div class="col-xs-12 col-sm-8">
-                <div class="panel panel-info">
-                        <div class="panel-heading">
-                                Nombre y apellidos
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-decks">
-                                <%= datos.ciudad %> <%= datos.apellidos %>
-                            </div>        
-                        </div>
-                    </div>
-                
-                    <div class="panel panel-info">
-                            <div class="panel-heading">
-                                    Fecha de Nacimiento
-                            </div>
-                            <div class="panel-body">
-                                <div class="list-decks">
-                                    <%= datos.fechaNacimiento %>
-                                </div>        
-                            </div>
-                        </div>
-
-                        <div class="panel panel-info">
-                                <div class="panel-heading">
-                                        Dirección
-                                </div>
-                                <div class="panel-body">
-                                    <div class="list-decks">
-                                        <%= datos.direccion %>
-                                    </div>        
-                                </div>
-                            </div>
-
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                        Ciudad
+                <div class="panel-heading text-center">
+                    Mis datos
                 </div>
                 <div class="panel-body">
-                    <div class="list-decks">
-                        <%= datos.ciudad %>
-                    </div>        
+                    <div class="list-group">
+                        <label class="list-group-item">Email: <span class="glyphicon glyphicon-envelope"></span><%= datos.email %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Teléfono: <span class="glyphicon glyphicon-earphone"></span><%= datos.telefono %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Fecha de Nacimiento: <%= datos.fechaNacimiento %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Ciudad: <%= datos.ciudad %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Dirección: <%= datos.direccion %></label> 
+                    </div>
                 </div>
             </div>
-              
-                <div class="panel perfil-protectora">
-                    <a href="/modificarPerfil"><button type="button" class="btn btn-primary btn-lg">Modificar Mi Perfil</button></a>
-                </div>
-          </div>
         </div>
+        <div class="panel text-center">
+                <a href="/modificarPerfil"><button type="button" class="btn btn-primary btn-lg">Modificar Mi Perfil</button></a>
+            </div>
       </div>
     </div>  
         <!--  -->
