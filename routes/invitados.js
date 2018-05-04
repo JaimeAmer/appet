@@ -92,8 +92,6 @@ router.post("/regprotectora",upload.single("foto"), function(request, response){
     request.checkBody("ciudad", "Tienes que indicar la ciudad donde se ubica la protectora").notEmpty();
     request.checkBody("direccion", "Tienes que indicar la direccion donde se ubica la protectora").notEmpty();
     request.checkBody("telefono", "Tienes que indicar el telefono de la protectora").notEmpty();
-    request.checkBody("latitud", "Tienes que indicar la latitud donde se ubica la protectora").notEmpty();
-    request.checkBody("longitud", "Tienes que indicar la longitud donde se ubica la protectora").notEmpty();
     request.checkBody("descripcion", "Tienes que indicar la ciudad donde se ubica la protectora").notEmpty();
     
     if(!request.file)

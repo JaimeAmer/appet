@@ -138,17 +138,32 @@ class DAOProtectora {
                 callback(err);
                 return;
             }
-            let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, ?, ?)";
-            connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
-                datos.telefono, datos.descripcion,datos.latitud,datos.longitud], (err, rows) => {
-                if (err) {
-                    callback(err);
-                    return;
-                }
-                //console.log(rows);
-                callback(null, true);
-                connection.release();
-            });
+            if(datos.latitud!== undefined && datos.longitud !==undefined){
+                let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, ?, ?)";
+                connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
+                    datos.telefono, datos.descripcion,datos.latitud,datos.longitud], (err, rows) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    //console.log(rows);
+                    callback(null, true);
+                    connection.release();
+                });
+            }
+            else{
+                let sql="INSERT INTO protectora ( nombre, ciudad, imagen, email, password , direccion, telefono, pendiente, descripcion, estado, latitud, longitud) VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, 0, null, null)";
+                connection.query(sql, [datos.nombre, datos.ciudad, datos.imagen, datos.email, datos.password, datos.direccion, 
+                    datos.telefono, datos.descripcion], (err, rows) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    //console.log(rows);
+                    callback(null, true);
+                    connection.release();
+                });
+            }
         });
     }
 

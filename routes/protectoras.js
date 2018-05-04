@@ -45,7 +45,7 @@ router.post('/nuevoperro',upload.single("foto"), middles.verifyProtectora, funct
     request.checkBody("color", "El color del perro no puede estar vacio.").notEmpty();
     request.checkBody("edad", "La edad del perro no puede estar vacio.").notEmpty();
     request.checkBody("peso", "El peso del perro no puede estar vacio.").notEmpty();
-    request.checkBody("descripcion", "La edad del perro no puede estar vacio.").notEmpty();
+    request.checkBody("descripcion", "La descripción del perro no puede estar vacía.").notEmpty();
     
     //Verifica que haya una foto
     if(!request.file){
