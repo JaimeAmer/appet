@@ -70,6 +70,7 @@
                 <% } %>
             </div>
         </form>
+    <form>
             <div class="botonera">
 				<input type="hidden" name="ident" value="<%= perro.id %>">
                 <% if(tipo===undefined){ %>
@@ -79,6 +80,7 @@
                 <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/misperros"> Volver </button>
                 <% } %>
             </div>
+        </form>
         <%- include('./footer'); %>
 </body>
 
