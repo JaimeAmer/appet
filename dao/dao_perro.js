@@ -68,6 +68,50 @@ class DAOPerro {
         });
     }
 
+    getListaPerrosProtectoraAdoptados(idPr, callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) { callback(err); return; }
+            connection.query("SELECT * FROM perro WHERE idProtectora = ? AND adoptado = 1", [idPr], (err, rows) => {
+                if (err) { callback(err); return; }
+
+                //Devuelvo la conexion al pool:
+                connection.release();
+
+                //En caso de que no hay encontrado nada:
+                if (rows.length === 0) {
+                    callback(null, undefined);
+                }
+
+                //En caso de que la busqueda haya devuelto al menos una fila:
+                else {
+                    let listaPerros = [];
+                    let perro = {
+                        id: null,
+                        idProtectora: null,
+                        foto: null,
+                        nombre: null
+                    };
+
+                    //Recorro las filas devueltas:
+                    rows.forEach(element => {
+                        //Creo un objeto nuevo por cada fila:
+                        perro = {
+                            id: element.id,
+                            idProtectora: element.idProtectora,
+                            nombre: element.nombre,
+                            foto: element.foto
+                        };
+
+                        //Inserto el objeto en el array:
+                        listaPerros.push(perro);
+                    });
+
+                    callback(null, listaPerros);
+                }
+            });
+        });
+    }
+
 
     /**
      * Obtiene la lista de todos los perros de la web:
@@ -125,6 +169,55 @@ class DAOPerro {
         });
     }
 
+    getListaPerrosAdoptados(callback) {
+        this.pool.getConnection((err, connection) => {
+            if (err) { callback(err); return; }
+            let sqlListaPerros = "SELECT id, nombre, foto, idProtectora FROM perro WHERE adoptado = 1 AND idProtectora not in (SELECT id FROM protectora WHERE estado = 0)";
+            connection.query(sqlListaPerros, (err, rows) => {
+
+                //En caso de error de consulta:
+                if (err) { callback(err); return; }
+
+                //Devuelvo la conexion al pool:
+                connection.release();
+
+                //En caso de que no hay encontrado nada:
+                if (rows.length === 0) {
+                    callback(null, undefined);
+                }
+
+                //En caso de que la busqueda haya devuelto al menos una fila:
+                else {
+                    let listaPerros = [];
+                    let perro = {
+                        id: null,
+                        idProtectora: null,
+                        foto: null,
+                        nombre: null
+                    };
+
+                    //Recorro las filas devueltas:
+                    rows.forEach(element => {
+                        //Creo un objeto nuevo por cada fila:
+                        perro = {
+                            id: element.id,
+                            idProtectora: element.idProtectora,
+                            nombre: element.nombre,
+                            foto: element.foto
+                        };
+
+                        //Inseerto el objeto en el array:
+                        listaPerros.push(perro);
+                    });
+
+                    callback(null, listaPerros);
+                }
+
+            });
+        });
+    }
+
+
     /**
      * Obtiene todos los datos de un perro buscando por id:
      * Devuelve los datos en forma de objeto (perro);
@@ -174,33 +267,33 @@ class DAOPerro {
             });
         });
     }
-    
-	updatePerro(datos, callback) {
+
+    updatePerro(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
                 callback(err);
                 return;
             }
-			console.log(datos.imagen);
-			if(datos.imagen==1){				
-				connection.query("UPDATE perro SET nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.texto.nombre, datos.texto.edad, datos.texto.raza, datos.texto.color, datos.texto.peso, datos.texto.fallecido, datos.texto.adoptado, datos.texto.descripcion, datos.texto.id], (err) => {
-					if (err) {
-						callback(err);
-						return;
-					}
-					callback(null);
-					connection.release();
-				});
-			}else{
-				connection.query("UPDATE perro SET foto=?, nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.imagen, datos.texto.nombre, datos.texto.edad, datos.texto.raza, datos.texto.color, datos.texto.peso, datos.texto.fallecido, datos.texto.adoptado, datos.texto.descripcion, datos.texto.id], (err) => {
-					if (err) {
-						callback(err);
-						return;
-					}
-					callback(null);
-					connection.release();
-				});
-			}
+            console.log(datos.imagen);
+            if (datos.imagen == 1) {
+                connection.query("UPDATE perro SET nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.texto.nombre, datos.texto.edad, datos.texto.raza, datos.texto.color, datos.texto.peso, datos.texto.fallecido, datos.texto.adoptado, datos.texto.descripcion, datos.texto.id], (err) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    callback(null);
+                    connection.release();
+                });
+            } else {
+                connection.query("UPDATE perro SET foto=?, nombre=?, edad=?, raza=?, color=?, peso=?, fallecido=?, adoptado=?, descripcion=? WHERE id=?", [datos.imagen, datos.texto.nombre, datos.texto.edad, datos.texto.raza, datos.texto.color, datos.texto.peso, datos.texto.fallecido, datos.texto.adoptado, datos.texto.descripcion, datos.texto.id], (err) => {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+                    callback(null);
+                    connection.release();
+                });
+            }
         });
     }
     adoptarPerro(idPerro, callback) {
@@ -208,7 +301,7 @@ class DAOPerro {
             if (err) {
                 callback(err);
                 return;
-            }		
+            }
             connection.query("UPDATE perro SET adoptado=1 WHERE id=?", [idPerro], (err) => {
                 if (err) {
                     callback(err);
@@ -219,10 +312,10 @@ class DAOPerro {
             });
         });
     }
-	
-    deletePerro(idPerro, idProtectora, callback){
-        if(callback===undefined) callback=function(){};
-        
+
+    deletePerro(idPerro, idProtectora, callback) {
+        if (callback === undefined) callback = function() {};
+
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
             let sql = "DELETE FROM perro WHERE id= ? AND idProtectora= ?";
@@ -230,38 +323,37 @@ class DAOPerro {
                 //Devuelvo la conexion al pool:
                 connection.release();
                 //En caso de error de consulta:
-                if (err) { 
-                    callback(err); 
-                
-                }else {
-                    
+                if (err) {
+                    callback(err);
+
+                } else {
+
                     callback(null, true);
                 }
-                
+
             });
         });
     };
-    
-    newPerro(perro, callback){
-        if(callback===undefined) callback=function(){};
-        
+
+    newPerro(perro, callback) {
+        if (callback === undefined) callback = function() {};
+
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
             let sql = "INSERT INTO perro (idProtectora, nombre, foto, edad, raza, color, peso, descripcion) VALUES (? , ? , ? , ? , ? , ? , ? , ?)";
-            connection.query(sql, 
-            [perro.idProtectora, perro.nombre, perro.foto, perro.edad, perro.raza, perro.color, perro.peso, perro.descripcion],
-            (err, rows) => {
-                //Devuelvo la conexion al pool:
-                connection.release();
-                //En caso de error de consulta:
-                if (err) { 
-                    callback(err); 
-                
-                }else {
-                    callback(null, true);
-                }
-                
-            });
+            connection.query(sql, [perro.idProtectora, perro.nombre, perro.foto, perro.edad, perro.raza, perro.color, perro.peso, perro.descripcion],
+                (err, rows) => {
+                    //Devuelvo la conexion al pool:
+                    connection.release();
+                    //En caso de error de consulta:
+                    if (err) {
+                        callback(err);
+
+                    } else {
+                        callback(null, true);
+                    }
+
+                });
         });
     };
 }
