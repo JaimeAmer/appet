@@ -49,25 +49,27 @@
                     <li><a class="nav-link" href="/solicitudesadopcion"> Solicitudes de adopción</a></li>
                     <% }else if(tipo === "ProtectoraPendiente"){%>
                         <li><a class="nav-link" href="/perfil">Mi perfil</a></li>
-                    <% }else if(tipo === "Adoptante"){%>
-                        <li><a class="nav-link" href="/comoadoptar">Cómo adoptar</a></li>
-                        <li><a class="nav-link" href="/perros">Perros</a></li>
-                        <li><a class="nav-link" href="/protectoras">Protectoras</a></li>
-                        <li><a class="nav-link" href="/solicitudesAdoptante">Mis solicitues de adopción</a></li>
-                        <li><a class="nav-link" href="/perfil">Mi perfil</a></li>
-                    <% }else if(tipo === "Administrador"){%>
-                        <li><a class="nav-link" href="/listaAdoptantes">Adoptantes</a></li>
-                        <li><a class="nav-link" href="/listaProtectoras">Protectoras</a></li>
-                        <li><a class="nav-link" href="/listaSolicitudesProtectoras">Solicitudes de protectoras</a></li>
-                    <%} else {%>
+                        <% }else if(tipo === "Adoptante"){%>
+                            <li><a class="nav-link" href="/comoadoptar">Cómo adoptar</a></li>
+                            <li><a class="nav-link" href="/perros">Perros</a></li>
+                            <li><a class="nav-link" href="/protectoras">Protectoras</a></li>
+                            <li><a class="nav-link" href="/solicitudesAdoptante">Mis solicitues de adopción</a></li>
+                            <li><a class="nav-link" href="/perfil">Mi perfil</a></li>
+                            <% }else if(tipo === "Administrador"){%>
+                                <li><a class="nav-link" href="/listaAdoptantes">Adoptantes</a></li>
+                                <li><a class="nav-link" href="/listaProtectoras">Protectoras</a></li>
+                                <li><a class="nav-link" href="/listaSolicitudesProtectoras">Solicitudes de protectoras</a></li>
+                                <%} else {%>
 
-                        <li><a class="nav-link" href="comoadoptar">Cómo adoptar</a></li>
-                        <!-- Redirige a la lista de perros -->
-                        <li><a class="nav-link" href="perros">Perros <span class="sr-only">(current)</span></a></li>
-                        <!-- Redirige a la lista de protectoras -->
-                        <li><a class="nav-link" href="protectoras">Protectoras</a></li>
-                        <!-- Redirige a la lista de protectoras -->
-                        <% } %>
+                                    <li><a class="nav-link" href="comoadoptar">Cómo adoptar</a></li>
+                                    <!-- Redirige a la lista de perros -->
+                                    <li><a class="nav-link" href="perros">Perros <span class="sr-only">(current)</span></a></li>
+                                    <!-- Redirige a la lista de protectoras -->
+                                    <li><a class="nav-link" href="protectoras">Protectoras</a></li>
+                                    <!-- Redirige a la lista de protectoras -->
+                                    <li><a class="nav-link" href="perrosAdoptados">Perros adoptados</a></li>
+                                    <!-- Redirige a la lista de protectoras -->
+                                    <% } %>
 
             </ul>
         </div>
