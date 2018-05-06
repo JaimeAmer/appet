@@ -50,6 +50,16 @@ class DAOGeneral {
         });
     }
 
+    /**
+     * Inserta un adoptante en la base de datos
+     * 
+     * Devolverá error, si se produjo alguno durante la insercion
+     * 
+     * @param {Object} datos Datos del adoptante
+     * @param {function} callback Función callback que será llamada tras la insercion
+     * @return {null} True en caso de exito
+     * @exception {err} En caso de que se produzca un error en la insercion
+     */
 	createAdoptante(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -67,6 +77,18 @@ class DAOGeneral {
             });
         });
     }
+
+    /**
+     * Dado el ID de un perro, se devuelve su foto
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} id ID del perro
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object} Imagen del perro
+     * @return {undefined} En caso de no existir el perro 
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
       getImagePerro(id,callback){
           if(callback===undefined) callback=function(){};
         
@@ -96,6 +118,17 @@ class DAOGeneral {
         
     }
     
+    /**
+     * Dado el ID de una protectora, se devuelve su foto
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} id ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object} Imagen de la protectora
+     * @return {undefined} En caso de no existir la protectora 
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getImageProtectora(id,callback){
         if(callback===undefined) callback=function(){};
         

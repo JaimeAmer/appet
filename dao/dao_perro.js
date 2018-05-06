@@ -24,6 +24,18 @@ class DAOPerro {
     }
 
 
+    /**
+     * A traves del ID de la protectora, devuelve una lista con los perros que tiene la protectora
+     * disponibles para su adopcion
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idPr ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object[]} Array con los perros
+     * @return {undefined} En caso de no haber perros en esa protectora
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getListaPerrosProtectora(idPr, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
@@ -68,6 +80,18 @@ class DAOPerro {
         });
     }
 
+    /**
+     * A traves del ID de la protectora, devuelve una lista con los perros que ha tenido la protectora
+     * y que han sido adoptados
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idPr ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object[]} Array con los perros
+     * @return {undefined} En caso de no haber perros en esa protectora
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getListaPerrosProtectoraAdoptados(idPr, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
@@ -119,6 +143,7 @@ class DAOPerro {
      * 
      * @param {function} callback
      * @return {Object[]} array de perros
+     * @return {undefined} En caso de no haber perros en esa protectora
      * @exception {err} Si hay un error en la consulta a la base de datos
      */
     getListaPerros(callback) {
@@ -169,6 +194,16 @@ class DAOPerro {
         });
     }
 
+    /**
+     * Obtiene la lista de todos los perros de la web que han sido adoptados
+     * 
+     * Delvuelve los datos en un array de objetos
+     * 
+     * @param {function} callback
+     * @return {Object[]} array de perros
+     * @return {undefined} En caso de no haber perros adoptados
+     * @exception {err} Si hay un error en la consulta a la base de datos
+     */
     getListaPerrosAdoptados(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) { callback(err); return; }
@@ -268,6 +303,16 @@ class DAOPerro {
         });
     }
 
+    /**
+     * Actualiza los datos de un perro ya existente
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {Object} datos Datos del perro
+     * @param {function} callback Función callback que será llamada tras la actualizacion
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     updatePerro(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -296,6 +341,17 @@ class DAOPerro {
             }
         });
     }
+
+    /**
+     * Dado el ID de un perro, se indica que ha sido adoptado
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idPerro ID del perro
+     * @param {function} callback Función callback que será llamada tras la actualizacion
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     adoptarPerro(idPerro, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -313,6 +369,18 @@ class DAOPerro {
         });
     }
 
+    /**
+     * Dado el ID de un perro y el ID de la protectora,
+     * elimina el perro indicado de la base de datos
+     * 
+     * Devolverá error, si se produjo alguno durante el borrado
+     * 
+     * @param {int} idPerro ID del perro
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras el borrado
+     * @return {boolean} True en caso de exito
+     * @exception {err} En caso de que se produzca un error en el borrado
+     */
     deletePerro(idPerro, idProtectora, callback) {
         if (callback === undefined) callback = function() {};
 
@@ -335,6 +403,16 @@ class DAOPerro {
         });
     };
 
+    /**
+     * Inserta un perro nuevo en la base de datos
+     * 
+     * Devolverá error, si se produjo alguno durante la insercion
+     * 
+     * @param {Object} perro Datos del perro
+     * @param {function} callback Función callback que será llamada tras la insercion
+     * @return {boolean} True en caso de exito
+     * @exception {err} En caso de que se produzca un error en la insercion
+     */
     newPerro(perro, callback) {
         if (callback === undefined) callback = function() {};
 

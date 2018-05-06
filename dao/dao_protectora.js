@@ -24,10 +24,14 @@ class DAOProtectora {
     }
 
     /**
-     * Obtiene el nombre de la protectora para mostrarlo en 
-     * vista detalle perro.
-     * @param {string} idProtectora //Id de la protectora
-     * @param {function} callback 
+     * Obtiene el nombre de la protectora a partir de su ID
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {String} El nombre de la protectora
+     * @exception {err} En caso de que se produzca un error en la consulta
      */
     getNombreProtectora(idProtectora, callback) {
         this.pool.getConnection((err, connection) => {
@@ -58,6 +62,16 @@ class DAOProtectora {
         });
     }
 
+    /**
+     * Actualiza los datos de una protectora ya existente
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {Object} datos Datos de la protectora
+     * @param {function} callback Función callback que será llamada tras la actualizacion
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
 	updateProtectora(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -170,12 +184,11 @@ class DAOProtectora {
     /**
      * Comprueba si existe una protectora con el email y contraseña indicados.
      * 
-     * Tras la inserción se llamará a la función callback, pasándole el objeto
-     * Error, si se produjo alguno durante la consulta, o null en caso contrario.
+     * Error, si se produjo alguno durante la consulta
      * 
      * @param {string} emailProt email de la protectora
      * @param {string} password contraseña de la protectora
-     * @param {function} callback Función callback que será llamada tras la comproación
+     * @param {function} callback Función callback que será llamada tras la comprobación
      * @return {boolean} Si existe o no la protectora indicada
      * @exception {err} En caso de que se produzca un error en la consulta
      */
@@ -201,14 +214,13 @@ class DAOProtectora {
     }
 
     /**
-     * Obtiene todos los datos de la protectora
+     * Obtiene todos los datos de la protectora en concreto
      * 
-     * Tras la inserción se llamará a la función callback, pasándole el objeto
-     * Error, si se produjo alguno durante la consulta, o rows con los datos
+     * Devolverá error, si se produjo alguno durante la consulta, o rows con los datos
      * 
-     * @param {string} idProtectora nombre del jugador
-     * @param {function} callback Función callback que será llamada tras la inserción
-     * @return {Object} protectora
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object} Los datos de la protectora
      * @exception {err} En caso de que se produzca un error en la consulta
      */
     getDataProtectora(idProtectora, callback) {
@@ -228,6 +240,16 @@ class DAOProtectora {
         });
     }
 
+    /**
+     * Desactiva la protectora a partir de su ID
+     * 
+     * Devolverá error, si se produjo alguno durante la actualizacion
+     * 
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la baja
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     eliminarProtectora(idProtectora, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -249,6 +271,17 @@ class DAOProtectora {
             
         });
     }
+
+    /**
+     * A traves del ID de la protectora, se cambia el estado a "aceptado"
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la actualizacion
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     aceptarProtectora(idProtectora, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -270,6 +303,17 @@ class DAOProtectora {
             
         });
     }
+
+    /**
+     * A traves del ID de la protectora, se rechaza la protectora borrandola de la base de datos
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras el borrado
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     rechazarProtectora(idProtectora, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -291,6 +335,16 @@ class DAOProtectora {
             
         });
     }
+
+    /**
+     * Obtiene la lista de todas las protectoras que estan a la espera
+     * de que su solicitud sea aceptada o rechazada
+     * Delvuelve las protectoras en un array de tipo Object
+     * 
+     * @param {function} callback
+     * @return {Object[]} array de protectoras
+     * @exception {err} Si hay un error en la consulta a la base de datos
+     */
     listaSolicitudes(callback) {
         if(callback===undefined) callback=function(){};
         this.pool.getConnection((err, connection) => {
@@ -309,6 +363,17 @@ class DAOProtectora {
         });
     }
     
+    /**
+     * A traves del ID de la protectora, se consultan los perros que tienen disponibles 
+     * en la protectora para su adopcion
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} id ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object[]} Array de perros
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getMisPerros(id,callback){
          if(callback===undefined) callback=function(){};
         this.pool.getConnection((err, connection) => {
@@ -329,6 +394,17 @@ class DAOProtectora {
         });
     }
     
+    /**
+     * A traves del ID de la protectora, devuelve una lista con las solicitudes de adopcion 
+     * que ha recibido la protectora
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idProtectora ID de la protectora
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object[]} Array con las solicitudes
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     listarSolicitudes(idProtectora, callback){
         if(callback===undefined) callback=function(){};
         
@@ -359,6 +435,18 @@ class DAOProtectora {
         
     }
     
+    /**
+     * A traves del ID de la protectora, devuelve una lista con las solicitudes de adopcion 
+     * que ha recibido la protectora
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idSolicitud ID de la solicitud de adopcion
+     * @param {int} respuesta parametro que decide si se acepta o se rechaza
+     * @param {function} callback Función callback que será llamada tras la actualizacion
+     * @return {boolean} True en caso de realizarse correctamente la actualizacion
+     * @exception {error} En caso de que se produzca un error en la actualizacion
+     */
     actualizarSolicitud(idSolicitud,respuesta, callback){
         if(callback===undefined)callback=function(){};
         this.pool.getConnection((error,conexion)=>{
@@ -378,6 +466,19 @@ class DAOProtectora {
             }
         });
     }
+
+    /**
+     * A traves del ID de la protectora y del ID de un perro, devuelve una lista con las solicitudes de adopcion pendientes 
+     * que ha recibido la protectora para el perro especificado
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idProtectora ID de la protectora
+     * @param {int} idPerro ID del perro
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object[]} Array de solicitudes de adopcion pendientes
+     * @exception {error} En caso de que se produzca un error en la consulta
+     */
     getSolicitudesPendientesPerro(idProtectora, idPerro, callback){
        this.pool.getConnection((err, connection) => {
            if (err) {

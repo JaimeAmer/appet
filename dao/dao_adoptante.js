@@ -12,6 +12,16 @@ class DAOAdoptante {
         this.pool = pool;
     }
 
+    /**
+     * Inserta un adoptante en la base de datos
+     * 
+     * Devolverá error, si se produjo alguno durante la insercion
+     * 
+     * @param {Object} datos Datos del adoptante
+     * @param {function} callback Función callback que será llamada tras la insercion
+     * @return {null} True en caso de exito
+     * @exception {err} En caso de que se produzca un error en la insercion
+     */
     createAdoptante(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -30,6 +40,14 @@ class DAOAdoptante {
         });
     }
 
+    /**
+     * Obtiene la lista de los adoptantes registrados en la web
+     * Delvuelve los adoptantes en un array de objetos;
+     * 
+     * @param {function} callback
+     * @return {Object[]} array de adoptantes
+     * @exception {err} Si hay un error en la consulta a la base de datos
+     */
     getAdoptantes(callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -48,6 +66,16 @@ class DAOAdoptante {
         });
     }
 
+    /**
+     * Obtiene los datos de un adoptante en concreto
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta, o rows con los datos
+     * 
+     * @param {int} idAdoptante ID del adoptante
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object} Los datos del adoptante
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getDataAdoptante(idAdoptante, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -65,6 +93,17 @@ class DAOAdoptante {
         });
     }
 
+    /**
+     * Obtiene la solicitud de adopcion de un perro por parte de un adoptante
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idAdoptante ID del adoptante
+     * @param {int} idPerro ID del perro
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object} Objeto con los datos de la solicitud
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getSolicitud(idAdoptante, idPerro, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -81,6 +120,18 @@ class DAOAdoptante {
             });
         });
     }
+
+    /**
+     * Obtiene una lista con las solicitudes de adopcion de un adoptante
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idAdoptante ID del adoptante
+     * @param {function} callback Función callback que será llamada tras la consulta
+     * @return {Object[]} Array con los perros que ha solicitado su adopcion
+     * @return {undefined} En caso de no haber solicitudes
+     * @exception {err} En caso de que se produzca un error en la consulta
+     */
     getSolicitudes(idAdoptante, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -115,6 +166,16 @@ class DAOAdoptante {
         });
     }
 
+    /**
+     * Actualiza los datos de un adoptante ya existente
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {Object} datos Datos del adoptante
+     * @param {function} callback Función callback que será llamada tras la actualizacion
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     updateAdoptante(datos, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
@@ -144,6 +205,19 @@ class DAOAdoptante {
         });
     }
 
+    /**
+     * Inserta en la base de datos la solicitud de adopcion de un perro por parte de un adoptante
+     * 
+     * Devolverá error, si se produjo alguno durante la consulta
+     * 
+     * @param {int} idAdoptante ID del adoptante
+     * @param {int} idPerro ID del perro
+     * @param {int} idProtectora ID de la protectora
+     * @param {String} msg mensaje para la protectora
+     * @param {function} callback Función callback que será llamada tras la insercion
+     * @return {} En caso de realizarse la solicitud correctamente
+     * @exception {err} En caso de que se produzca un error en la insercion
+     */
     enviarSolicitudAdoptante(idAdoptante, idPerro, idProtectora, msg, callback) {
         let estado = 0;
 
@@ -164,6 +238,16 @@ class DAOAdoptante {
         });
     }
 
+    /**
+     * Desactiva el adoptante a partir de su ID
+     * 
+     * Devolverá error, si se produjo alguno durante la actualizacion
+     * 
+     * @param {int} idAdoptante ID del adoptante
+     * @param {function} callback Función callback que será llamada tras la baja
+     * @return {null} En caso de exito
+     * @exception {err} En caso de que se produzca un error en la actualizacion
+     */
     eliminarAdoptante(idAdoptante, callback) {
         this.pool.getConnection((err, connection) => {
             if (err) {
