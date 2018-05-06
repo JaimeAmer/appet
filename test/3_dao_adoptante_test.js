@@ -153,4 +153,52 @@ describe("Estado tipo", () =>{
     });
 });
 
+const adoptante1 = {email:"prueba1@gmail.com", password:"1234", nombre: "Test", apellidos:"Test", fechaNacimiento:"2000-12-12", ciudad:"Test", direccion:"test", telefono:000000000};
+
+const adoptanteUpd = {imagen:1, id:1, password:"1234upd", nombre: "Testupd", apellidos:"Testupd", fechaNacimiento:"2000-12-12", ciudad:"Testupd", direccion:"testupd", telefono:000000000};
+
+describe("Añadir adoptante prueba", () =>{
+    it('Añade adoptante adoptante',() =>{
+        dao.adoptante.createAdoptante(adoptante1,function(err,result){
+			console.log(adoptante1);
+            setTimeout(result, 1000);
+        });
+    });
+});
+
+describe("Devuelve adoptantes", () =>{
+	it('Obtiene adoptante usuario adoptante',() =>{
+        dao.adoptante.getAdoptantes(function(err,result){
+			console.log(result);
+            setTimeout(callback, 1000);
+        });
+    });
+});
+
+describe("Devuelve adoptante 1", () =>{
+	it('Obtiene adoptante usuario adoptante 1',() =>{
+        dao.adoptante.getAdoptantes(1,function(err,result){
+			console.log(result);
+            setTimeout(callback, 1000);
+        });
+    });
+});
+
+describe("Actualiza adoptante", () =>{
+	it('Actualiza adoptante usuario adoptante 1',() =>{
+        dao.adoptante.getAdoptantes(adoptanteUpd,function(err,result){
+			console.log(result);
+           setTimeout(callback, 1000);
+        });
+    });
+});
+
+describe("Elimina adoptante", () =>{
+	it('Elimina adoptante usuario adoptante 1',() =>{
+        dao.adoptante.eliminarAdoptante(1,function(err,result){
+			console.log(result);
+           setTimeout(result, 1000);
+        });
+    });
+});
 

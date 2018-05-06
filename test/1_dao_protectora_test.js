@@ -4,7 +4,6 @@ var expect  = require("chai").expect;
 
 
 //Tests de comprobacion de tipo de datos correctos
-
 describe("Nombre tipo", () =>{
     it('El nombre de la protectora es del tipo String',() =>{
         dao.protectora.getDataProtectora(1,function(err,result){
@@ -141,4 +140,46 @@ describe("Pediente tipo", () =>{
     });
 });
 
+const protectoraUpd = {imagen:1, texto:{nombre:"Test", ciudad:"test", email:"test@test.com", password:"1234test", direccion:"test 4 1A", telefono:000000000, descripcion:"Es buen perro", longitud:0, latitud:0, id:1}};
 
+describe("Actualiza Protectora 1", () =>{
+    it('Actualiza protectora con id 1',() =>{
+        dao.protectora.updateProtectora(protectoraUpd,function(err,result){
+            setTimeout(result, 1000);
+        });
+    });
+});
+
+describe("Lista Protectora", () =>{
+    it('Lista protectora',() =>{
+        dao.protectora.listaProtectoras(function(err,result){
+            setTimeout(result, 1000);
+        });
+    });
+});
+
+describe("Lista Protectora", () =>{
+    it('Lista protectora',() =>{
+        dao.protectora.listaProtectoras(function(err,result){
+            setTimeout(result, 1000);
+        });
+    });
+});
+
+const protectora = {imagen:1, nombre:"Test", ciudad:"test", email:"test@test.com", password:"1234test", direccion:"test 4 1A", telefono:000000000, descripcion:"Es buen perro", longitud:0, latitud:0};
+					
+describe("Crear Protectora", () =>{
+    it('Crear protectora',() =>{
+        dao.protectora.createProtectora(protectora,function(err,result){
+            setTimeout(result, 1000);
+        });
+    });
+});
+
+describe("Eliminar Protectora", () =>{
+    it('Eliminar protectora',() =>{
+        dao.protectora.eliminarProtectora(1,function(err,result){
+            setTimeout(result, 1000);
+        });
+    });
+});

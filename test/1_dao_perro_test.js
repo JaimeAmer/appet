@@ -103,3 +103,56 @@ describe("Protectora", () =>{
         });    
     })
 });
+
+describe("Lista perro protectora", () =>{
+    it('Lista perro de una protectora', () =>{
+        dao.perro.getListaPerrosProtectora(1,function(err,result){
+            setTimeout(result, 1000);
+        });    
+    })
+});
+
+describe("Lista perro protectora adoptados", () =>{
+    it('Lista perro de una protectora adoptados', () =>{
+        dao.perro.getListaPerrosProtectoraAdoptados(1,function(err,result){
+            setTimeout(result, 1000);
+        });    
+    })
+});
+
+const perroUpd = {imagen:1, texto:{nombre:"Test", edad:2, raza:"Pitbull", color:"Negro", peso:3, fallecido:0, adoptado:0, descripcion:"Es buen perro", id:1}};
+
+describe("Actualiza perro", () =>{
+    it('Actualiza perro datos id 1', () =>{
+        dao.perro.updatePerro(perroUpd,function(err,result){
+            setTimeout(result, 1000);
+        });    
+    })
+});
+
+describe("Adoptar perro", () =>{
+    it('Adoptar perro de 1', () =>{
+        dao.perro.adoptarPerro(1,function(err,result){
+            setTimeout(result, 1000);
+        });    
+    })
+});
+
+describe("Eliminar perro", () =>{
+    it('Eliminar perro 1', () =>{
+        dao.perro.deletePerro(1,1,function(err,result){
+            setTimeout(result, 1000);
+        });    
+    })
+});
+
+
+const perro = {idProtectora:1, nombre:"Test", foto:1, edad:1, raza:"test", color:"Negro", peso:3, descripcion:"Es buen perro"};
+
+describe("Eliminar perro", () =>{
+    it('Eliminar perro 1', () =>{
+        dao.perro.newPerro(perro,function(err,result){
+            setTimeout(result, 1000);
+        });
+    })
+});
