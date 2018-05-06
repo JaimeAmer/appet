@@ -76,7 +76,7 @@
                 <% if(tipo===undefined){ %>
                 <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/perros"> Volver </button>
                 <% }else if(tipo==="Protectora"){%>
-				<a href="/modificarPerro?idPerro=<%= perro.id %>"><button class="btn btn-primary btn-lg volver">Modificar Perfil</button></a>
+				<a href="/modificarPerro?idPerro=<%= perro.id %>"><div class="btn btn-primary btn-lg volver">Modificar Perfil</div></a>
                 <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/misperros"> Volver </button>
                 <% } %>
             </div>
