@@ -19,11 +19,9 @@
 
         <div class="contenido">
         </div>
-
-        <% if(protectoras !== undefined){ %>
+        <h3>Mostrando protectoras:</h3>
+        <% if(protectoras !== undefined && protectoras.length !== 0){ %>
             <% protectoras.forEach(p => { %>
-
-
                 <div class="container">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -49,19 +47,13 @@
                         </div>
                     </div>
                 </div>
-
-
-
-                <% }); %>
-                    <% }  else { %>
-                        <div class="alert alert-warning alerta">
-                            No hay protectoras actualmente
-                        </div>
-                        <% } %>
-
-
-
-                            <%- include("footer") %>
+            <% }); %>
+        <% }  else { %>
+            <div class="alert alert-warning alerta">
+                No hay protectoras actualmente
+            </div>
+        <% } %>
+    <%- include("footer") %>
 
 </body>
 
