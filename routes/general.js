@@ -4,30 +4,84 @@ var _ = require("underscore");
 var dao = require('../dao/dao');
 
 /* Peticiones que comparten varios Roles  */
+/**
+ * Ruta del indice de la pagina web
+ * @name get/
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/", function(request, response) {
     response.render("./index", { tipo: request.session.typeU, 
         idU: request.session.idU, mensaje:undefined });
 });
 
+/**
+ * Ruta del indice de la pagina web
+ * @name get/index
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/index", function(request, response) {
     response.redirect('/');
 });
 
+/**
+ * Ruta de la pagina del "Acerca de"
+ * @name get/acercadeappet
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/acercadeappet", function(request, response) {
     response.render("./acercadeappet", { tipo: request.session.typeU,
         idU: request.session.idU });
 });
 
+/**
+ * Ruta de la pagina del "Como adoptar"
+ * @name get/acercadeappet
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/comoadoptar", function(request, response) {
     response.render("./comoadoptar", { tipo: request.session.typeU,
         idU: request.session.idU });
 });
 
+/**
+ * Ruta del formulario de login
+ * @name get/login
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/login", function(request, response) {
     response.render("./login", { tipo: request.session.typeU, 
         idU: request.session.idU, errors: undefined, mensaje: undefined });
 });
 
+/**
+ * Ruta del formulario modificar perfiles tanto de protectoras, adoptantes y administradores
+ * @name get/modificarPerfil
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/modificarPerfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
 if (request.session.typeU === "Protectora" || 
@@ -64,6 +118,15 @@ if (request.session.typeU === "Protectora" ||
     }
 });
 
+/**
+ * Ruta del login para comprobar los datos del formulario
+ * @name post/login
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post("/login", function(request, response) {
     let warnings = new Array();
     /**Comprobamos que los datos sean correctos y que no falte ningun campo */
@@ -104,11 +167,29 @@ router.post("/login", function(request, response) {
     });
 });
 
+/**
+ * Ruta del boton de cerrar sesion
+ * @name get/logout
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/logout', function(request, response) {
     request.session.destroy();
     response.redirect('/');
 });
 
+/**
+ * Ruta que coge los datos de la vista del perfil de protectora, adoptante y administrador
+ * @name get/perfil
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/perfil', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
 if (request.session.typeU === "Protectora" || request.session.typeU === "ProtectoraPendiente") {
@@ -146,6 +227,15 @@ if (request.session.typeU === "Protectora" || request.session.typeU === "Protect
     }
 });
 
+/**
+ * Ruta que permite coger la imagen del perro de la base de datos
+ * @name get/img/perro/:id
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
    router.get('/img/perro/:id',function(request,response){
      let n=request.params.id;
       
@@ -164,6 +254,15 @@ if (request.session.typeU === "Protectora" || request.session.typeU === "Protect
         }
 });
 
+/**
+ * Ruta que permite coger la imagen de la protectora de la base de datos
+ * @name get/img/protectora/:id
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/img/protectora/:id',function(request,response){
      let n=request.params.id;
       
@@ -182,7 +281,15 @@ router.get('/img/protectora/:id',function(request,response){
         }
 });
 
-
+/**
+ * Ruta que coge la lista de perros que hay en la base de datos
+ * @name get/perros
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/perros",function(request, response) {
     dao.perro.getListaPerros((err, rows) => {
         if (err) {
@@ -195,6 +302,15 @@ router.get("/perros",function(request, response) {
     });
 });
 
+/**
+ * Ruta que coge los datos de un perro de la base de datos
+ * @name get/perro
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/perro', function(request,response){
     let idPerro = Number(request.query.idPerro);
     
@@ -232,6 +348,15 @@ router.get('/perro', function(request,response){
     
 });
 
+/**
+ * Ruta que coge la lista de protectoras que hay en la base de datos
+ * @name get/protectoras
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/protectoras", function(request, response) {
     dao.protectora.listaProtectoras((err, rows) => {
         if (err) {
@@ -245,6 +370,15 @@ router.get("/protectoras", function(request, response) {
 
 });
 
+/**
+ * Ruta que coge los datos de una protectora de la base de datos
+ * @name get/protectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/protectora", function(request, response) {
     let idProtectora = Number(request.query.ident);
     
@@ -259,6 +393,15 @@ router.get("/protectora", function(request, response) {
     });
 });
 
+/**
+ * Ruta que coge la lista de perros que hay en una protectora de la base de datos
+ * @name get/perrosprotectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/perrosprotectora", function(request, response) {
     let idProtectora = Number(request.query.ident);
     let nombreProtectora = String(request.query.nombrepro);
@@ -281,9 +424,6 @@ router.get("/perrosprotectora", function(request, response) {
     });
 
 });
-
-
-
 
 
 module.exports = router;

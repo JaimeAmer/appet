@@ -7,6 +7,16 @@ var multer = require("multer");
 var upload = multer({ storage: multer.memoryStorage() });
 
 ////////////////////////////Rutas Invitados////////////////////////////////
+
+/**
+ * Ruta que muestra la vista del formulario del registro de adoptante
+ * @name get/regadoptante
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/regadoptante", function(request, response) {
     response.render("./registroAdoptante", {
         tipo: request.session.typeU,
@@ -16,6 +26,15 @@ router.get("/regadoptante", function(request, response) {
     });
 });
 
+/**
+ * Ruta que muestra la vista del formulario del registro de protectora
+ * @name get/regprotectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/regprotectora", function(request, response) {
     response.render('registroProtectora', {
         idU: request.session.idU,
@@ -25,8 +44,15 @@ router.get("/regprotectora", function(request, response) {
 });
 
 
-
-
+/**
+ * Ruta que verifica los datos del formulario del registro de adoptante y los almacena en la base de datos
+ * @name post/regadoptante
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post("/regadoptante", function(request, response) {
     let warnings = new Array();
     let mensaje = "";
@@ -95,6 +121,15 @@ router.post("/regadoptante", function(request, response) {
     });
 });
 
+/**
+ * Ruta que muestra la vista de la lista de perros adoptados de una protectora
+ * @name get/perrosAdoptados
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/perrosAdoptados", function(request, response) {
     dao.perro.getListaPerrosAdoptados((err, rows) => {
         if (err) {
@@ -110,6 +145,15 @@ router.get("/perrosAdoptados", function(request, response) {
     });
 });
 
+/**
+ * Ruta que muestra la vista de un perro que haya sido adoptado en una protectora
+ * @name get/perroAdoptado
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/perroAdoptado', function(request, response) {
     let idPerro = Number(request.query.idPerro);
 
@@ -149,7 +193,15 @@ router.get('/perroAdoptado', function(request, response) {
 
 });
 
-
+/**
+ * Ruta que verifica los datos del formulario del registro de protectora y los almacena en la base de datos
+ * @name post/regprotectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post("/regprotectora", upload.single("foto"), function(request, response) {
     //console.log(request.body);
     //console.log(request.file);

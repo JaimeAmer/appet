@@ -7,6 +7,15 @@ var multer = require("multer");
 var upload = multer({ storage: multer.memoryStorage() });
 
 /* GET users listing. */
+/**
+ * Ruta que coge la lista de perros de una protectora de la base de datos y muestra la vista
+ * @name get/misperros
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/misperros', middles.verifyProtectora, //Verifica que es Protectora
     function(request, response) {
 
@@ -33,6 +42,15 @@ router.get('/misperros', middles.verifyProtectora, //Verifica que es Protectora
 
     });
 
+/**
+ * Ruta que coge la lista de perros adoptados en una protectora de la base de datos y muestra su vista
+ * @name get/perrosAdoptadosProtectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/perrosAdoptadosProtectora", function(request, response) {
     dao.perro.getListaPerrosProtectoraAdoptados(request.session.idU, (err, rows) => {
         if (err) {
@@ -48,6 +66,15 @@ router.get("/perrosAdoptadosProtectora", function(request, response) {
     });
 });
 
+/**
+ * Ruta que muestra la vista de agregar Perro
+ * @name get/nuevoperro
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/nuevoperro', middles.verifyProtectora, function(request, response) {
     response.render('agregarPerro', {
         idU: request.session.idU,
@@ -56,7 +83,15 @@ router.get('/nuevoperro', middles.verifyProtectora, function(request, response) 
     });
 });
 
-
+/**
+ * Ruta que agrega un perro nuevo a la base de datos
+ * @name post/nuevoperro
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post('/nuevoperro', upload.single("foto"), middles.verifyProtectora, function(request, response) {
 
     let warnings = new Array();
@@ -132,6 +167,15 @@ router.post('/nuevoperro', upload.single("foto"), middles.verifyProtectora, func
     });
 });
 
+/**
+ * Ruta que muestra la vista del formulario de modificar perro
+ * @name get/modificarPerro
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/modificarPerro', function(request, response) {
     /* Hay que hacer distinción entre los diferentes usuarios para redirección*/
     if (request.session.typeU === "Protectora") {
@@ -178,6 +222,15 @@ router.post("/modPerro", function(request, response) {
 });
 */
 
+/**
+ * Ruta que muestra la vista del formulario de modificar perro
+ * @name post/modPerro
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post('/modPerro', upload.single("imagen"), function(
     request, response) {
     let warnings = new Array();
@@ -216,6 +269,15 @@ router.post('/modPerro', upload.single("imagen"), function(
     });
 });
 
+/**
+ * Ruta que elimina un perro de la base de datos
+ * @name get/eliminarPerro
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/eliminarperro', middles.verifyProtectora, function(request, response) {
     let idPerro = Number(request.query.idPerro);
     dao.perro.deletePerro(idPerro, request.session.idU, (error, result) => {
@@ -229,6 +291,15 @@ router.get('/eliminarperro', middles.verifyProtectora, function(request, respons
     });
 });
 
+/**
+ * Ruta que modifica los datos de una protectora en la base de datos
+ * @name post/modProtectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post("/modProtectora", upload.single("imagen"), function(request, response) {
     let warnings = new Array();
     let mensaje = "";
@@ -280,6 +351,15 @@ router.post("/modProtectora", upload.single("imagen"), function(request, respons
     });
 });
 
+/**
+ * Ruta que muestra la lista de solicitudes de adopcion de una protectora
+ * @name get/solicitudesadopcion
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/solicitudesadopcion', middles.verifyProtectora, function(request, response) {
 
     let msg = undefined;
@@ -302,6 +382,15 @@ router.get('/solicitudesadopcion', middles.verifyProtectora, function(request, r
     });
 });
 
+/**
+ * Ruta que acepta una solicitud de adopcion
+ * @name post/aceptaradopcion
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post('/aceptaradopcion', middles.verifyProtectora, function(request, response) {
     dao.protectora.actualizarSolicitud(request.body.idSolicitud, 1, (err, result) => {
         if (err) {
@@ -339,6 +428,15 @@ router.post('/aceptaradopcion', middles.verifyProtectora, function(request, resp
     });
 });
 
+/**
+ * Ruta que rechaza una solicitud de adopcion
+ * @name post/rechazaradopcion
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post('/rechazaradopcion', middles.verifyProtectora, function(request, response) {
     dao.protectora.actualizarSolicitud(request.body.idSolicitud, 2, (err, result) => {
         if (err) {

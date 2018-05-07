@@ -5,7 +5,15 @@ var dao = require('../dao/dao');
 var multer = require("multer");
 var upload = multer({ storage: multer.memoryStorage() });
 
-
+/**
+ * Ruta que muestra la vista del formulario de adopcion
+ * @name get/formularioAdopcion
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/formularioAdopcion', middles.verifyAdoptante, function(request, response, next) {
     let idProtectora = Number(request.query.idProtectora);
     let idPerro = Number(request.query.idPerro);
@@ -15,6 +23,15 @@ router.get('/formularioAdopcion', middles.verifyAdoptante, function(request, res
 
 });
 
+/**
+ * Ruta que muestra la vista de la lista de solicitudes de adopcion de un adoptante
+ * @name get/solicitudesAdoptante
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/solicitudesAdoptante', middles.verifyAdoptante, function(request, response, next) {
     let idAdoptante = request.session.idU;
     dao.adoptante.getSolicitudes(idAdoptante, (err, rows) => {
@@ -28,6 +45,15 @@ router.get('/solicitudesAdoptante', middles.verifyAdoptante, function(request, r
     });
 });
 
+/**
+ * Ruta que registra una solicitud de adopcion en la base de datos
+ * @name get/enviarSolicitudAdopcion
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request, response, next) {
     let idProtectora = Number(request.query.idProtectora);
     let idPerro = Number(request.query.idPerro);
@@ -80,6 +106,15 @@ router.get('/enviarSolicitudAdopcion', middles.verifyAdoptante, function(request
     }
 });
 
+/**
+ * Ruta que modifica los datos del formulario de modificar adoptante en la base de datos
+ * @name post/modAdoptante
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post("/modAdoptante", upload.single("imagen"), function(request, response) {
     let warnings = new Array();
     let mensaje = "";

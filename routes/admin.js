@@ -5,6 +5,15 @@ let dao = require('../dao/dao');
 let middleware = require('./middlewares');
 
 
+/**
+ * Ruta que recoge la lista de adoptantes registrados en la web y los muestra en la vista de administrar Adoptantes
+ * @name get/listaAdoptantes
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/listaAdoptantes", middleware.verifyAdmin, function(request, response) {
   dao.adoptante.getAdoptantes((err, rows) => {
     if (err) {
@@ -14,6 +23,16 @@ router.get("/listaAdoptantes", middleware.verifyAdmin, function(request, respons
     }
   });
 });
+
+/**
+ * Ruta que recoge la lista de protectoras registrados en la web y los muestra en la vista de administrar protectoras
+ * @name get/listaProtectoras
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/listaProtectoras", middleware.verifyAdmin, function(request, response) {
   dao.protectora.listaProtectoras((err, rows) => {
     if (err) {
@@ -24,6 +43,15 @@ router.get("/listaProtectoras", middleware.verifyAdmin, function(request, respon
   });
 });
 
+/**
+ * Ruta que elimina una protectora de la base de datos
+ * @name get/eliminarProtectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/eliminarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.query.idProtectora);
   dao.protectora.eliminarProtectora(idProtectora, (err, result) => {
@@ -47,6 +75,15 @@ router.get('/eliminarProtectora', middleware.verifyAdmin, function(request, resp
   });
 });
 
+/**
+ * Ruta que elimina un adoptante de la base de datos
+ * @name get/eliminarAdoptante
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get('/eliminarAdoptante', middleware.verifyAdmin, function(request, response) {
   let idAdoptante = Number(request.query.idAdoptante);
   dao.adoptante.eliminarAdoptante(idAdoptante, (err, result) => {
@@ -70,6 +107,15 @@ router.get('/eliminarAdoptante', middleware.verifyAdmin, function(request, respo
   });
 });
 
+/**
+ * Ruta que recoge la lista de solicitudes de registro de protectoras en la web y los muestra en la vista de solicitudes protectoras
+ * @name get/listaSolicitudesProtectoras
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.get("/listaSolicitudesProtectoras", middleware.verifyAdmin, function(request, response) {
   dao.protectora.listaSolicitudes((err, rows) => {
     if (err) {
@@ -80,6 +126,15 @@ router.get("/listaSolicitudesProtectoras", middleware.verifyAdmin, function(requ
   });
 });
 
+/**
+ * Ruta que registra en la base de datos si el administrador ha aceptado una protectora
+ * @name post/aceptarProtectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post('/aceptarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.body.idProtectora);
   dao.protectora.aceptarProtectora(idProtectora, (err, result) => {
@@ -104,6 +159,15 @@ router.post('/aceptarProtectora', middleware.verifyAdmin, function(request, resp
   });
 });
 
+/**
+ * Ruta que registra en la base de datos si el administrador ha rechazado una protectora
+ * @name post/rechazarProtectora
+ * @function
+ * @memberof module:router
+ * @inner
+ * @param {string} path - Express path
+ * @param {function} callback - Intercambio de datos de Express.
+ */
 router.post('/rechazarProtectora', middleware.verifyAdmin, function(request, response) {
   let idProtectora = Number(request.body.idProtectora);
   /* SIN TERMINAR--- NO HACE NADA*/
