@@ -1,0 +1,90 @@
+<html>
+
+<!-- Página web que muestra la lista de perros de una protectora especifica-->
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estiloslistaperros.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+</head>
+
+<body>
+    <%- include('./header'); %>
+    <% if(msg!==undefined){ %>
+    <div class="modal fade in" id="myModal" role="dialog" style="display: block;">
+	<div class="modal-dialog">
+	<!-- Modal content-->
+            <div class="modal-content">
+		<div class="modal-header">
+		  <h4 class="modal-title"><%= msg %></h4>
+		</div>
+		<div class="modal-body">
+		  <p>Pulsa para poder volver a ver tus perros .</p>
+		</div>
+		<div class="modal-footer">
+                    <a href="./misperros" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Volver</a>
+		</div>
+            </div>
+	</div>
+    </div>
+    <% } %>
+    
+    <div class="contBot">
+                <form action="/nuevoperro" method="GET">
+                    <input type="submit" class="btn btn-primary nuevoperro" value="Añadir perro">
+                </form>
+            </div>
+
+    <% if(perros !== undefined){ %>
+            <% perros.forEach(p => { %>
+
+
+                <div class="container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <img class="fotoprotectora img-thumbnail" src="img/perro/<%=p.id%>">
+                        </div>
+                        <div class="panel-body externo">
+                            <div>
+                                <p class="info"><strong>Nombre:</strong>
+                                    <%= p.nombre %>
+                                </p>
+                                <p class="info"><strong> Edad:</strong>
+                                    <%= p.edad %>
+                                </p>
+                                <p class="info"><strong> Peso: </strong>
+                                    <%= p.peso %>
+                                </p>
+                            </div>
+                            <form action="/perro" method="GET">
+                                <input type="hidden" name="idPerro" value="<%= p.id %>">
+                                <input type="submit" class="form-group col-md-3 btn btn-info botonInfo" value="Ver Detalle"> 
+                                <button type="submit" class="btn btn-danger " formmethod="get" formaction="/eliminarperro">Eliminar</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <% }); %>
+    <% }  else { %>
+        <div class="alert alert-warning alerta">
+            No hay protectoras actualmente
+        </div>
+    <% } %>
+    
+    
+    
+    
+        <%- include('./footer'); %>
+</body>
+
+</html>

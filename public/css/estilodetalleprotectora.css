@@ -43,3 +43,23 @@
 .externo {
     margin-top: 50px;
 }
+ul{
+    list-style-type: none;
+   
+}
+.mapa li{
+    display: inline;
+ 
+    
+}
+.mapa button{
+    float:right;
+}
+.margenBajo{
+	margin-bottom:10px;
+}
+
+.perfil-protectora{
+    margin: auto;
+    width: 50%;
+}

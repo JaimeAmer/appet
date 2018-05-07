@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 
 class DAOAdmin {
@@ -12,7 +12,8 @@ class DAOAdmin {
     constructor(pool) {
         this.pool = pool;
     }
-  
+
+   
 }
 
 module.exports = {

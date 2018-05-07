@@ -1,0 +1,57 @@
+<html>
+
+<!-- Página web que muestra información relativa al adoptante-->
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/estilodetalleprotectora.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+
+</head>
+
+<body>
+    <%- include('./header'); %>
+           <div class="container">
+    
+    <div class="row col-md-offset-2 col-md-8 custyle">
+        <div class="col-lg-12">
+            <h1 class="text-center"><%= datos.nombre %> <%= datos.apellidos %></h1>
+            <div class="panel panel-info">
+                <div class="panel-heading text-center">
+                    Mis datos
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <label class="list-group-item">Email: <span class="glyphicon glyphicon-envelope"></span><%= datos.email %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Teléfono: <span class="glyphicon glyphicon-earphone"></span><%= datos.telefono %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Fecha de Nacimiento: <%= datos.fechaNacimiento %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Ciudad: <%= datos.ciudad %></label>
+                    </div>
+                    <div class="list-group">
+                        <label class="list-group-item">Dirección: <%= datos.direccion %></label> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel text-center">
+                <a href="/modificarPerfil"><button type="button" class="btn btn-primary btn-lg">Modificar Mi Perfil</button></a>
+            </div>
+      </div>
+    </div>  
+        <!--  -->
+        <%- include('./footer'); %>
+</body>
+
+</html>

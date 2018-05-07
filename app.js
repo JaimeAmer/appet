@@ -5,24 +5,32 @@ var bodyParser = require('body-parser');
 var expressValidator = require("express-validator");
 var config = require('./config');
 
-
 /*SESIONES*/
 var session = require("express-session");
 var mysqlSession = require("express-mysql-session");
 var MySQLStore = mysqlSession(session);
 
+const sessionStore = new MySQLStore({
+    host: config.mysqlConfig.host,
+    user: config.mysqlConfig.user,
+    password: config.mysqlConfig.password,
+    database: config.mysqlConfig.database
+});
 
-var middlewareSession = session({
+const middlewareSession = session ({
     saveUninitialized: false,
-    secret: "practica1",
-    resave: false
-    //store: sessionStore
+    secret: "foobar34",
+    resave: false,
+    store: sessionStore    
 });
 
 
 //Rutas para los roles 
+var general = require('./routes/general');
 var invitados = require('./routes/invitados');
 var protectoras = require('./routes/protectoras');
+var admin = require('./routes/admin');
+var adoptante = require('./routes/adoptante');
 
 var app = express();
 
@@ -38,9 +46,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(middlewareSession);
 app.use(expressValidator());
 
-
 app.use('/', invitados);
-app.use('/protectoras', protectoras);
+app.use('/', general);
+app.use('/', protectoras);
+app.use('/', admin);
+app.use('/', adoptante);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,5 +69,4 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
 module.exports = app;

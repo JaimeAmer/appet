@@ -1,0 +1,52 @@
+<html>
+
+<head class="headerColor">
+    <title>APPet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/estilosformularioadopcion.css">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+</head>
+
+<body>
+    <%- include('./header'); %>
+
+
+        <form action="/enviarSolicitudAdopcion" method="GET">
+            <div id="enc">
+                <h1> Formulario de adopción</h1>
+
+
+                <p>Cuéntanos porqué quieres adoptarle y tus circunstancias</p>
+
+                <textarea name="descripcion" id="text_observ">
+                </textarea>
+            </div>
+
+
+            <div id="botones">
+                <input type="hidden" name="idProtectora" value="<%= idProtectora %>">
+                <input type="hidden" name="idPerro" value="<%= idPerro %>">
+                <input type="hidden" name="idAdoptante" value="<%= idAdoptante %>">
+                <input type="submit" class="btn btn-success volver" value="¡Enviar solicitud de adopción!">
+            </div>
+        </form>
+
+        <% if(mensaje !== undefined){ %>
+            <p id="errores">
+                <%= mensaje %>
+            </p>
+            <% } %>
+
+
+
+
+
+                <%- include('./footer'); %>
+</body>
+
+</html>

@@ -21,7 +21,19 @@
         </h1>
         <div class="content">
             <div class="imagen">
-                <img class="img-thumbnail" src="img/imgperros/<%=perro.foto%>">
+                <img class="img-thumbnail" src="img/perro/<%= perro.id %>">
+
+                <% if(tipo === "Adoptante"){ %>
+                    <form action="/formularioAdopcion" method="GET">
+                        <div class="botonera">
+                            <input type="hidden" name="idPerro" value="<%= perro.id %>">
+                            <input type="hidden" name="idProtectora" value="<%= perro.idProtectora %>">
+                            <input type="hidden" name="idAdoptante" value="<%= idU %>">
+                            <input type="submit" class="btn btn-success volver" value="¡Adopta a <%= perro.nombre %>!">
+                        </div>
+                    </form>
+                    <% } %>
+
             </div>
             <div class="datos">
                 <p class="negrita">Protectora:
@@ -50,18 +62,25 @@
                 </p>
             </div>
         </div>
-        <form action="/detalleprotectora.html" method="GET">
+        <form action="/protectora" method="GET">
             <div class="botonera">
+                <% if(tipo!=="Protectora"){ %>
                 <input type="hidden" name="ident" value="<%= perro.idProtectora %>">
                 <input type="submit" class="btn btn-success volver" value="¡Ver información de la protectora!">
+                <% } %>
             </div>
         </form>
-        <form action="/iralistarperros" method="GET">
+    <form>
             <div class="botonera">
-                <input type="submit" class="btn btn-info volver" value="Volver">
+				<input type="hidden" name="ident" value="<%= perro.id %>">
+                <% if(tipo===undefined){ %>
+                <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/perros"> Volver </button>
+                <% }else if(tipo==="Protectora"){%>
+				<a href="/modificarPerro?idPerro=<%= perro.id %>"><div class="btn btn-primary btn-lg volver">Modificar Perfil</div></a>
+                <button type="submit" class="btn btn-info volver" formmethod="get" formaction="/misperros"> Volver </button>
+                <% } %>
             </div>
         </form>
-
         <%- include('./footer'); %>
 </body>
 

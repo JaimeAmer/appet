@@ -15,6 +15,41 @@
 
 <body>
     <%- include('./header'); %>
+	<!-- aqui -->
+	<% if(mensaje!=undefined){%>
+				<% if(mensaje=="exito"){%>
+					<div class="modal fade in" id="myModal" role="dialog" style="display: block;">
+						<div class="modal-dialog">
+					  <!-- Modal content-->
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <h4 class="modal-title">¡Se ha modificado con éxito!</h4>
+						</div>
+						<div class="modal-body">
+						  <p>Pulsa para poder ir a su perfil</p>
+						</div>
+						<div class="modal-footer">
+						  <a href="./perfil" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Mi perfil</a>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				<%}else{%>
+					<div class="alert alert-danger page-alert" id="alert-3" >
+                    <ul>
+                        <%if(mensaje!=undefined){%>
+                            <li><%= mensaje %><a href="javascript:history.back(1)">Volver</a></li>
+                        <%}else{%>
+                            <% errors.forEach(error => { %>
+                                <li><%= error.msg %></li>
+                                <% }); %>
+                        <%}%>
+                    
+                    </ul>
+                </div>
+            <%}}%>
+			
+			<!-- aqui-->
         <div id="FondoEslogan">
             <div id="eslogan">
                 <h1>Adopta uno y salva dos vidas</h1>
